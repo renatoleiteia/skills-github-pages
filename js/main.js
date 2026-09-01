@@ -1,640 +1,648 @@
 /* ============================================================================
    ACELERO COMEX — main.js
-   Sem dependências obrigatórias: se o GSAP não carregar (offline, CDN
-   bloqueada), tudo cai para um fallback em IntersectionObserver e o site
-   continua funcionando. Nada aqui quebra a navegação sem JavaScript.
 
-   Módulos:
+   Sem dependência obrigatória: se o GSAP não carregar, tudo cai para
+   IntersectionObserver e o site continua inteiro.
+
+   Módulos
    01. Utilitários
-   02. Preloader
-   03. Cursor customizado
-   04. Header + menu fullscreen
-   05. Animações (split, reveal, parallax) — GSAP ou fallback
-   06. Marquee infinito
-   07. Contadores de resultados
-   08. Slider de depoimentos
-   09. FAQ (accordion exclusivo)
-   10. Scroll: progresso, link ativo, botões flutuantes
-   11. Formulário: máscara, validação e envio
-   12. Placeholders de mídia ausente
+   02. Globo de rotas (canvas, procedural)
+   03. Loader
+   04. Cursor
+   05. Header + menu
+   06. Trilho lateral (capítulo, coordenada, progresso)
+   07. Animações de entrada, split e parallax
+   08. Ticker
+   09. Ícones de serviço (traço animado)
+   10. Contadores
+   11. Depoimentos
+   12. FAQ
+   13. Vídeo do hero (entra sozinho quando o arquivo existir)
+   14. Formulário
    ========================================================================== */
 
 (function () {
   'use strict';
 
   /* ---------- 01. UTILITÁRIOS ---------- */
-  const $  = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+  const $  = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
+  const lerp  = (a, b, t) => a + (b - a) * t;
 
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-  const hasGSAP = typeof window.gsap !== 'undefined';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch   = matchMedia('(hover: none), (pointer: coarse)').matches;
+  const GSAP    = typeof window.gsap !== 'undefined';
 
-  if (hasGSAP && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
-  if (!hasGSAP) document.body.classList.add('no-gsap');
+  if (GSAP && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+  else document.body.classList.add('no-gsap');
 
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+  /* ---------- 02. GLOBO DE ROTAS ---------------------------------------
+     Esfera em arame desenhada por trigonometria — sem dados de mapa e sem
+     imagem. Os pontos são portos reais; as rotas seguem o arco de círculo
+     máximo entre eles, que é o caminho que um navio de fato percorre.
+     ------------------------------------------------------------------- */
+  const PORTS = {
+    santos:   [-23.96, -46.33], itajai:  [-26.91, -48.66],
+    xangai:   [ 31.23, 121.47], shenzhen:[ 22.54, 114.06],
+    roterda:  [ 51.92,   4.48], miami:   [ 25.77, -80.19],
+    mexico:   [ 19.43, -99.13], istambul:[ 41.01,  28.98],
+    mumbai:   [ 19.08,  72.88], hochimin:[ 10.82, 106.63]
+  };
+  const LANES = [
+    ['santos','xangai'], ['santos','roterda'], ['santos','miami'],
+    ['santos','shenzhen'], ['itajai','istambul'], ['itajai','mumbai'],
+    ['santos','mexico'], ['itajai','hochimin']
+  ];
 
-  /* ---------- 02. PRELOADER ---------- */
-  function initPreloader() {
-    const el    = $('#preloader');
-    const count = $('#preloaderCount');
-    const bar   = $('#preloaderBar');
-    if (!el) return finish();
+  const rad = d => d * Math.PI / 180;
+  const toVec = ([la, lo]) => {
+    const a = rad(la), b = rad(lo);
+    return [Math.cos(a) * Math.sin(b), Math.sin(a), Math.cos(a) * Math.cos(b)];
+  };
+  // Interpolação sobre o arco de círculo máximo (slerp)
+  const slerp = (u, v, t) => {
+    let d = u[0]*v[0] + u[1]*v[1] + u[2]*v[2];
+    d = clamp(d, -1, 1);
+    const o = Math.acos(d);
+    if (o < 1e-6) return u.slice();
+    const s = Math.sin(o), a = Math.sin((1 - t) * o) / s, b = Math.sin(t * o) / s;
+    return [u[0]*a + v[0]*b, u[1]*a + v[1]*b, u[2]*a + v[2]*b];
+  };
 
-    let progress = 0;
-    let done = false;
+  function createGlobe(canvas, opt) {
+    if (!canvas) return null;
+    const o = Object.assign({ scale: 0.42, speed: 0.0009, tilt: -0.32, lanes: true, cx: 0.5, cy: 0.5 }, opt);
+    const ctx = canvas.getContext('2d');
+    let W = 0, H = 0, R = 0, cx = 0, cy = 0, dpr = 1;
+    let angle = 0, raf = null, visible = false;
 
-    // Progresso "orgânico": sobe rápido no início e desacelera perto do fim.
+    function resize() {
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      const r = canvas.getBoundingClientRect();
+      W = Math.max(1, r.width); H = Math.max(1, r.height);
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      R = Math.min(W, H) * o.scale;
+      cx = W * o.cx; cy = H * o.cy;
+    }
+
+    // rotação em Y (longitude) + inclinação fixa em X
+    function project(v) {
+      const ca = Math.cos(angle), sa = Math.sin(angle);
+      let x = v[0] * ca - v[2] * sa;
+      let z = v[0] * sa + v[2] * ca;
+      let y = v[1];
+      const ct = Math.cos(o.tilt), st = Math.sin(o.tilt);
+      const y2 = y * ct - z * st;
+      const z2 = y * st + z * ct;
+      return { x: cx + x * R, y: cy - y2 * R, z: z2, front: z2 > 0 };
+    }
+
+    function wire() {
+      ctx.lineWidth = 1;
+      // paralelos
+      for (let la = -60; la <= 60; la += 30) {
+        ctx.beginPath();
+        let pen = false;
+        for (let lo = 0; lo <= 360; lo += 4) {
+          const p = project(toVec([la, lo]));
+          if (!p.front) { pen = false; continue; }
+          pen ? ctx.lineTo(p.x, p.y) : (ctx.moveTo(p.x, p.y), pen = true);
+        }
+        ctx.strokeStyle = 'rgba(126,150,172,.46)';
+        ctx.stroke();
+      }
+      // meridianos
+      for (let lo = 0; lo < 360; lo += 30) {
+        ctx.beginPath();
+        let pen = false;
+        for (let la = -90; la <= 90; la += 4) {
+          const p = project(toVec([la, lo]));
+          if (!p.front) { pen = false; continue; }
+          pen ? ctx.lineTo(p.x, p.y) : (ctx.moveTo(p.x, p.y), pen = true);
+        }
+        ctx.strokeStyle = 'rgba(126,150,172,.32)';
+        ctx.stroke();
+      }
+      // limbo
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(63,178,224,.58)';
+      ctx.stroke();
+    }
+
+    function lanes(t) {
+      LANES.forEach((lane, i) => {
+        const u = toVec(PORTS[lane[0]]), v = toVec(PORTS[lane[1]]);
+        const pts = [];
+        for (let s = 0; s <= 1.0001; s += 1 / 48) {
+          const m = slerp(u, v, s);
+          const lift = 1 + 0.16 * Math.sin(Math.PI * s);   // arco acima da superfície
+          pts.push(project([m[0] * lift, m[1] * lift, m[2] * lift]));
+        }
+        // traço da rota
+        ctx.beginPath();
+        let pen = false;
+        pts.forEach(p => {
+          if (p.z < -0.25) { pen = false; return; }
+          pen ? ctx.lineTo(p.x, p.y) : (ctx.moveTo(p.x, p.y), pen = true);
+        });
+        ctx.strokeStyle = 'rgba(63,178,224,.62)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // pulso viajando pela rota
+        const k = (t * 0.00016 + i * 0.13) % 1;
+        const idx = Math.floor(k * (pts.length - 1));
+        const p = pts[idx];
+        if (p && p.z > -0.1) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2.1, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(63,178,224,.95)';
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 6.5, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(63,178,224,.20)';
+          ctx.fill();
+        }
+      });
+    }
+
+    function nodes(t) {
+      Object.keys(PORTS).forEach((k, i) => {
+        const p = project(toVec(PORTS[k]));
+        if (!p.front) return;
+        const pulse = 0.5 + 0.5 * Math.sin(t * 0.0014 + i);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(237,242,246,.9)';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 4 + pulse * 5, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(63,178,224,' + (0.30 - pulse * 0.22) + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+    }
+
+    function frame(t) {
+      ctx.clearRect(0, 0, W, H);
+      wire();
+      if (o.lanes) lanes(t);
+      nodes(t);
+      if (!reduced) angle += o.speed * 16;
+      raf = requestAnimationFrame(frame);
+    }
+
+    resize();
+    addEventListener('resize', resize, { passive: true });
+
+    // Só anima enquanto estiver na viewport — três canvas rodando à toa
+    // custam bateria sem nenhum ganho visual.
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => {
+        visible = e.isIntersecting;
+        if (visible && !raf) raf = requestAnimationFrame(frame);
+        if (!visible && raf) { cancelAnimationFrame(raf); raf = null; }
+      });
+    }, { threshold: 0 });
+    io.observe(canvas);
+
+    if (reduced) { frame(0); cancelAnimationFrame(raf); raf = null; }
+    return { resize };
+  }
+
+  /* ---------- 03. LOADER ---------- */
+  function loader() {
+    const el = $('#loader'), pct = $('#loaderPct'), bar = $('#loaderBar');
+    if (!el) return done();
+
+    let p = 0, ready = false;
+    requestAnimationFrame(() => el.classList.add('go'));
+
     const tick = setInterval(() => {
-      const step = progress < 70 ? Math.random() * 12 : Math.random() * 4;
-      progress = Math.min(progress + step, done ? 100 : 96);
-      render();
-      if (progress >= 100) { clearInterval(tick); close(); }
-    }, 110);
+      p = Math.min(p + (p < 68 ? Math.random() * 13 : Math.random() * 4.5), ready ? 100 : 95);
+      if (pct) pct.textContent = String(Math.floor(p)).padStart(3, '0');
+      if (bar) bar.style.width = p + '%';
+      if (p >= 100) { clearInterval(tick); el.classList.add('done'); setTimeout(done, 560); }
+    }, 105);
 
-    function render() {
-      const v = Math.floor(progress);
-      if (count) count.textContent = v;
-      if (bar) bar.style.width = v + '%';
-    }
+    addEventListener('load', () => { ready = true; });
+    setTimeout(() => { ready = true; }, 3000);
 
-    function close() {
-      el.classList.add('is-done');
-      setTimeout(finish, 480);
-    }
-
-    window.addEventListener('load', () => { done = true; });
-    // Rede lenta não pode segurar a página para sempre.
-    setTimeout(() => { done = true; }, 3200);
-
-    function finish() {
+    function done() {
       document.body.classList.remove('is-loading');
       document.body.classList.add('is-ready');
-      playIntro();
+      intro();
     }
   }
 
-  /* ---------- 03. CURSOR CUSTOMIZADO ---------- */
-  function initCursor() {
-    const cursor = $('#cursor');
-    if (!cursor || isTouch || prefersReduced) { if (cursor) cursor.remove(); return; }
+  /* ---------- 04. CURSOR ---------- */
+  function cursor() {
+    const c = $('#cursor');
+    if (!c || touch || reduced) { if (c) c.remove(); return; }
+    const dot = $('.cursor__dot', c), ring = $('.cursor__ring', c), lab = $('#cursorLabel');
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
 
-    const dot   = $('.cursor__dot', cursor);
-    const ring  = $('.cursor__ring', cursor);
-    const label = $('.cursor__label', cursor);
-
-    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-    let rx = mx, ry = my;
-
-    window.addEventListener('mousemove', (e) => {
-      cursor.classList.add('is-active');
+    addEventListener('mousemove', e => {
+      c.classList.add('on');
       mx = e.clientX; my = e.clientY;
       dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
     }, { passive: true });
 
-    (function raf() {
-      rx = lerp(rx, mx, 0.16);
-      ry = lerp(ry, my, 0.16);
+    (function loop() {
+      rx = lerp(rx, mx, .15); ry = lerp(ry, my, .15);
       ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-      requestAnimationFrame(raf);
+      requestAnimationFrame(loop);
     })();
 
-    // Estado "hover" em qualquer elemento interativo
-    const hoverables = 'a, button, summary, input, select, textarea, [data-cursor]';
-    document.addEventListener('mouseover', (e) => {
-      const t = e.target.closest(hoverables);
+    const sel = 'a, button, summary, input, select, textarea, [data-cursor]';
+    document.addEventListener('mouseover', e => {
+      const t = e.target.closest(sel);
       if (!t) return;
-      cursor.classList.add('is-hover');
-      label.textContent = t.getAttribute('data-cursor') || '';
+      c.classList.add('hov');
+      lab.textContent = t.getAttribute('data-cursor') || '';
     });
-    document.addEventListener('mouseout', (e) => {
-      if (!e.target.closest(hoverables)) return;
-      cursor.classList.remove('is-hover');
-      label.textContent = '';
+    document.addEventListener('mouseout', e => {
+      if (!e.target.closest(sel)) return;
+      c.classList.remove('hov');
+      lab.textContent = '';
     });
   }
 
-  /* ---------- 04. HEADER + MENU ---------- */
-  function initHeader() {
-    const header = $('#header');
-    const burger = $('#burger');
-    const menu   = $('#menu');
-    if (!header) return;
+  /* ---------- 05. HEADER + MENU ---------- */
+  function header() {
+    const h = $('#head'), b = $('#burger'), m = $('#menu');
+    if (!h) return;
+    let last = scrollY;
 
-    let lastY = window.scrollY;
-
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      header.classList.toggle('is-scrolled', y > 40);
-      // Esconde ao descer, revela ao subir — não esconde com o menu aberto.
-      const hide = y > lastY && y > 320 && !document.body.classList.contains('menu-open');
-      header.classList.toggle('is-hidden', hide);
-      lastY = y;
+    addEventListener('scroll', () => {
+      const y = scrollY;
+      h.classList.toggle('stuck', y > 40);
+      h.classList.toggle('hide', y > last && y > 340 && !document.body.classList.contains('menu-on'));
+      last = y;
     }, { passive: true });
 
-    if (!burger || !menu) return;
-
-    const openMenu = () => {
-      menu.hidden = false;
-      requestAnimationFrame(() => menu.classList.add('is-open'));
-      burger.setAttribute('aria-expanded', 'true');
-      burger.setAttribute('aria-label', 'Fechar menu');
-      document.body.classList.add('menu-open');
+    if (!b || !m) return;
+    const open = () => {
+      m.hidden = false;
+      requestAnimationFrame(() => m.classList.add('on'));
+      b.setAttribute('aria-expanded', 'true');
+      b.setAttribute('aria-label', 'Fechar menu');
+      document.body.classList.add('menu-on');
     };
-
-    const closeMenu = () => {
-      menu.classList.remove('is-open');
-      burger.setAttribute('aria-expanded', 'false');
-      burger.setAttribute('aria-label', 'Abrir menu');
-      document.body.classList.remove('menu-open');
-      setTimeout(() => { if (!menu.classList.contains('is-open')) menu.hidden = true; }, 700);
+    const close = () => {
+      m.classList.remove('on');
+      b.setAttribute('aria-expanded', 'false');
+      b.setAttribute('aria-label', 'Abrir menu');
+      document.body.classList.remove('menu-on');
+      setTimeout(() => { if (!m.classList.contains('on')) m.hidden = true; }, 750);
     };
-
-    burger.addEventListener('click', () => {
-      menu.classList.contains('is-open') ? closeMenu() : openMenu();
-    });
-
-    $$('.menu__link, .menu__contact', menu).forEach(a => a.addEventListener('click', closeMenu));
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu();
-    });
+    b.addEventListener('click', () => m.classList.contains('on') ? close() : open());
+    $$('a', m).forEach(a => a.addEventListener('click', close));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && m.classList.contains('on')) close(); });
   }
 
-  /* ---------- 05. ANIMAÇÕES ---------- */
+  /* ---------- 06. TRILHO LATERAL ---------- */
+  function rail() {
+    const code = $('#railCode'), coord = $('#railCoord'), fill = $('#railFill');
+    const secs = $$('[data-chapter]');
+    const navs = $$('.nav a');
+    const top  = $('#toTop'), wa = $('.wa');
 
-  // Envolve o texto de cada .line em um <span> para o efeito de "cortina".
-  function prepareSplit() {
-    $$('[data-split] .line').forEach(line => {
-      if (line.querySelector('span')) return;
-      const inner = document.createElement('span');
-      while (line.firstChild) inner.appendChild(line.firstChild);
-      line.appendChild(inner);
-      if (!prefersReduced) {
-        inner.style.transform = 'translateY(105%)';
-        inner.style.opacity = '0';
+    const onScroll = () => {
+      const y = scrollY;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      if (fill) fill.style.height = ((y / (max || 1)) * 100).toFixed(1) + '%';
+      if (top) top.classList.toggle('on', y > innerHeight * 0.9);
+      if (wa)  wa.classList.toggle('on',  y > innerHeight * 0.5);
+
+      let cur = secs[0];
+      secs.forEach(s => { if (s.getBoundingClientRect().top <= innerHeight * 0.4) cur = s; });
+      if (cur) {
+        if (code)  code.textContent  = cur.dataset.chapter;
+        if (coord) coord.textContent = cur.dataset.coord;
+        navs.forEach(a => a.classList.toggle('act', a.getAttribute('href') === '#' + cur.id));
       }
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    top && top.addEventListener('click', () => scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }));
+    const y = $('#year'); if (y) y.textContent = new Date().getFullYear();
+  }
+
+  /* ---------- 07. ANIMAÇÕES ---------- */
+  function prepSplit() {
+    $$('[data-split] .ln').forEach(l => {
+      if (l.querySelector('span')) return;
+      const inner = document.createElement('span');
+      while (l.firstChild) inner.appendChild(l.firstChild);
+      l.appendChild(inner);
+      if (!reduced) { inner.style.transform = 'translateY(106%)'; inner.style.opacity = '0'; }
     });
   }
 
-  // Anima os títulos do herói assim que o preloader sai.
-  function playIntro() {
-    const heroLines = $$('.hero [data-split] .line > span');
-    const heroReveal = $$('.hero [data-reveal]');
-
-    if (prefersReduced) {
-      heroLines.forEach(s => { s.style.transform = 'none'; s.style.opacity = '1'; });
-      heroReveal.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
+  function intro() {
+    const lines = $$('.hero [data-split] .ln > span');
+    const rv    = $$('.hero [data-rv]');
+    if (reduced) {
+      lines.forEach(s => { s.style.transform = 'none'; s.style.opacity = '1'; });
+      rv.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
       return;
     }
-
-    if (hasGSAP) {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.to(heroLines, { y: '0%', opacity: 1, duration: 1.1, stagger: 0.09 })
-        .to(heroReveal, { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }, '-=0.7')
-        .from('.header__inner > *', { y: -18, opacity: 0, duration: 0.7, stagger: 0.08 }, 0.15);
+    if (GSAP) {
+      gsap.timeline({ defaults: { ease: 'expo.out' } })
+        .to(lines, { y: '0%', opacity: 1, duration: 1.25, stagger: .1 })
+        .to(rv, { y: 0, opacity: 1, duration: 1, stagger: .09 }, '-=.85')
+        .from('.head__in > *', { y: -16, opacity: 0, duration: .8, stagger: .07 }, .1)
+        .from('.rail', { opacity: 0, duration: 1 }, .3);
     } else {
-      heroLines.forEach((s, i) => {
-        s.style.transition = 'transform .9s cubic-bezier(.22,1,.36,1) ' + (i * 0.09) + 's, opacity .9s ease ' + (i * 0.09) + 's';
-        s.style.transform = 'translateY(0)';
-        s.style.opacity = '1';
+      lines.forEach((s, i) => {
+        s.style.transition = `transform 1s cubic-bezier(.19,1,.22,1) ${i * .1}s, opacity 1s ease ${i * .1}s`;
+        s.style.transform = 'translateY(0)'; s.style.opacity = '1';
       });
-      heroReveal.forEach(el => el.classList.add('is-in'));
+      rv.forEach(el => el.classList.add('in'));
     }
   }
 
-  function initScrollAnimations() {
-    // Títulos com split fora do herói
-    const splitBlocks = $$('[data-split]').filter(el => !el.closest('.hero'));
-    // Blocos com fade/slide
-    const reveals = $$('[data-reveal]').filter(el => !el.closest('.hero'));
+  function scrollAnims() {
+    const splits = $$('[data-split]').filter(e => !e.closest('.hero'));
+    const rvs    = $$('[data-rv]').filter(e => !e.closest('.hero'));
 
-    if (prefersReduced) {
-      $$('[data-split] .line > span').forEach(s => { s.style.transform = 'none'; s.style.opacity = '1'; });
-      reveals.forEach(el => el.classList.add('is-in'));
+    if (reduced) {
+      $$('[data-split] .ln > span').forEach(s => { s.style.transform = 'none'; s.style.opacity = '1'; });
+      rvs.forEach(e => e.classList.add('in'));
       return;
     }
 
-    if (hasGSAP && window.ScrollTrigger) {
-      splitBlocks.forEach(block => {
-        gsap.to(block.querySelectorAll('.line > span'), {
-          y: '0%', opacity: 1, duration: 1.05, ease: 'power3.out', stagger: 0.08,
-          scrollTrigger: { trigger: block, start: 'top 85%', once: true }
+    if (GSAP && window.ScrollTrigger) {
+      splits.forEach(b => gsap.to(b.querySelectorAll('.ln > span'), {
+        y: '0%', opacity: 1, duration: 1.15, ease: 'expo.out', stagger: .08,
+        scrollTrigger: { trigger: b, start: 'top 86%', once: true }
+      }));
+      rvs.forEach(e => gsap.to(e, {
+        y: 0, opacity: 1, duration: 1, ease: 'expo.out',
+        delay: parseFloat(e.dataset.d || 0),
+        scrollTrigger: { trigger: e, start: 'top 90%', once: true }
+      }));
+      $$('[data-parallax]').forEach(e => {
+        const amt = parseFloat(e.dataset.parallax) || .1;
+        gsap.fromTo(e, { yPercent: -amt * 42 }, {
+          yPercent: amt * 42, ease: 'none',
+          scrollTrigger: { trigger: e.parentElement || e, start: 'top bottom', end: 'bottom top', scrub: true }
         });
       });
-
-      reveals.forEach(el => {
-        gsap.to(el, {
-          y: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
-          delay: parseFloat(el.dataset.delay || 0),
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-        });
-      });
-
-      // Parallax leve
-      $$('[data-parallax]').forEach(el => {
-        const amount = parseFloat(el.dataset.parallax) || 0.1;
-        gsap.fromTo(el,
-          { yPercent: -amount * 50 },
-          {
-            yPercent: amount * 50, ease: 'none',
-            scrollTrigger: { trigger: el.parentElement || el, start: 'top bottom', end: 'bottom top', scrub: true }
-          });
-      });
-
-      // Cada serviço "respira" ao entrar na viewport
-      $$('[data-service]').forEach(item => {
-        gsap.from(item.querySelector('.service__body'), {
-          opacity: 0, y: 40, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: item, start: 'top 82%', once: true }
-        });
-      });
-
       ScrollTrigger.refresh();
       return;
     }
 
-    // ----- Fallback sem GSAP -----
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const delay = parseFloat(el.dataset.delay || 0);
-
-        if (el.hasAttribute('data-split')) {
-          $$('.line > span', el).forEach((s, i) => {
-            s.style.transition = 'transform .9s cubic-bezier(.22,1,.36,1) ' + (i * 0.08) + 's, opacity .9s ease ' + (i * 0.08) + 's';
-            s.style.transform = 'translateY(0)';
-            s.style.opacity = '1';
+    const io = new IntersectionObserver(es => {
+      es.forEach(en => {
+        if (!en.isIntersecting) return;
+        const e = en.target;
+        if (e.hasAttribute('data-split')) {
+          $$('.ln > span', e).forEach((s, i) => {
+            s.style.transition = `transform 1s cubic-bezier(.19,1,.22,1) ${i * .08}s, opacity 1s ease ${i * .08}s`;
+            s.style.transform = 'translateY(0)'; s.style.opacity = '1';
           });
         } else {
-          el.style.transitionDelay = delay + 's';
-          el.classList.add('is-in');
+          e.style.transitionDelay = (parseFloat(e.dataset.d || 0)) + 's';
+          e.classList.add('in');
         }
-        io.unobserve(el);
+        io.unobserve(e);
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: .1 });
 
-    splitBlocks.forEach(el => io.observe(el));
-    reveals.forEach(el => io.observe(el));
-
-    // Parallax simples no scroll
-    const parallaxEls = $$('[data-parallax]');
-    if (parallaxEls.length) {
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          const vh = window.innerHeight;
-          parallaxEls.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if (rect.bottom < -200 || rect.top > vh + 200) return;
-            const amount = parseFloat(el.dataset.parallax) || 0.1;
-            const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
-            el.style.transform = 'translate3d(0,' + (progress * amount * 100).toFixed(2) + 'px,0)';
-          });
-          ticking = false;
-        });
-      }, { passive: true });
-    }
+    splits.forEach(e => io.observe(e));
+    rvs.forEach(e => io.observe(e));
   }
 
-  /* ---------- 06. MARQUEE ---------- */
-  function initMarquee() {
-    $$('[data-marquee]').forEach(wrap => {
-      const track = $('.marquee__track', wrap);
-      if (!track) return;
+  /* ---------- 08. TICKER ---------- */
+  function ticker() {
+    const track = $('[data-ticker]');
+    if (!track) return;
+    const html = track.innerHTML;
+    let guard = 0;
+    while (track.scrollWidth < innerWidth * 2 && guard++ < 8) track.innerHTML += html;
+    if (reduced) return;
+    const half = track.scrollWidth / 2;
+    let x = 0;
+    (function run() {
+      x -= .4;
+      if (Math.abs(x) >= half) x = 0;
+      track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+      requestAnimationFrame(run);
+    })();
+  }
 
-      // Duplica o conteúdo até preencher o dobro da largura da tela: o loop
-      // fica contínuo em qualquer resolução.
-      const original = track.innerHTML;
-      let guard = 0;
-      while (track.scrollWidth < window.innerWidth * 2 && guard < 8) {
-        track.innerHTML += original;
-        guard++;
-      }
-
-      if (prefersReduced) return;
-
-      const half = track.scrollWidth / 2;
-      let x = 0;
-      const speed = 0.45;
-
-      (function run() {
-        x -= speed;
-        if (Math.abs(x) >= half) x = 0;
-        track.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
-        requestAnimationFrame(run);
-      })();
+  /* ---------- 09. ÍCONES DE SERVIÇO ---------- */
+  // Mede cada traço para que o redesenho no hover cubra o caminho exato.
+  function icons() {
+    $$('.card__ico .dr').forEach(p => {
+      try {
+        const len = Math.ceil(p.getTotalLength()) + 2;
+        p.style.setProperty('--len', len);
+      } catch (e) { /* navegador sem getTotalLength em <path>: ignora */ }
     });
   }
 
-  /* ---------- 07. CONTADORES ---------- */
-  function initCounters() {
-    const nodes = $$('[data-count]');
-    if (!nodes.length) return;
-
-    const animate = (el) => {
-      const target   = parseFloat(el.dataset.count);
-      const decimals = parseInt(el.dataset.decimals || '0', 10);
-      const prefix   = el.dataset.prefix || '';
-      const suffix   = el.dataset.suffix || '';
-      const duration = 1600;
-
-      if (prefersReduced) {
-        el.textContent = prefix + target.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
-        return;
-      }
-
-      const start = performance.now();
+  /* ---------- 10. CONTADORES ---------- */
+  function counters() {
+    const ns = $$('[data-count]');
+    if (!ns.length) return;
+    const run = el => {
+      const target = parseFloat(el.dataset.count);
+      const dec = parseInt(el.dataset.dec || '0', 10);
+      const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+      const fmt = v => pre + v.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
+      if (reduced) { el.textContent = fmt(target); return; }
+      const t0 = performance.now(), dur = 1700;
       (function step(now) {
-        const p = clamp((now - start) / duration, 0, 1);
-        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-        const value = target * eased;
-        el.textContent = prefix + value.toLocaleString('pt-BR', {
-          minimumFractionDigits: decimals, maximumFractionDigits: decimals
-        }) + suffix;
+        const p = clamp((now - t0) / dur, 0, 1);
+        el.textContent = fmt(target * (1 - Math.pow(1 - p, 3)));
         if (p < 1) requestAnimationFrame(step);
-      })(start);
+      })(t0);
     };
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        animate(e.target);
-        io.unobserve(e.target);
-      });
-    }, { threshold: 0.4 });
-
-    nodes.forEach(n => io.observe(n));
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      run(e.target); io.unobserve(e.target);
+    }), { threshold: .4 });
+    ns.forEach(n => io.observe(n));
   }
 
-  /* ---------- 08. DEPOIMENTOS ---------- */
-  function initTestimonials() {
-    const root = $('[data-testimonials]');
+  /* ---------- 11. DEPOIMENTOS ---------- */
+  function quotes() {
+    const root = $('[data-quotes]');
     if (!root) return;
-
-    const track  = $('[data-t-track]', root);
-    const slides = $$('[data-t-slide]', root);
-    const dotsEl = $('[data-t-dots]', root);
-    const prev   = $('[data-t-prev]', root);
-    const next   = $('[data-t-next]', root);
+    const track = $('[data-q-track]', root);
+    const slides = $$('[data-q-slide]', root);
+    const dots = $('[data-q-dots]', root);
     if (!track || !slides.length) return;
+    let i = 0;
 
-    let index = 0;
-
-    // Pontos de navegação
-    slides.forEach((_, i) => {
+    slides.forEach((_, k) => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.setAttribute('aria-label', 'Ir para o depoimento ' + (i + 1));
-      b.addEventListener('click', () => go(i));
-      dotsEl.appendChild(b);
+      b.setAttribute('aria-label', 'Ir para o depoimento ' + (k + 1));
+      b.addEventListener('click', () => go(k));
+      dots.appendChild(b);
     });
 
-    function maxIndex() {
-      // Não deixa passar do último card visível.
-      const visible = Math.max(1, Math.round(track.parentElement.offsetWidth / slides[0].offsetWidth));
-      return Math.max(0, slides.length - visible);
+    const maxI = () => {
+      const vis = Math.max(1, Math.round(track.parentElement.offsetWidth / slides[0].offsetWidth));
+      return Math.max(0, slides.length - vis);
+    };
+    function go(k) {
+      i = clamp(k, 0, maxI());
+      const cs = getComputedStyle(track);
+      const gap = parseFloat(cs.columnGap || cs.gap || 0) || 0;
+      track.style.transform = `translate3d(-${(slides[0].offsetWidth + gap) * i}px,0,0)`;
+      $$('button', dots).forEach((d, di) => d.classList.toggle('act', di === i));
     }
+    $('[data-q-prev]', root).addEventListener('click', () => go(i - 1));
+    $('[data-q-next]', root).addEventListener('click', () => go(i + 1));
 
-    function go(i) {
-      index = clamp(i, 0, maxIndex());
-      const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 0;
-      const offset = (slides[0].offsetWidth + gap) * index;
-      track.style.transform = 'translate3d(-' + offset + 'px,0,0)';
-      $$('button', dotsEl).forEach((d, di) => d.classList.toggle('is-active', di === index));
-    }
-
-    prev && prev.addEventListener('click', () => go(index - 1));
-    next && next.addEventListener('click', () => go(index + 1));
-
-    // Arrastar com o dedo / mouse
-    let startX = 0, dragging = false;
-    track.addEventListener('pointerdown', (e) => { dragging = true; startX = e.clientX; });
-    window.addEventListener('pointerup', (e) => {
-      if (!dragging) return;
-      dragging = false;
-      const delta = e.clientX - startX;
-      if (Math.abs(delta) > 60) go(index + (delta < 0 ? 1 : -1));
+    let sx = 0, drag = false;
+    track.addEventListener('pointerdown', e => { drag = true; sx = e.clientX; });
+    addEventListener('pointerup', e => {
+      if (!drag) return; drag = false;
+      const d = e.clientX - sx;
+      if (Math.abs(d) > 60) go(i + (d < 0 ? 1 : -1));
     });
-
-    window.addEventListener('resize', () => go(index));
+    addEventListener('resize', () => go(i));
     go(0);
   }
 
-  /* ---------- 09. FAQ ---------- */
-  function initFaq() {
-    const items = $$('[data-faq] .faq__item');
-    items.forEach(item => {
-      item.addEventListener('toggle', () => {
-        if (!item.open) return;
-        items.forEach(other => { if (other !== item) other.open = false; });
-      });
-    });
+  /* ---------- 12. FAQ ---------- */
+  function faq() {
+    const items = $$('[data-faq] details');
+    items.forEach(d => d.addEventListener('toggle', () => {
+      if (d.open) items.forEach(o => { if (o !== d) o.open = false; });
+    }));
   }
 
-  /* ---------- 10. SCROLL: PROGRESSO, LINK ATIVO, FLUTUANTES ---------- */
-  function initScrollUI() {
-    const progress = $('#scrollProgress');
-    const toTop    = $('#toTop');
-    const wa       = $('.wa-float');
-    const links    = $$('.nav__link');
-    const sections = links
-      .map(a => document.querySelector(a.getAttribute('href')))
-      .filter(Boolean);
-
-    const onScroll = () => {
-      const y   = window.scrollY;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (progress) progress.style.width = ((y / (max || 1)) * 100).toFixed(2) + '%';
-
-      if (toTop) toTop.classList.toggle('is-visible', y > window.innerHeight * 0.9);
-      if (wa)    wa.classList.toggle('is-visible', y > window.innerHeight * 0.5);
-
-      // Link ativo
-      let currentId = '';
-      sections.forEach(sec => {
-        if (sec.getBoundingClientRect().top <= window.innerHeight * 0.35) currentId = sec.id;
-      });
-      links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + currentId));
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    toTop && toTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
-    });
-
-    const yearEl = $('#year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  /* ---------- 13. VÍDEO DO HERO -----------------------------------------
+     O hero funciona com o globo. Se o arquivo de vídeo licenciado for
+     colocado em /assets/video/, ele passa a valer automaticamente — sem
+     nenhuma alteração de código.
+     ------------------------------------------------------------------- */
+  function heroVideo() {
+    const v = $('#heroVideo');
+    if (!v || reduced) return;
+    v.addEventListener('canplay', () => {
+      v.classList.add('ready');
+      v.play().catch(() => {});
+    }, { once: true });
+    v.load();
   }
 
-  /* ---------- 11. FORMULÁRIO ---------- */
-  function initForm() {
-    const form = $('#contactForm');
-    if (!form) return;
+  /* ---------- 14. FORMULÁRIO ---------- */
+  function form() {
+    const f = $('#contactForm');
+    if (!f) return;
+    const fb = $('#formFeedback'), tel = $('#telefone');
 
-    const feedback = $('#formFeedback');
-    const phone    = $('#telefone');
-
-    // Máscara de telefone brasileira
-    phone && phone.addEventListener('input', () => {
-      let v = phone.value.replace(/\D/g, '').slice(0, 11);
-      if (v.length > 6) {
-        v = v.replace(/^(\d{2})(\d{4,5})(\d{0,4}).*/, '($1) $2-$3');
-      } else if (v.length > 2) {
-        v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
-      } else if (v.length > 0) {
-        v = v.replace(/^(\d{0,2})/, '($1');
-      }
-      phone.value = v;
+    tel && tel.addEventListener('input', () => {
+      let v = tel.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 6)      v = v.replace(/^(\d{2})(\d{4,5})(\d{0,4}).*/, '($1) $2-$3');
+      else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+      else if (v.length > 0) v = v.replace(/^(\d{0,2})/, '($1');
+      tel.value = v;
     });
 
-    const setError = (field, message) => {
-      const wrap = field.closest('.field') || field.parentElement;
-      const slot = wrap ? wrap.querySelector('[data-error]') : null;
-      if (wrap) wrap.classList.toggle('has-error', Boolean(message));
-      if (slot) slot.textContent = message || '';
+    const setErr = (el, msg) => {
+      const w = el.closest('.fd') || el.parentElement;
+      const slot = w && w.querySelector('[data-error]');
+      if (w) w.classList.toggle('err', !!msg);
+      if (slot) slot.textContent = msg || '';
     };
 
-    const validate = () => {
+    const valid = () => {
       let ok = true;
-
-      const required = [
-        ['#nome',      'Informe o seu nome.'],
-        ['#empresa',   'Informe o nome da empresa.'],
-        ['#interesse', 'Selecione o que você precisa.']
-      ];
-
-      required.forEach(([sel, msg]) => {
-        const f = $(sel);
-        if (!f.value.trim()) { setError(f, msg); ok = false; } else setError(f, '');
+      [['#nome', 'Informe o seu nome.'],
+       ['#empresa', 'Informe o nome da empresa.'],
+       ['#interesse', 'Selecione o que você precisa.']].forEach(([s, m]) => {
+        const el = $(s);
+        if (!el.value.trim()) { setErr(el, m); ok = false; } else setErr(el, '');
       });
-
-      const email = $('#email');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) {
-        setError(email, 'Informe um e-mail válido.'); ok = false;
-      } else setError(email, '');
-
-      const tel = $('#telefone');
-      if (tel.value.replace(/\D/g, '').length < 10) {
-        setError(tel, 'Informe um WhatsApp com DDD.'); ok = false;
-      } else setError(tel, '');
-
-      const consent = $('#consent');
-      const consentError = $('#consentError');
-      if (!consent.checked) {
-        consentError.textContent = 'É preciso autorizar o contato para enviar.'; ok = false;
-      } else consentError.textContent = '';
-
+      const em = $('#email');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())) { setErr(em, 'Informe um e-mail válido.'); ok = false; } else setErr(em, '');
+      const tl = $('#telefone');
+      if (tl.value.replace(/\D/g, '').length < 10) { setErr(tl, 'Informe um WhatsApp com DDD.'); ok = false; } else setErr(tl, '');
+      const cs = $('#consent'), ce = $('#consentError');
+      if (!cs.checked) { ce.textContent = 'É preciso autorizar o contato para enviar.'; ok = false; } else ce.textContent = '';
       return ok;
     };
 
-    form.addEventListener('submit', async (e) => {
+    f.addEventListener('submit', async e => {
       e.preventDefault();
-      feedback.textContent = '';
-      feedback.className = 'form__feedback';
+      fb.textContent = ''; fb.className = 'form__fb';
 
-      if (!validate()) {
-        feedback.textContent = 'Confira os campos destacados acima.';
-        feedback.classList.add('is-err');
-        form.querySelector('.has-error input, .has-error select')?.focus();
+      if (!valid()) {
+        fb.textContent = 'Confira os campos destacados acima.';
+        fb.classList.add('bad');
+        const first = f.querySelector('.err input, .err select');
+        if (first) first.focus();
         return;
       }
 
-      const btn = form.querySelector('button[type="submit"]');
-      const original = btn.querySelector('span').textContent;
-      btn.disabled = true;
-      btn.querySelector('span').textContent = 'Enviando…';
+      const btn = f.querySelector('button[type="submit"]');
+      const span = btn.querySelector('span');
+      const label = span.textContent;
+      btn.disabled = true; span.textContent = 'Enviando…';
 
-      const data = Object.fromEntries(new FormData(form).entries());
+      const data = Object.fromEntries(new FormData(f).entries());
 
       try {
-        /* ------------------------------------------------------------------
-           ENVIO REAL — descomente e troque a URL pelo seu endpoint.
-           Funciona com Formspree, Basin, Getform, n8n, Make, Zapier ou uma
-           rota própria no seu backend/CRM.
+        /* ------------------------------------------------------------
+           ENVIO REAL — descomente e troque pela sua URL. Funciona com
+           Formspree, Basin, Getform, n8n, Make, Zapier ou rota própria.
 
-           const res = await fetch('https://SEU-ENDPOINT-AQUI', {
+           const r = await fetch('https://SEU-ENDPOINT-AQUI', {
              method: 'POST',
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify(data)
            });
-           if (!res.ok) throw new Error('Falha no envio');
-        ------------------------------------------------------------------ */
+           if (!r.ok) throw new Error('falha no envio');
+        ------------------------------------------------------------ */
+        console.info('[ACELERO COMEX] lead:', data);
+        await new Promise(r => setTimeout(r, 850));
 
-        // Simulação enquanto o endpoint não está conectado:
-        console.info('[ACELERO COMEX] Lead capturado:', data);
-        await new Promise(r => setTimeout(r, 900));
-
-        form.reset();
-        feedback.textContent = 'Recebido! Um especialista entra em contato em até 1 dia útil.';
-        feedback.classList.add('is-ok');
-
-        // Ponto de integração com analytics / pixel:
-        // window.dataLayer && window.dataLayer.push({ event: 'lead_form_submit' });
+        f.reset();
+        fb.textContent = 'Recebido. Um especialista entra em contato em até 1 dia útil.';
+        fb.classList.add('ok');
       } catch (err) {
-        feedback.textContent = 'Não conseguimos enviar agora. Chame no WhatsApp que resolvemos na hora.';
-        feedback.classList.add('is-err');
+        fb.textContent = 'Não conseguimos enviar agora. Chame no WhatsApp que resolvemos na hora.';
+        fb.classList.add('bad');
       } finally {
-        btn.disabled = false;
-        btn.querySelector('span').textContent = original;
+        btn.disabled = false; span.textContent = label;
       }
-    });
-  }
-
-  /* ---------- 12. PLACEHOLDERS DE MÍDIA ---------- */
-  // Enquanto as fotos e vídeos reais não estiverem em /assets, mostramos um
-  // placeholder com o nome do arquivo esperado — em vez de um ícone quebrado.
-  function initMediaFallback() {
-    const mark = (img) => {
-      const wrap = img.closest('.media') || img.parentElement;
-      if (!wrap) return;
-      const file = (img.getAttribute('src') || '').split('/').pop();
-      wrap.classList.add('is-missing');
-      wrap.setAttribute('data-placeholder', 'Imagem sugerida: ' + file);
-    };
-
-    $$('img').forEach(img => {
-      img.addEventListener('error', () => mark(img));
-      if (img.complete && img.naturalWidth === 0) mark(img);
-    });
-
-    // Vídeo ausente: escondemos o elemento e deixamos o gradiente animado do CSS.
-    $$('video').forEach(video => {
-      video.addEventListener('error', () => { video.style.display = 'none'; }, true);
-      const sources = $$('source', video);
-      let failed = 0;
-      sources.forEach(s => s.addEventListener('error', () => {
-        if (++failed >= sources.length) video.style.display = 'none';
-      }));
     });
   }
 
   /* ---------- BOOT ---------- */
   function init() {
-    prepareSplit();
-    initPreloader();
-    initCursor();
-    initHeader();
-    initScrollAnimations();
-    initMarquee();
-    initCounters();
-    initTestimonials();
-    initFaq();
-    initScrollUI();
-    initForm();
-    initMediaFallback();
+    prepSplit();
+    createGlobe($('#globe'),         { scale: .40, speed: .0007, tilt: -.34, cx: .68, cy: .48 });
+    createGlobe($('#purposeCanvas'), { scale: .44, speed: .0004, tilt: -.20, cx: .82, cy: .48 });
+    createGlobe($('#contactCanvas'), { scale: .48, speed: .0005, tilt: -.42, cx: .30, cy: .45, lanes: false });
+    loader();
+    cursor();
+    header();
+    rail();
+    scrollAnims();
+    ticker();
+    icons();
+    counters();
+    quotes();
+    faq();
+    heroVideo();
+    form();
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', init)
+    : init();
 })();
