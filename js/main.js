@@ -42,17 +42,49 @@
      imagem. Os pontos são portos reais; as rotas seguem o arco de círculo
      máximo entre eles, que é o caminho que um navio de fato percorre.
      ------------------------------------------------------------------- */
-  const PORTS = {
-    santos:   [-23.96, -46.33], itajai:  [-26.91, -48.66],
-    xangai:   [ 31.23, 121.47], shenzhen:[ 22.54, 114.06],
-    roterda:  [ 51.92,   4.48], miami:   [ 25.77, -80.19],
-    mexico:   [ 19.43, -99.13], istambul:[ 41.01,  28.98],
-    mumbai:   [ 19.08,  72.88], hochimin:[ 10.82, 106.63]
+  const PORTOS = {
+    // Brasil — origem e destino da operação
+    santos:      [-23.96,  -46.33], itajai:    [-26.91,  -48.66],
+    paranagua:   [-25.50,  -48.51], suape:     [ -8.39,  -34.97],
+    // Demais da América do Sul
+    montevideu:  [-34.90,  -56.19], buenosaires:[-34.60, -58.38],
+    valparaiso:  [-33.05,  -71.62],
+    // América do Norte
+    novayork:    [ 40.68,  -74.02], miami:     [ 25.77,  -80.19],
+    longbeach:   [ 33.75, -118.20], montreal:  [ 45.50,  -73.55],
+    manzanillo:  [ 19.05, -104.32],
+    // Europa
+    lisboa:      [ 38.71,   -9.14], hamburgo:  [ 53.55,    9.99],
+    lehavre:     [ 49.49,    0.11], roterda:   [ 51.92,    4.48],
+    antuerpia:   [ 51.26,    4.40], valencia:  [ 39.45,   -0.33],
+    istambul:    [ 41.01,   28.98],
+    // África
+    luanda:      [ -8.84,   13.23], durban:    [-29.87,   31.02],
+    cidadedocabo:[-33.92,   18.42], tangermed: [ 35.89,   -5.50],
+    // Ásia e Oriente Médio
+    xangai:      [ 31.23,  121.47], shenzhen:  [ 22.54,  114.06],
+    ningbo:      [ 29.87,  121.55], singapura: [  1.29,  103.85],
+    busan:       [ 35.10,  129.04], toquio:    [ 35.44,  139.64],
+    mumbai:      [ 18.95,   72.95], hochimin:  [ 10.82,  106.63],
+    jebelali:    [ 25.01,   55.06],
+    // Oceania
+    sydney:      [-33.86,  151.21]
   };
-  const LANES = [
-    ['santos','xangai'], ['santos','roterda'], ['santos','miami'],
-    ['santos','shenzhen'], ['itajai','istambul'], ['itajai','mumbai'],
-    ['santos','mexico'], ['itajai','hochimin']
+
+  const ROTAS = [
+    // Radiais a partir dos portos brasileiros
+    ['santos','xangai'],     ['santos','roterda'],     ['santos','novayork'],
+    ['santos','hamburgo'],   ['santos','lisboa'],      ['santos','longbeach'],
+    ['santos','durban'],     ['santos','jebelali'],    ['santos','montevideu'],
+    ['santos','buenosaires'],
+    ['itajai','shenzhen'],   ['itajai','antuerpia'],   ['itajai','miami'],
+    ['itajai','luanda'],     ['itajai','busan'],       ['itajai','valparaiso'],
+    ['paranagua','ningbo'],  ['paranagua','lehavre'],  ['paranagua','montreal'],
+    ['paranagua','cidadedocabo'],
+    ['suape','tangermed'],   ['suape','valencia'],     ['suape','manzanillo'],
+    // Travessias que dão a leitura de rede, não só de leque
+    ['xangai','roterda'],    ['singapura','jebelali'], ['toquio','longbeach'],
+    ['hochimin','hamburgo'], ['sydney','shenzhen'],    ['mumbai','istambul']
   ];
 
   const rad = d => d * Math.PI / 180;
@@ -60,25 +92,55 @@
     const a = rad(la), b = rad(lo);
     return [Math.cos(a) * Math.sin(b), Math.sin(a), Math.cos(a) * Math.cos(b)];
   };
-  // Interpolação sobre o arco de círculo máximo (slerp)
+  // Interpolação sobre o arco de círculo máximo (slerp) — o caminho que um
+  // navio de fato percorre entre dois portos.
   const slerp = (u, v, t) => {
-    let d = u[0]*v[0] + u[1]*v[1] + u[2]*v[2];
-    d = clamp(d, -1, 1);
+    let d = clamp(u[0]*v[0] + u[1]*v[1] + u[2]*v[2], -1, 1);
     const o = Math.acos(d);
     if (o < 1e-6) return u.slice();
     const s = Math.sin(o), a = Math.sin((1 - t) * o) / s, b = Math.sin(t * o) / s;
     return [u[0]*a + v[0]*b, u[1]*a + v[1]*b, u[2]*a + v[2]*b];
   };
 
+  /* Geometria fixa, calculada UMA vez e compartilhada pelos três globos.
+     A rotação acontece na projeção, então nada disto muda por quadro —
+     recalcular 33 portos e 30 rotas a 60 fps seria desperdício puro. */
+  const GEO = (() => {
+    const paralelos = [], meridianos = [], rotas = [], nos = [];
+    for (let la = -60; la <= 60; la += 30) {
+      const l = [];
+      for (let lo = 0; lo <= 360; lo += 5) l.push(toVec([la, lo]));
+      paralelos.push(l);
+    }
+    for (let lo = 0; lo < 360; lo += 30) {
+      const l = [];
+      for (let la = -90; la <= 90; la += 5) l.push(toVec([la, lo]));
+      meridianos.push(l);
+    }
+    ROTAS.forEach(([a, b]) => {
+      const u = toVec(PORTOS[a]), v = toVec(PORTOS[b]), pts = [];
+      const N = 44;
+      for (let i = 0; i <= N; i++) {
+        const m = slerp(u, v, i / N);
+        const alt = 1 + 0.15 * Math.sin(Math.PI * (i / N));  // arco acima da superfície
+        pts.push([m[0] * alt, m[1] * alt, m[2] * alt]);
+      }
+      rotas.push(pts);
+    });
+    Object.keys(PORTOS).forEach(k => nos.push(toVec(PORTOS[k])));
+    return { paralelos, meridianos, rotas, nos };
+  })();
+
   function createGlobe(canvas, opt) {
     if (!canvas) return null;
-    const o = Object.assign({ scale: 0.42, speed: 0.0009, tilt: -0.32, lanes: true, cx: 0.5, cy: 0.5 }, opt);
+    const o = Object.assign({ scale: .42, speed: .0007, tilt: -.32, rotas: true, cx: .5, cy: .5 }, opt);
     const ctx = canvas.getContext('2d');
-    let W = 0, H = 0, R = 0, cx = 0, cy = 0, dpr = 1;
-    let angle = 0, raf = null, visible = false;
+    let W = 0, H = 0, R = 0, cx = 0, cy = 0;
+    let ang = 0, raf = null;
+    let ca = 1, sa = 0, ct = 1, st = 0;   // senos e cossenos do quadro atual
 
     function resize() {
-      dpr = Math.min(devicePixelRatio || 1, 2);
+      const dpr = Math.min(devicePixelRatio || 1, 2);
       const r = canvas.getBoundingClientRect();
       W = Math.max(1, r.width); H = Math.max(1, r.height);
       canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
@@ -87,111 +149,83 @@
       cx = W * o.cx; cy = H * o.cy;
     }
 
-    // rotação em Y (longitude) + inclinação fixa em X
-    function project(v) {
-      const ca = Math.cos(angle), sa = Math.sin(angle);
-      let x = v[0] * ca - v[2] * sa;
-      let z = v[0] * sa + v[2] * ca;
-      let y = v[1];
-      const ct = Math.cos(o.tilt), st = Math.sin(o.tilt);
-      const y2 = y * ct - z * st;
-      const z2 = y * st + z * ct;
-      return { x: cx + x * R, y: cy - y2 * R, z: z2, front: z2 > 0 };
-    }
+    // Rotação em Y (longitude) seguida de inclinação fixa em X, projetada
+    // em ortográfica. Os cossenos vêm prontos do quadro — ver frame().
+    const px = v => cx + (v[0] * ca - v[2] * sa) * R;
+    const pz = v => (v[1] * st + (v[0] * sa + v[2] * ca) * ct);
+    const py = v => cy - (v[1] * ct - (v[0] * sa + v[2] * ca) * st) * R;
 
-    function wire() {
-      ctx.lineWidth = 1;
-      // paralelos
-      for (let la = -60; la <= 60; la += 30) {
+    function traco(linhas, cor) {
+      ctx.strokeStyle = cor;
+      linhas.forEach(pts => {
         ctx.beginPath();
-        let pen = false;
-        for (let lo = 0; lo <= 360; lo += 4) {
-          const p = project(toVec([la, lo]));
-          if (!p.front) { pen = false; continue; }
-          pen ? ctx.lineTo(p.x, p.y) : (ctx.moveTo(p.x, p.y), pen = true);
+        let caneta = false;
+        for (let i = 0; i < pts.length; i++) {
+          const v = pts[i];
+          if (pz(v) <= 0) { caneta = false; continue; }
+          const x = px(v), y = py(v);
+          caneta ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), caneta = true);
         }
-        ctx.strokeStyle = 'rgba(126,150,172,.46)';
         ctx.stroke();
-      }
-      // meridianos
-      for (let lo = 0; lo < 360; lo += 30) {
-        ctx.beginPath();
-        let pen = false;
-        for (let la = -90; la <= 90; la += 4) {
-          const p = project(toVec([la, lo]));
-          if (!p.front) { pen = false; continue; }
-          pen ? ctx.lineTo(p.x, p.y) : (ctx.moveTo(p.x, p.y), pen = true);
-        }
-        ctx.strokeStyle = 'rgba(126,150,172,.32)';
-        ctx.stroke();
-      }
-      // limbo
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(63,178,224,.58)';
-      ctx.stroke();
-    }
-
-    function lanes(t) {
-      LANES.forEach((lane, i) => {
-        const u = toVec(PORTS[lane[0]]), v = toVec(PORTS[lane[1]]);
-        const pts = [];
-        for (let s = 0; s <= 1.0001; s += 1 / 48) {
-          const m = slerp(u, v, s);
-          const lift = 1 + 0.16 * Math.sin(Math.PI * s);   // arco acima da superfície
-          pts.push(project([m[0] * lift, m[1] * lift, m[2] * lift]));
-        }
-        // traço da rota
-        ctx.beginPath();
-        let pen = false;
-        pts.forEach(p => {
-          if (p.z < -0.25) { pen = false; return; }
-          pen ? ctx.lineTo(p.x, p.y) : (ctx.moveTo(p.x, p.y), pen = true);
-        });
-        ctx.strokeStyle = 'rgba(63,178,224,.62)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // pulso viajando pela rota
-        const k = (t * 0.00016 + i * 0.13) % 1;
-        const idx = Math.floor(k * (pts.length - 1));
-        const p = pts[idx];
-        if (p && p.z > -0.1) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, 2.1, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(63,178,224,.95)';
-          ctx.fill();
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, 6.5, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(63,178,224,.20)';
-          ctx.fill();
-        }
       });
     }
 
-    function nodes(t) {
-      Object.keys(PORTS).forEach((k, i) => {
-        const p = project(toVec(PORTS[k]));
-        if (!p.front) return;
-        const pulse = 0.5 + 0.5 * Math.sin(t * 0.0014 + i);
+    function desenharRotas(t) {
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(63,178,224,.50)';
+      GEO.rotas.forEach(pts => {
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(237,242,246,.9)';
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 4 + pulse * 5, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(63,178,224,' + (0.30 - pulse * 0.22) + ')';
-        ctx.lineWidth = 1;
+        let caneta = false;
+        for (let i = 0; i < pts.length; i++) {
+          const v = pts[i];
+          if (pz(v) < -0.2) { caneta = false; continue; }
+          const x = px(v), y = py(v);
+          caneta ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), caneta = true);
+        }
         ctx.stroke();
+      });
+      // Pulsos: só em parte das rotas, senão a tela vira pisca-pisca.
+      for (let i = 0; i < GEO.rotas.length; i += 2) {
+        const pts = GEO.rotas[i];
+        const k = (t * 0.00013 + i * 0.11) % 1;
+        const v = pts[Math.floor(k * (pts.length - 1))];
+        if (!v || pz(v) < -0.05) continue;
+        const x = px(v), y = py(v);
+        ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(63,178,224,.95)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(63,178,224,.18)'; ctx.fill();
+      }
+    }
+
+    function desenharNos(t) {
+      GEO.nos.forEach((v, i) => {
+        if (pz(v) <= 0) return;
+        const x = px(v), y = py(v);
+        const pulso = .5 + .5 * Math.sin(t * .0012 + i * .7);
+        ctx.beginPath(); ctx.arc(x, y, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(237,242,246,.9)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(x, y, 3.4 + pulso * 4.5, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(63,178,224,' + (.26 - pulso * .19) + ')';
+        ctx.lineWidth = 1; ctx.stroke();
       });
     }
 
     function frame(t) {
+      ca = Math.cos(ang); sa = Math.sin(ang);
+      ct = Math.cos(o.tilt); st = Math.sin(o.tilt);
+
       ctx.clearRect(0, 0, W, H);
-      wire();
-      if (o.lanes) lanes(t);
-      nodes(t);
-      if (!reduced) angle += o.speed * 16;
+      ctx.lineWidth = 1;
+      traco(GEO.paralelos,  'rgba(126,150,172,.46)');
+      traco(GEO.meridianos, 'rgba(126,150,172,.32)');
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(63,178,224,.58)'; ctx.stroke();
+
+      if (o.rotas) desenharRotas(t);
+      desenharNos(t);
+
+      if (!reduced) ang += o.speed * 16;
       raf = requestAnimationFrame(frame);
     }
 
@@ -199,15 +233,11 @@
     addEventListener('resize', resize, { passive: true });
 
     // Só anima enquanto estiver na viewport — três canvas rodando à toa
-    // custam bateria sem nenhum ganho visual.
-    const io = new IntersectionObserver(es => {
-      es.forEach(e => {
-        visible = e.isIntersecting;
-        if (visible && !raf) raf = requestAnimationFrame(frame);
-        if (!visible && raf) { cancelAnimationFrame(raf); raf = null; }
-      });
-    }, { threshold: 0 });
-    io.observe(canvas);
+    // gastam bateria sem nenhum ganho visual.
+    new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && !raf) raf = requestAnimationFrame(frame);
+      if (!e.isIntersecting && raf) { cancelAnimationFrame(raf); raf = null; }
+    }), { threshold: 0 }).observe(canvas);
 
     if (reduced) { frame(0); cancelAnimationFrame(raf); raf = null; }
     return { resize };
@@ -538,6 +568,22 @@
     v.load();
   }
 
+  /* ---------- 13b. SLOTS DE IMAGEM OPCIONAIS -----------------------------
+     Etapas 04 e 05 e as placas de fundo de Resultados e Garantias esperam
+     fotos que ainda não foram entregues. Enquanto o arquivo não existir a
+     figura é removida e a seção volta ao fundo chapado — nada de ícone de
+     imagem quebrada. Basta soltar o arquivo na pasta para ele aparecer.
+     ------------------------------------------------------------------- */
+  function slotsOpcionais() {
+    $$('[data-opcional]').forEach(fig => {
+      const img = fig.tagName === 'IMG' ? fig : $('img', fig);
+      if (!img) return;
+      const remover = () => fig.remove();
+      img.addEventListener('error', remover);
+      if (img.complete && img.naturalWidth === 0) remover();
+    });
+  }
+
   /* ---------- 14. FORMULÁRIO ---------- */
   function form() {
     const f = $('#contactForm');
@@ -625,9 +671,9 @@
   /* ---------- BOOT ---------- */
   function init() {
     prepSplit();
-    createGlobe($('#globe'),         { scale: .40, speed: .0007, tilt: -.34, cx: .68, cy: .48 });
-    createGlobe($('#purposeCanvas'), { scale: .44, speed: .0004, tilt: -.20, cx: .82, cy: .48 });
-    createGlobe($('#contactCanvas'), { scale: .48, speed: .0005, tilt: -.42, cx: .30, cy: .45, lanes: false });
+    createGlobe($('#globe'),         { scale: .40, speed: .00049, tilt: -.34, cx: .68, cy: .48 });
+    createGlobe($('#purposeCanvas'), { scale: .44, speed: .00028, tilt: -.20, cx: .82, cy: .48 });
+    createGlobe($('#contactCanvas'), { scale: .48, speed: .00035, tilt: -.42, cx: .30, cy: .45, rotas: false });
     loader();
     cursor();
     header();
@@ -639,6 +685,7 @@
     quotes();
     faq();
     heroVideo();
+    slotsOpcionais();
     form();
   }
 

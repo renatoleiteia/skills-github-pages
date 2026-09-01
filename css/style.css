@@ -741,3 +741,35 @@ h1, h2, h3, h4 {
   .head, .menu, .loader, .cursor, .rail, .wa, .top, .hero__stage, .purp__c, .cont__c { display: none !important; }
   body { background: #fff; color: #111; }
 }
+
+/* ---------- PLACA DE FUNDO EM DUOTONE AZUL ------------------------------
+   A foto entra dessaturada e recebe uma camada de cor em mix-blend-mode,
+   o que produz o duotone; por cima vem o degradê que garante a leitura do
+   texto. Se o arquivo não existir, o main.js remove a figura inteira e a
+   seção volta ao fundo chapado — sem ícone de imagem quebrada.
+   --------------------------------------------------------------------- */
+.plate-bg { position: absolute; inset: 0; z-index: 0; margin: 0; overflow: hidden; }
+.plate-bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(.5); }
+.plate-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(140deg, var(--signal) 0%, var(--signal-dim) 45%, var(--deck) 100%);
+  mix-blend-mode: color;
+}
+.plate-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, var(--hull) 0%, rgba(8,15,26,.72) 26%, rgba(8,15,26,.80) 68%, var(--hull) 100%),
+    linear-gradient(90deg, rgba(8,15,26,.92) 4%, rgba(8,15,26,.42) 48%, rgba(8,15,26,.86));
+}
+.res > .wrap, .offer > .wrap { position: relative; z-index: 2; }
+.offer { background: var(--abyss); }
+.offer .plate-bg::after {
+  background:
+    linear-gradient(180deg, var(--abyss) 0%, rgba(4,7,12,.74) 24%, rgba(4,7,12,.82) 70%, var(--abyss) 100%),
+    linear-gradient(90deg, rgba(4,7,12,.90) 4%, rgba(4,7,12,.46) 50%, rgba(4,7,12,.88));
+}
+/* Sobre placa, os blocos precisam de fundo próprio para não perder contraste */
+.res .nums li { background: rgba(8,15,26,.82); backdrop-filter: blur(2px); }
+.res .nums li:hover { background: rgba(18,40,60,.9); }
+.offer .gtee, .offer .bonus { background: rgba(4,7,12,.86); backdrop-filter: blur(2px); }
+.offer .gtee:hover { background: rgba(18,40,60,.9); }
