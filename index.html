@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050B16" />
+
+  <title>ACELERO COMEX — Importe e exporte com previsibilidade total</title>
+  <meta name="description" content="A ACELERO COMEX assume a operação de comércio exterior da sua empresa de ponta a ponta: importação, exportação, logística internacional, desembaraço aduaneiro e consultoria estratégica. Menos custo, prazo cumprido e zero surpresa na aduana." />
+  <meta name="keywords" content="comércio exterior, importação, exportação, despachante aduaneiro, logística internacional, radar siscomex, consultoria comex" />
+  <meta name="author" content="ACELERO COMEX" />
+  <link rel="canonical" href="https://www.acelerocomex.com.br/" />
+
+  <!-- Open Graph / Redes sociais -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="ACELERO COMEX" />
+  <meta property="og:title" content="ACELERO COMEX — Importe e exporte com previsibilidade total" />
+  <meta property="og:description" content="Gestão completa de comércio exterior para indústrias, e-commerces e importadores. Custo menor, prazo cumprido, risco controlado." />
+  <meta property="og:image" content="assets/img/og-acelero-comex.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon inline (troque por assets/img/favicon.svg quando tiver a arte final) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23050B16'/%3E%3Cpath d='M7 22 15 9l3.4 5.6H14l-2 3.4h8.2L23 22z' fill='%23FF6B1A'/%3E%3C/svg%3E" />
+
+  <!-- Tipografia -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Dados estruturados: ajuda em SEO local e rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "ACELERO COMEX",
+    "description": "Gestão de comércio exterior: importação, exportação, logística internacional, desembaraço aduaneiro e consultoria estratégica.",
+    "areaServed": "BR",
+    "url": "https://www.acelerocomex.com.br/",
+    "telephone": "+55-00-0000-0000",
+    "email": "contato@acelerocomex.com.br",
+    "address": { "@type": "PostalAddress", "addressCountry": "BR" }
+  }
+  </script>
+</head>
+
+<body class="is-loading">
+
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ============================================================
+       PRELOADER — contador + cortina, no estilo de sites premium
+       ============================================================ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <span class="preloader__brand">ACELERO<em>COMEX</em></span>
+      <span class="preloader__word">Movimentando o mundo até a sua empresa</span>
+      <span class="preloader__count"><i id="preloaderCount">0</i>%</span>
+    </div>
+    <div class="preloader__bar"><span id="preloaderBar"></span></div>
+  </div>
+
+  <!-- Cursor customizado (desativado em toque) -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <span class="cursor__dot"></span>
+    <span class="cursor__ring"><em class="cursor__label"></em></span>
+  </div>
+
+  <!-- Barra de progresso de leitura -->
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="brand" href="#hero" aria-label="ACELERO COMEX — início">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="30" height="30"><path d="M7 22 15 9l3.4 5.6H14l-2 3.4h8.2L23 22z" fill="currentColor"/></svg>
+        </span>
+        <span class="brand__text">ACELERO<em>COMEX</em></span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#sobre" class="nav__link"><span>Sobre</span></a>
+        <a href="#servicos" class="nav__link"><span>Serviços</span></a>
+        <a href="#processo" class="nav__link"><span>Processo</span></a>
+        <a href="#cases" class="nav__link"><span>Cases</span></a>
+        <a href="#faq" class="nav__link"><span>FAQ</span></a>
+      </nav>
+
+      <div class="header__actions">
+        <a href="#contato" class="btn btn--accent btn--sm" data-cursor="Vamos?">
+          <span>Falar com especialista</span>
+        </a>
+        <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu fullscreen -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+    <div class="menu__bg" aria-hidden="true"></div>
+    <div class="menu__inner">
+      <nav class="menu__nav" aria-label="Navegação do menu">
+        <a href="#sobre" class="menu__link"><i>01</i><span>Sobre a Acelero</span></a>
+        <a href="#servicos" class="menu__link"><i>02</i><span>Serviços</span></a>
+        <a href="#processo" class="menu__link"><i>03</i><span>Processo</span></a>
+        <a href="#resultados" class="menu__link"><i>04</i><span>Resultados</span></a>
+        <a href="#cases" class="menu__link"><i>05</i><span>Cases &amp; Depoimentos</span></a>
+        <a href="#proposito" class="menu__link"><i>06</i><span>Nosso propósito</span></a>
+        <a href="#garantia" class="menu__link"><i>07</i><span>Garantia</span></a>
+        <a href="#faq" class="menu__link"><i>08</i><span>Perguntas frequentes</span></a>
+        <a href="#contato" class="menu__link"><i>09</i><span>Falar com especialista</span></a>
+      </nav>
+      <div class="menu__aside">
+        <p class="menu__label">Atendimento</p>
+        <a class="menu__contact" href="https://wa.me/5500000000000" target="_blank" rel="noopener">WhatsApp direto</a>
+        <a class="menu__contact" href="mailto:contato@acelerocomex.com.br">contato@acelerocomex.com.br</a>
+        <p class="menu__label menu__label--top">Operação</p>
+        <p class="menu__note">Santos · Itajaí · Paranaguá · Viracopos · Guarulhos<br />Parceiros em Shenzhen, Xangai, Miami, Roterdã e Cidade do México.</p>
+      </div>
+    </div>
+  </div>
+
+  <main id="conteudo">
+
+    <!-- ============================================================
+         01 — HERO
+         ============================================================ -->
+    <section class="hero" id="hero">
+      <div class="hero__media" data-parallax="0.18">
+        <!-- Vídeo de fundo: navio embarcando contêineres / pátio portuário em movimento -->
+        <video class="hero__video" id="heroVideo"
+               autoplay muted loop playsinline preload="metadata"
+               poster="assets/img/hero-navio-conteineres.jpg">
+          <source src="assets/video/navio-embarque.mp4" type="video/mp4" />
+          <source src="assets/video/navio-embarque.webm" type="video/webm" />
+        </video>
+        <div class="hero__grid" aria-hidden="true"></div>
+        <div class="hero__veil" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero__content container">
+        <p class="eyebrow reveal" data-reveal>
+          <span class="dot"></span> Gestão completa de comércio exterior
+        </p>
+
+        <h1 class="hero__title" data-split>
+          <span class="line">Importe e exporte</span>
+          <span class="line">com <em>previsibilidade</em></span>
+          <span class="line">do pedido à sua doca.</span>
+        </h1>
+
+        <p class="hero__sub reveal" data-reveal data-delay="0.15">
+          A ACELERO COMEX assume a sua operação internacional de ponta a ponta —
+          fornecedor, frete, aduana, tributos e entrega — para que a sua empresa
+          <strong>compre mais barato, receba na data combinada e nunca mais seja
+          surpreendida por uma carga parada no porto.</strong>
+        </p>
+
+        <div class="hero__cta reveal" data-reveal data-delay="0.3">
+          <a href="#contato" class="btn btn--accent btn--lg" data-cursor="Agendar">
+            <span>Agendar consultoria gratuita</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#servicos" class="btn btn--ghost btn--lg" data-cursor="Ver">
+            <span>Ver como funciona</span>
+          </a>
+        </div>
+
+        <ul class="hero__trust reveal" data-reveal data-delay="0.45">
+          <li><strong>+1.900</strong> embarques gerenciados</li>
+          <li><strong>32</strong> países de origem e destino</li>
+          <li><strong>98,4%</strong> de cargas liberadas em canal verde</li>
+        </ul>
+      </div>
+
+      <a href="#sobre" class="hero__scroll" aria-label="Rolar para a próxima seção">
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+        <span>Role para descobrir</span>
+      </a>
+    </section>
+
+    <!-- Marquee de confiança -->
+    <section class="marquee-strip" aria-label="Segmentos atendidos">
+      <div class="marquee" data-marquee>
+        <div class="marquee__track">
+          <span>Indústria &amp; Manufatura</span><i>✦</i>
+          <span>E-commerce &amp; Marketplace</span><i>✦</i>
+          <span>Autopeças</span><i>✦</i>
+          <span>Equipamentos Médicos</span><i>✦</i>
+          <span>Agronegócio</span><i>✦</i>
+          <span>Eletroeletrônicos</span><i>✦</i>
+          <span>Construção Civil</span><i>✦</i>
+          <span>Cosméticos</span><i>✦</i>
+          <span>Máquinas Industriais</span><i>✦</i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         02 — SOBRE
+         ============================================================ -->
+    <section class="section section--about" id="sobre">
+      <div class="container">
+        <header class="section__head">
+          <p class="section__num">01</p>
+          <h2 class="section__title" data-split>
+            <span class="line">Não somos mais um</span>
+            <span class="line">intermediário. Somos o seu</span>
+            <span class="line"><em>departamento de comex.</em></span>
+          </h2>
+          <div class="section__lead reveal" data-reveal>
+            <p>
+              A ACELERO COMEX nasceu de uma inconformidade simples: empresas brasileiras
+              perdem margem, tempo e noites de sono porque a operação internacional é
+              tratada como um quebra-cabeça de fornecedores desconectados — um faz a
+              cotação, outro o frete, outro a aduana, e ninguém responde pelo resultado.
+            </p>
+            <p>
+              Nós reunimos tudo sob um único time, um único processo e um único
+              responsável. Você fala com uma pessoa; nós coordenamos o resto do planeta.
+            </p>
+          </div>
+        </header>
+
+        <div class="about__media reveal" data-reveal>
+          <figure class="media media--wide">
+            <img data-parallax="0.07" src="assets/img/equipe-acelero.jpg" alt="Time da ACELERO COMEX analisando uma operação de importação em tela de acompanhamento" loading="lazy" width="1600" height="900" />
+            <figcaption>Sala de controle: cada embarque acompanhado em tempo real, do booking à entrega.</figcaption>
+          </figure>
+        </div>
+
+        <div class="pillars">
+          <article class="pillar reveal" data-reveal>
+            <p class="pillar__label">Missão</p>
+            <h3>Tornar o mundo acessível para quem produz e vende no Brasil.</h3>
+            <p>Reduzir a distância entre a sua empresa e qualquer fornecedor ou cliente do planeta, com clareza total de custo, prazo e risco.</p>
+          </article>
+          <article class="pillar reveal" data-reveal data-delay="0.1">
+            <p class="pillar__label">Visão</p>
+            <h3>Ser a operação de comex mais previsível da América Latina.</h3>
+            <p>Não a maior. A mais confiável — aquela em que a diretoria consegue planejar o trimestre inteiro sem medo do que vem do outro lado do oceano.</p>
+          </article>
+          <article class="pillar reveal" data-reveal data-delay="0.2">
+            <p class="pillar__label">Valores</p>
+            <h3>Transparência radical, dado antes de opinião, dono da ponta a ponta.</h3>
+            <p>Se der problema, você fica sabendo por nós — antes de virar prejuízo. Sem taxa escondida, sem "isso não é com a gente".</p>
+          </article>
+        </div>
+
+        <div class="diffs">
+          <h3 class="diffs__title reveal" data-reveal>O que nos torna diferentes</h3>
+          <ul class="diffs__list">
+            <li class="diff reveal" data-reveal>
+              <span class="diff__num">01</span>
+              <h4>Método ACELERO™</h4>
+              <p>Processo proprietário de 6 etapas que padroniza homologação de fornecedor, classificação fiscal, modal, aduana e entrega. Nada depende de memória ou de "jeitinho".</p>
+            </li>
+            <li class="diff reveal" data-reveal data-delay="0.08">
+              <span class="diff__num">02</span>
+              <h4>Time sênior, sem rodízio</h4>
+              <p>Analista de comex dedicado, despachante próprio e um gerente de conta que conhece o seu produto, a sua NCM e o seu calendário de vendas.</p>
+            </li>
+            <li class="diff reveal" data-reveal data-delay="0.16">
+              <span class="diff__num">03</span>
+              <h4>Torre de controle digital</h4>
+              <p>Painel com status de cada embarque, documentos, custo real acumulado e ETA atualizada. Você não pergunta onde está a carga — você já sabe.</p>
+            </li>
+            <li class="diff reveal" data-reveal data-delay="0.24">
+              <span class="diff__num">04</span>
+              <h4>Rede global auditada</h4>
+              <p>Agentes e inspetores em Ásia, Europa, América do Norte e Mercosul. Fornecedor novo só entra na sua operação depois de auditoria documental e inspeção física.</p>
+            </li>
+            <li class="diff reveal" data-reveal data-delay="0.32">
+              <span class="diff__num">05</span>
+              <h4>Inteligência tributária</h4>
+              <p>Revisão de NCM, regimes especiais, ex-tarifário, drawback e acordos comerciais. É aqui que a maior parte da economia aparece — e quase ninguém olha.</p>
+            </li>
+            <li class="diff reveal" data-reveal data-delay="0.4">
+              <span class="diff__num">06</span>
+              <h4>Responsabilidade única</h4>
+              <p>Um contrato, um interlocutor, um SLA. Se algo sair do plano, a conta de resolver é nossa — não sua.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         03 — SERVIÇOS
+         ============================================================ -->
+    <section class="section section--services" id="servicos">
+      <div class="container">
+        <header class="section__head section__head--split">
+          <div>
+            <p class="section__num">02</p>
+            <h2 class="section__title" data-split>
+              <span class="line">Cinco frentes.</span>
+              <span class="line">Uma <em>única</em> operação.</span>
+            </h2>
+          </div>
+          <p class="section__lead reveal" data-reveal>
+            Você pode contratar uma frente isolada ou entregar toda a operação para o nosso
+            time. Na prática, quem começa por uma acaba migrando tudo — porque o ganho está
+            justamente em ninguém poder empurrar a responsabilidade para o vizinho.
+          </p>
+        </header>
+      </div>
+
+      <div class="services">
+        <article class="service" data-service>
+          <div class="service__body container">
+            <span class="service__index">S/01</span>
+            <div class="service__main">
+              <h3 class="service__title">Gestão de comércio exterior</h3>
+              <p class="service__desc">
+                Assumimos a rotina inteira: cotações, negociação com fornecedor, câmbio,
+                licenças, seguro, follow-up de produção e controle de custo por embarque.
+                A sua equipe volta a cuidar de vender, não de rastrear e-mail em fuso horário alheio.
+              </p>
+              <p class="service__benefit"><strong>Benefício:</strong> até 70% menos horas internas gastas com operação e um custo por container que finalmente fecha com o orçado.</p>
+              <a class="service__cta" href="#contato" data-cursor="Falar"><span>Quero terceirizar minha operação</span><i aria-hidden="true">→</i></a>
+            </div>
+            <figure class="service__media media">
+              <img data-parallax="0.05" src="assets/img/gestao-comex-painel.jpg" alt="Painel de controle de embarques internacionais com indicadores de custo e prazo" loading="lazy" width="900" height="1100" />
+            </figure>
+          </div>
+        </article>
+
+        <article class="service" data-service>
+          <div class="service__body container">
+            <span class="service__index">S/02</span>
+            <div class="service__main">
+              <h3 class="service__title">Importação</h3>
+              <p class="service__desc">
+                Da busca e homologação do fornecedor à nacionalização. Inspeção pré-embarque,
+                classificação fiscal revisada, simulação de custo landed price antes de você
+                aprovar a compra — e não depois da fatura chegar.
+              </p>
+              <p class="service__benefit"><strong>Benefício:</strong> você decide comprar sabendo o custo final na sua prateleira, com margem calculada, não estimada.</p>
+              <a class="service__cta" href="#contato" data-cursor="Simular"><span>Simular minha importação</span><i aria-hidden="true">→</i></a>
+            </div>
+            <figure class="service__media media">
+              <img data-parallax="0.05" src="assets/img/fabrica-processo.jpg" alt="Linha de produção de fábrica fornecedora durante inspeção de qualidade" loading="lazy" width="900" height="1100" />
+            </figure>
+          </div>
+        </article>
+
+        <article class="service" data-service>
+          <div class="service__body container">
+            <span class="service__index">S/03</span>
+            <div class="service__main">
+              <h3 class="service__title">Exportação</h3>
+              <p class="service__desc">
+                Estruturamos a sua saída para o mundo: pesquisa de mercado, adequação de
+                embalagem e rotulagem, certificados de origem, habilitações, incentivos e
+                a papelada que costuma travar o primeiro embarque de quem nunca exportou.
+              </p>
+              <p class="service__benefit"><strong>Benefício:</strong> nova receita em moeda forte, com o primeiro embarque saindo em semanas — não em um ano de tentativa e erro.</p>
+              <a class="service__cta" href="#contato" data-cursor="Exportar"><span>Quero começar a exportar</span><i aria-hidden="true">→</i></a>
+            </div>
+            <figure class="service__media media">
+              <img data-parallax="0.05" src="assets/img/porto-exportacao.jpg" alt="Contêineres de exportação sendo carregados em navio no porto" loading="lazy" width="900" height="1100" />
+            </figure>
+          </div>
+        </article>
+
+        <article class="service" data-service>
+          <div class="service__body container">
+            <span class="service__index">S/04</span>
+            <div class="service__main">
+              <h3 class="service__title">Logística internacional</h3>
+              <p class="service__desc">
+                Marítimo, aéreo, rodoviário e multimodal com contratos negociados em volume.
+                Escolhemos o modal pelo seu calendário de vendas, não pela conveniência do
+                agente — e monitoramos cada etapa até a doca de destino.
+              </p>
+              <p class="service__benefit"><strong>Benefício:</strong> frete competitivo com espaço garantido em alta temporada e ETA que você pode prometer ao seu cliente.</p>
+              <a class="service__cta" href="#contato" data-cursor="Cotar"><span>Cotar meu frete internacional</span><i aria-hidden="true">→</i></a>
+            </div>
+            <figure class="service__media media">
+              <img data-parallax="0.05" src="assets/img/logistica-terminal.jpg" alt="Terminal logístico com caminhões e contêineres em movimento ao amanhecer" loading="lazy" width="900" height="1100" />
+            </figure>
+          </div>
+        </article>
+
+        <article class="service" data-service>
+          <div class="service__body container">
+            <span class="service__index">S/05</span>
+            <div class="service__main">
+              <h3 class="service__title">Desembaraço aduaneiro</h3>
+              <p class="service__desc">
+                Equipe própria de despacho, documentação conferida antes da chegada e
+                relacionamento diário com os terminais. Quando algo cai em canal amarelo ou
+                vermelho, já sabemos o que fazer — e você é avisado no mesmo dia.
+              </p>
+              <p class="service__benefit"><strong>Benefício:</strong> menos dias de armazenagem e demurrage, que é onde o lucro do embarque costuma evaporar em silêncio.</p>
+              <a class="service__cta" href="#contato" data-cursor="Resolver"><span>Preciso destravar uma carga</span><i aria-hidden="true">→</i></a>
+            </div>
+            <figure class="service__media media">
+              <img data-parallax="0.05" src="assets/img/inspecao-carga.jpg" alt="Conferência e inspeção de carga em recinto alfandegado" loading="lazy" width="900" height="1100" />
+            </figure>
+          </div>
+        </article>
+
+        <article class="service" data-service>
+          <div class="service__body container">
+            <span class="service__index">S/06</span>
+            <div class="service__main">
+              <h3 class="service__title">Consultoria estratégica</h3>
+              <p class="service__desc">
+                Diagnóstico tributário e logístico da sua operação atual: revisão de NCM,
+                regimes especiais, drawback, ex-tarifário, acordos comerciais e desenho de
+                rota. É a frente que costuma se pagar antes do terceiro embarque.
+              </p>
+              <p class="service__benefit"><strong>Benefício:</strong> economia recorrente em cada operação futura, com relatório que a sua contabilidade e o seu jurídico conseguem auditar.</p>
+              <a class="service__cta" href="#contato" data-cursor="Diagnóstico"><span>Quero um diagnóstico da minha operação</span><i aria-hidden="true">→</i></a>
+            </div>
+            <figure class="service__media media">
+              <img data-parallax="0.05" src="assets/img/reuniao-estrategia.jpg" alt="Reunião de estratégia entre consultores e diretoria de indústria" loading="lazy" width="900" height="1100" />
+            </figure>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         04 — PROCESSO
+         ============================================================ -->
+    <section class="section section--process" id="processo">
+      <div class="container">
+        <header class="section__head section__head--split">
+          <div>
+            <p class="section__num">03</p>
+            <h2 class="section__title" data-split>
+              <span class="line">O Método</span>
+              <span class="line"><em>ACELERO™</em></span>
+            </h2>
+          </div>
+          <p class="section__lead reveal" data-reveal>
+            Seis etapas, cada uma com entregável, prazo e responsável definidos. Você sempre
+            sabe em que ponto está a sua operação e o que acontece a seguir — essa é a parte
+            que elimina o medo de importar.
+          </p>
+        </header>
+
+        <ol class="timeline">
+          <li class="step reveal" data-reveal>
+            <div class="step__marker"><span>01</span></div>
+            <div class="step__content">
+              <p class="step__time">Dias 1–2</p>
+              <h3>Diagnóstico &amp; mapa de risco</h3>
+              <p>Analisamos produto, NCM, volume, sazonalidade, fornecedores e histórico de custo. Você recebe um mapa com os pontos de perda de dinheiro e de risco aduaneiro da operação atual.</p>
+              <p class="step__out"><em>Entregável:</em> relatório de diagnóstico + simulação de landed cost.</p>
+            </div>
+          </li>
+          <li class="step reveal" data-reveal>
+            <div class="step__marker"><span>02</span></div>
+            <div class="step__content">
+              <p class="step__time">Dias 3–7</p>
+              <h3>Desenho da rota e da estrutura</h3>
+              <p>Definimos modal, incoterm, regime tributário, seguro e cronograma. Se houver habilitação de RADAR, licença ou certificação pendente, cuidamos disso agora — antes de qualquer compromisso com o fornecedor.</p>
+              <p class="step__out"><em>Entregável:</em> plano operacional com custo-alvo e prazo-alvo.</p>
+            </div>
+          </li>
+          <li class="step reveal" data-reveal>
+            <div class="step__marker"><span>03</span></div>
+            <div class="step__content">
+              <p class="step__time">Semanas 2–4</p>
+              <h3>Fornecedor homologado e pedido firmado</h3>
+              <p>Auditoria documental, checagem de capacidade produtiva, negociação de condições e contrato. Nada de "achamos que é confiável": inspeção física antes do pagamento final.</p>
+              <p class="step__out"><em>Entregável:</em> dossiê do fornecedor + pedido com termos protegidos.</p>
+            </div>
+          </li>
+          <li class="step reveal" data-reveal>
+            <div class="step__marker"><span>04</span></div>
+            <div class="step__content">
+              <p class="step__time">Durante a produção</p>
+              <h3>Follow-up e inspeção pré-embarque</h3>
+              <p>Acompanhamos a linha de produção, conferimos quantidade, especificação e embalagem, e liberamos o embarque só depois do laudo. Divergência encontrada na origem custa uma fração do que custa no Brasil.</p>
+              <p class="step__out"><em>Entregável:</em> relatório de inspeção com fotos e laudo de conformidade.</p>
+            </div>
+          </li>
+          <li class="step reveal" data-reveal>
+            <div class="step__marker"><span>05</span></div>
+            <div class="step__content">
+              <p class="step__time">Trânsito internacional</p>
+              <h3>Embarque monitorado em tempo real</h3>
+              <p>Booking, documentação, seguro e rastreamento. Você acompanha pelo painel e recebe alerta proativo em qualquer desvio de rota, atraso de navio ou mudança de janela portuária.</p>
+              <p class="step__out"><em>Entregável:</em> acesso à torre de controle + alertas automáticos.</p>
+            </div>
+          </li>
+          <li class="step reveal" data-reveal>
+            <div class="step__marker"><span>06</span></div>
+            <div class="step__content">
+              <p class="step__time">Chegada &amp; entrega</p>
+              <h3>Desembaraço e entrega na sua doca</h3>
+              <p>Registro antecipado, desembaraço, liberação e transporte final. Fechamos com o custo real do embarque comparado ao orçado — para que a próxima operação seja ainda mais precisa.</p>
+              <p class="step__out"><em>Entregável:</em> carga na sua doca + relatório de fechamento financeiro.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="process__cta reveal" data-reveal>
+          <p>Quer ver o método aplicado ao <strong>seu</strong> produto e à sua NCM?</p>
+          <a href="#contato" class="btn btn--accent" data-cursor="Agendar"><span>Agendar diagnóstico gratuito</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         05 — RESULTADOS (números)
+         ============================================================ -->
+    <section class="section section--stats" id="resultados">
+      <div class="stats__bg" aria-hidden="true" data-parallax="0.12">
+        <img src="assets/img/mapa-rotas-comerciais.jpg" alt="" loading="lazy" width="1920" height="1080" />
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <p class="section__num">04</p>
+          <h2 class="section__title" data-split>
+            <span class="line">Resultado não é promessa.</span>
+            <span class="line">É <em>número auditado.</em></span>
+          </h2>
+        </header>
+
+        <ul class="stats">
+          <li class="stat reveal" data-reveal>
+            <span class="stat__value" data-count="1900" data-prefix="+">0</span>
+            <p class="stat__label">Embarques gerenciados desde 2016</p>
+          </li>
+          <li class="stat reveal" data-reveal data-delay="0.1">
+            <span class="stat__value" data-count="27" data-suffix="%">0</span>
+            <p class="stat__label">Redução média de custo logístico no primeiro ano</p>
+          </li>
+          <li class="stat reveal" data-reveal data-delay="0.2">
+            <span class="stat__value" data-count="98.4" data-suffix="%" data-decimals="1">0</span>
+            <p class="stat__label">Cargas liberadas em canal verde</p>
+          </li>
+          <li class="stat reveal" data-reveal data-delay="0.3">
+            <span class="stat__value" data-count="11" data-suffix=" dias">0</span>
+            <p class="stat__label">A menos, em média, no ciclo pedido → doca</p>
+          </li>
+          <li class="stat reveal" data-reveal data-delay="0.4">
+            <span class="stat__value" data-count="32">0</span>
+            <p class="stat__label">Países de origem e destino operados</p>
+          </li>
+          <li class="stat reveal" data-reveal data-delay="0.5">
+            <span class="stat__value" data-count="94" data-suffix="%">0</span>
+            <p class="stat__label">Dos clientes seguem conosco após 24 meses</p>
+          </li>
+        </ul>
+        <p class="stats__note reveal" data-reveal>
+          Indicadores consolidados da carteira ativa. Na reunião de diagnóstico, mostramos a
+          memória de cálculo — número sem origem não vale nada.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         06 — CASES & DEPOIMENTOS
+         ============================================================ -->
+    <section class="section section--cases" id="cases">
+      <div class="container">
+        <header class="section__head section__head--split">
+          <div>
+            <p class="section__num">05</p>
+            <h2 class="section__title" data-split>
+              <span class="line">Cases &amp;</span>
+              <span class="line"><em>provas</em> de campo</span>
+            </h2>
+          </div>
+          <p class="section__lead reveal" data-reveal>
+            Empresas reais, com nomes preservados por acordo de confidencialidade. Os números
+            abaixo são de operações auditadas em conjunto com o time financeiro de cada cliente.
+          </p>
+        </header>
+
+        <div class="cases">
+          <article class="case reveal" data-reveal>
+            <figure class="case__media media">
+              <img src="assets/img/case-industria-autopecas.jpg" alt="Galpão de indústria de autopeças recebendo contêiner importado" loading="lazy" width="900" height="700" />
+            </figure>
+            <div class="case__body">
+              <p class="case__tag">Indústria de autopeças · SP</p>
+              <h3>De 61 para 38 dias no ciclo de reposição</h3>
+              <p>A empresa perdia venda por ruptura de estoque e pagava aéreo emergencial quase todo mês. Reestruturamos o mix de modais, criamos calendário de embarques consolidados e antecipamos o registro aduaneiro.</p>
+              <ul class="case__kpis">
+                <li><strong>-23 dias</strong><span>no ciclo total</span></li>
+                <li><strong>-31%</strong><span>em custo logístico</span></li>
+                <li><strong>0</strong><span>fretes aéreos emergenciais</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="case reveal" data-reveal data-delay="0.1">
+            <figure class="case__media media">
+              <img src="assets/img/case-ecommerce-centro-distribuicao.jpg" alt="Centro de distribuição de e-commerce com esteira e caixas" loading="lazy" width="900" height="700" />
+            </figure>
+            <div class="case__body">
+              <p class="case__tag">E-commerce de eletrônicos · SC</p>
+              <h3>R$ 1,4 milhão recuperados em revisão tributária</h3>
+              <p>Três NCMs estavam classificadas de forma conservadora havia quatro anos. Refizemos o enquadramento com parecer técnico, aplicamos ex-tarifário em uma linha e reabrimos a operação com o custo correto.</p>
+              <ul class="case__kpis">
+                <li><strong>R$ 1,4 mi</strong><span>de economia acumulada</span></li>
+                <li><strong>-9 p.p.</strong><span>de carga tributária efetiva</span></li>
+                <li><strong>4 meses</strong><span>para o retorno total</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="case reveal" data-reveal data-delay="0.2">
+            <figure class="case__media media">
+              <img src="assets/img/case-agro-exportacao.jpg" alt="Carga agrícola sendo preparada para exportação em terminal" loading="lazy" width="900" height="700" />
+            </figure>
+            <div class="case__body">
+              <p class="case__tag">Alimentos &amp; agro · PR</p>
+              <h3>Primeira exportação em 74 dias, para 3 países</h3>
+              <p>Cliente nunca havia exportado. Cuidamos de habilitação, certificados sanitários, adequação de rótulo, contrato internacional e do primeiro embarque — com o comprador pagando por carta de crédito.</p>
+              <ul class="case__kpis">
+                <li><strong>3 países</strong><span>no primeiro semestre</span></li>
+                <li><strong>+18%</strong><span>de margem vs. mercado interno</span></li>
+                <li><strong>100%</strong><span>dos embarques no prazo</span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <!-- Depoimentos -->
+        <div class="testimonials" data-testimonials>
+          <div class="testimonials__head reveal" data-reveal>
+            <h3>O que dizem quem já opera com a gente</h3>
+            <div class="testimonials__nav">
+              <button class="tnav" data-t-prev aria-label="Depoimento anterior">←</button>
+              <button class="tnav" data-t-next aria-label="Próximo depoimento">→</button>
+            </div>
+          </div>
+
+          <div class="testimonials__viewport">
+            <ul class="testimonials__track" data-t-track>
+              <li class="tcard" data-t-slide>
+                <blockquote>
+                  <p>“A diferença não foi o frete mais barato. Foi parar de descobrir problema depois que ele já tinha virado custo. Hoje eu sei na segunda-feira o que vai acontecer no mês inteiro.”</p>
+                </blockquote>
+                <footer>
+                  <span class="tcard__avatar" aria-hidden="true">MR</span>
+                  <div><strong>Marcos R.</strong><span>Diretor industrial · autopeças</span></div>
+                </footer>
+              </li>
+              <li class="tcard" data-t-slide>
+                <blockquote>
+                  <p>“Já tínhamos trabalhado com três despachantes. O que mudou aqui foi ter uma pessoa que entende do meu produto e responde por ele. Nunca mais fiquei no meio de uma discussão entre agente e terminal.”</p>
+                </blockquote>
+                <footer>
+                  <span class="tcard__avatar" aria-hidden="true">CL</span>
+                  <div><strong>Carolina L.</strong><span>Sócia · e-commerce de eletrônicos</span></div>
+                </footer>
+              </li>
+              <li class="tcard" data-t-slide>
+                <blockquote>
+                  <p>“Achávamos que exportar era coisa para empresa grande. Em pouco mais de dois meses estávamos embarcando. A parte burocrática, que me travava, simplesmente deixou de ser um problema meu.”</p>
+                </blockquote>
+                <footer>
+                  <span class="tcard__avatar" aria-hidden="true">JP</span>
+                  <div><strong>João P.</strong><span>CEO · indústria de alimentos</span></div>
+                </footer>
+              </li>
+              <li class="tcard" data-t-slide>
+                <blockquote>
+                  <p>“O diagnóstico apontou uma classificação fiscal errada que a gente carregava há anos. Só isso já pagou o contrato de um ano inteiro. O resto virou lucro.”</p>
+                </blockquote>
+                <footer>
+                  <span class="tcard__avatar" aria-hidden="true">AF</span>
+                  <div><strong>Andréa F.</strong><span>CFO · equipamentos médicos</span></div>
+                </footer>
+              </li>
+            </ul>
+          </div>
+          <div class="testimonials__dots" data-t-dots aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         07 — PROPÓSITO
+         ============================================================ -->
+    <section class="section section--purpose" id="proposito">
+      <div class="purpose__media" data-parallax="0.15">
+        <video class="purpose__video" autoplay muted loop playsinline preload="none"
+               poster="assets/img/porto-noite.jpg">
+          <source src="assets/video/linha-producao.mp4" type="video/mp4" />
+        </video>
+        <div class="purpose__veil" aria-hidden="true"></div>
+      </div>
+      <div class="container purpose__content">
+        <p class="section__num">06</p>
+        <h2 class="section__title section__title--xl" data-split>
+          <span class="line">Toda empresa brasileira</span>
+          <span class="line">deveria conseguir competir</span>
+          <span class="line">com o <em>mundo inteiro.</em></span>
+        </h2>
+        <div class="purpose__text reveal" data-reveal>
+          <p>
+            O comércio exterior no Brasil foi construído para ser difícil. Uma linguagem
+            própria, uma burocracia que muda sem aviso, e uma cadeia de intermediários em que
+            quase ninguém tem incentivo para te dizer a verdade sobre custo e prazo.
+          </p>
+          <p>
+            O resultado é que empresas excelentes desistem de importar melhor, ou nunca
+            experimentam vender lá fora. Perdem margem para concorrentes que não são
+            melhores — apenas têm uma operação internacional mais organizada.
+          </p>
+          <p>
+            <strong>Existimos para apagar essa desvantagem.</strong> Cada operação que
+            simplificamos é uma empresa que consegue crescer sem trocar previsibilidade por
+            oportunidade. Esse é o impacto que perseguimos: no longo prazo, queremos que
+            importar e exportar seja tão banal quanto emitir uma nota fiscal.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         08 — OFERTA / GARANTIA
+         ============================================================ -->
+    <section class="section section--offer" id="garantia">
+      <div class="container">
+        <header class="section__head">
+          <p class="section__num">07</p>
+          <h2 class="section__title" data-split>
+            <span class="line">O risco de tentar</span>
+            <span class="line">é <em>nosso.</em> O ganho</span>
+            <span class="line">é seu.</span>
+          </h2>
+        </header>
+
+        <div class="offer">
+          <div class="offer__main reveal" data-reveal>
+            <p class="offer__kicker">Diagnóstico Acelero — sem custo</p>
+            <h3 class="offer__promise">
+              Em 45 minutos, mostramos exatamente onde a sua operação perde dinheiro —
+              e quanto dá para recuperar já no próximo embarque.
+            </h3>
+            <p class="offer__desc">
+              Não é uma reunião comercial disfarçada. É uma análise técnica da sua operação
+              atual, feita por um especialista sênior, com número na tela. Se depois disso
+              você quiser fazer tudo sozinho, o material é seu, sem contrapartida.
+            </p>
+
+            <ul class="offer__list">
+              <li><span>✓</span> Revisão da sua classificação fiscal (NCM) e dos regimes aplicáveis</li>
+              <li><span>✓</span> Simulação de landed cost do seu principal produto</li>
+              <li><span>✓</span> Comparativo de modais e rotas com prazo realista</li>
+              <li><span>✓</span> Mapa dos três maiores riscos aduaneiros da operação atual</li>
+              <li><span>✓</span> Plano de ação priorizado por retorno financeiro</li>
+            </ul>
+
+            <div class="offer__cta">
+              <a href="#contato" class="btn btn--accent btn--lg" data-cursor="Agendar">
+                <span>Agendar meu diagnóstico gratuito</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p class="offer__scarcity">Atendemos um número limitado de novas operações por mês para manter o padrão de acompanhamento. Vagas do ciclo atual: <strong>4</strong>.</p>
+            </div>
+          </div>
+
+          <aside class="offer__side">
+            <div class="guarantee reveal" data-reveal>
+              <span class="guarantee__seal" aria-hidden="true">
+                <svg viewBox="0 0 48 48" width="34" height="34"><path d="M24 4l17 7v12c0 11-7.3 18.6-17 21-9.7-2.4-17-10-17-21V11z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 24l6 6 11-12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <h4>Garantia de prazo acordado</h4>
+              <p>Definimos junto com você um SLA de ciclo por embarque. Se o atraso for causado por falha nossa, a taxa de gestão daquele embarque não é cobrada. Simples assim, em contrato.</p>
+            </div>
+            <div class="guarantee reveal" data-reveal data-delay="0.1">
+              <span class="guarantee__seal" aria-hidden="true">
+                <svg viewBox="0 0 48 48" width="34" height="34"><path d="M24 6v36M15 14h13a6 6 0 010 12H15h14a6 6 0 010 12H14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <h4>Transparência de custo</h4>
+              <p>Você recebe a fatura original de cada fornecedor da cadeia. Nossa remuneração é declarada e fixa — não ganhamos comissão embutida em frete, câmbio ou armazenagem.</p>
+            </div>
+            <div class="guarantee reveal" data-reveal data-delay="0.2">
+              <span class="guarantee__seal" aria-hidden="true">
+                <svg viewBox="0 0 48 48" width="34" height="34"><circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M24 13v11l8 5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+              </span>
+              <h4>Resposta em até 4 horas úteis</h4>
+              <p>Canal direto com o seu gerente de conta e com o time de aduana. Carga parada é problema que se resolve em horas, não em dias de e-mail sem resposta.</p>
+            </div>
+
+            <div class="bonus reveal" data-reveal data-delay="0.3">
+              <p class="bonus__label">Bônus para quem fecha no ciclo</p>
+              <ul>
+                <li><strong>Torre de controle digital</strong> — painel de acompanhamento sem custo adicional.</li>
+                <li><strong>Auditoria de 2 fornecedores</strong> — verificação documental e inspeção inicial.</li>
+                <li><strong>Playbook de comex</strong> — manual do processo aplicado à sua empresa, para o seu time interno.</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         09 — FAQ
+         ============================================================ -->
+    <section class="section section--faq" id="faq">
+      <div class="container">
+        <header class="section__head section__head--split">
+          <div>
+            <p class="section__num">08</p>
+            <h2 class="section__title" data-split>
+              <span class="line">Perguntas que</span>
+              <span class="line">todo mundo faz</span>
+              <span class="line"><em>antes de começar.</em></span>
+            </h2>
+          </div>
+          <p class="section__lead reveal" data-reveal>
+            Se a sua dúvida não estiver aqui, mande no WhatsApp. Respondemos com a resposta
+            técnica, mesmo quando ela não favorece a venda.
+          </p>
+        </header>
+
+        <div class="faq" data-faq>
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>Minha empresa nunca importou. Dá para começar do zero?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>Dá, e é o cenário mais comum entre os nossos clientes novos. Cuidamos da habilitação no RADAR/Siscomex, do enquadramento tributário, da escolha do fornecedor e do primeiro embarque inteiro. Você participa das decisões comerciais; a parte técnica e burocrática fica com a gente.</p></div>
+          </details>
+
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>Qual o volume mínimo para valer a pena?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>Não trabalhamos com volume mínimo rígido, e sim com viabilidade. Operações a partir de aproximadamente um contêiner por trimestre, ou cargas aéreas recorrentes, já costumam ter ganho suficiente para justificar a estrutura. No diagnóstico dizemos com clareza se ainda não é o seu momento — perder tempo com uma operação que não fecha a conta é ruim para os dois lados.</p></div>
+          </details>
+
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>Como funciona a cobrança de vocês?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>Combinamos previamente uma taxa de gestão por embarque ou um fee mensal, dependendo do volume. Os custos de terceiros — frete, seguro, armazenagem, tributos, taxas portuárias — são repassados com a fatura original em anexo. Não trabalhamos com comissão embutida: se ganhamos algo de um parceiro, isso é declarado e abatido.</p></div>
+          </details>
+
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>Vocês garantem o prazo de entrega?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>Garantimos o SLA das etapas sob nossa gestão, definido em contrato. Greve portuária, evento climático ou fiscalização extraordinária estão fora do controle de qualquer operador — mas nesses casos você é avisado imediatamente, com plano B na mesa. Quando o atraso decorre de falha nossa, a taxa de gestão daquele embarque não é cobrada.</p></div>
+          </details>
+
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>E se a minha carga cair em canal amarelo ou vermelho?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>Faz parte da operação e não é motivo para pânico. Nossa documentação é conferida antes da chegada justamente para reduzir essa chance — e, quando acontece, o time de aduana assume a interlocução com a Receita e com o terminal no mesmo dia. Hoje, 98,4% das nossas cargas são liberadas em canal verde.</p></div>
+          </details>
+
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>Vocês trabalham com fornecedores da China?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>Sim, e também com Índia, Vietnã, Turquia, Estados Unidos, México e União Europeia. Temos parceiros de inspeção na origem, o que significa que a conformidade do seu produto é verificada antes do embarque — não quando o contêiner já está no Brasil.</p></div>
+          </details>
+
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>Já tenho despachante. Preciso trocar tudo?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>Não. Muitos clientes começam apenas pela consultoria estratégica ou pela logística, mantendo o despachante atual. Se em algum momento fizer sentido consolidar, a transição é feita por nós, sem interromper embarques em curso.</p></div>
+          </details>
+
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>Como acompanho minhas operações no dia a dia?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>Pela torre de controle digital: status de cada embarque, documentos, custo acumulado e ETA atualizada, acessível pelo computador ou pelo celular. Além disso, você tem canal direto com o gerente de conta, com resposta em até 4 horas úteis.</p></div>
+          </details>
+
+          <details class="faq__item reveal" data-reveal>
+            <summary><span>O diagnóstico é mesmo gratuito?</span><i aria-hidden="true"></i></summary>
+            <div class="faq__answer"><p>É. Investimos essas 45 minutos porque, na prática, é a nossa melhor demonstração de competência. Você sai com o material em mãos, tendo contratado ou não. O que pedimos em troca é que a pessoa na reunião tenha acesso aos números da operação — sem isso, a análise vira suposição.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         10 — CONTATO / CTA FINAL
+         ============================================================ -->
+    <section class="section section--contact" id="contato">
+      <div class="container">
+        <div class="contact">
+          <div class="contact__intro">
+            <p class="section__num">09</p>
+            <h2 class="section__title" data-split>
+              <span class="line">Vamos calcular</span>
+              <span class="line">quanto a sua operação</span>
+              <span class="line">pode <em>economizar?</em></span>
+            </h2>
+            <p class="contact__lead reveal" data-reveal>
+              Preencha o formulário e um especialista sênior — não um atendente de triagem —
+              entra em contato em até 1 dia útil para agendar o diagnóstico. Se preferir,
+              chame direto no WhatsApp.
+            </p>
+
+            <ul class="contact__channels reveal" data-reveal>
+              <li>
+                <a href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20quero%20agendar%20o%20diagn%C3%B3stico%20da%20minha%20opera%C3%A7%C3%A3o%20de%20comex." target="_blank" rel="noopener" data-cursor="WhatsApp">
+                  <span class="ch__ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.05L2 22l5.1-1.33A10 10 0 1012 2m0 1.8a8.2 8.2 0 11-4.2 15.24l-.3-.18-3 .78.8-2.92-.2-.31A8.2 8.2 0 0112 3.8m-3.2 4c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02s.87 2.34.99 2.5c.12.16 1.7 2.7 4.2 3.68 2.08.82 2.5.66 2.95.62.45-.04 1.45-.59 1.66-1.17.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.96-1.21-.72-.64-1.21-1.44-1.35-1.68-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.33-.75-1.82-.19-.46-.39-.4-.53-.41z"/></svg>
+                  </span>
+                  <span><strong>WhatsApp</strong><em>Resposta em minutos, em horário comercial</em></span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:contato@acelerocomex.com.br?subject=Diagn%C3%B3stico%20de%20opera%C3%A7%C3%A3o%20de%20comex" data-cursor="E-mail">
+                  <span class="ch__ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 6.5h18v11H3zM3 7l9 6 9-6"/></svg>
+                  </span>
+                  <span><strong>contato@acelerocomex.com.br</strong><em>Para propostas, RFPs e documentação</em></span>
+                </a>
+              </li>
+              <li>
+                <a href="#contato" data-cursor="Agenda">
+                  <span class="ch__ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M4 5.5h16v15H4zM4 10h16M8.5 3v4M15.5 3v4"/></svg>
+                  </span>
+                  <span><strong>Agenda aberta</strong><em>Escolha um horário de 45 min com um especialista</em></span>
+                </a>
+              </li>
+            </ul>
+
+            <div class="contact__reassure reveal" data-reveal>
+              <p><strong>Sem compromisso e sem custo.</strong> Você sai da reunião com o mapa da sua operação, tendo contratado ou não. Seus dados não são compartilhados com terceiros.</p>
+            </div>
+          </div>
+
+          <div class="contact__formwrap reveal" data-reveal>
+            <form class="form" id="contactForm" novalidate>
+              <p class="form__title">Solicitar análise da minha operação</p>
+
+              <div class="form__row">
+                <div class="field">
+                  <label for="nome">Nome completo *</label>
+                  <input type="text" id="nome" name="nome" required autocomplete="name" placeholder="Como podemos te chamar?" />
+                  <span class="field__error" data-error></span>
+                </div>
+                <div class="field">
+                  <label for="empresa">Empresa *</label>
+                  <input type="text" id="empresa" name="empresa" required autocomplete="organization" placeholder="Razão social ou nome fantasia" />
+                  <span class="field__error" data-error></span>
+                </div>
+              </div>
+
+              <div class="form__row">
+                <div class="field">
+                  <label for="email">E-mail corporativo *</label>
+                  <input type="email" id="email" name="email" required autocomplete="email" placeholder="voce@suaempresa.com.br" />
+                  <span class="field__error" data-error></span>
+                </div>
+                <div class="field">
+                  <label for="telefone">WhatsApp *</label>
+                  <input type="tel" id="telefone" name="telefone" required autocomplete="tel" placeholder="(00) 00000-0000" />
+                  <span class="field__error" data-error></span>
+                </div>
+              </div>
+
+              <div class="form__row">
+                <div class="field">
+                  <label for="interesse">Do que você precisa? *</label>
+                  <select id="interesse" name="interesse" required>
+                    <option value="">Selecione…</option>
+                    <option>Importar (já importo)</option>
+                    <option>Importar (nunca importei)</option>
+                    <option>Exportar</option>
+                    <option>Logística internacional / frete</option>
+                    <option>Desembaraço aduaneiro</option>
+                    <option>Consultoria e revisão tributária</option>
+                    <option>Destravar uma carga urgente</option>
+                  </select>
+                  <span class="field__error" data-error></span>
+                </div>
+                <div class="field">
+                  <label for="volume">Volume estimado</label>
+                  <select id="volume" name="volume">
+                    <option value="">Selecione…</option>
+                    <option>Ainda não sei estimar</option>
+                    <option>Até 2 contêineres/ano</option>
+                    <option>3 a 12 contêineres/ano</option>
+                    <option>Mais de 12 contêineres/ano</option>
+                    <option>Somente carga aérea / courier</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="mensagem">Conte rapidamente sobre a operação</label>
+                <textarea id="mensagem" name="mensagem" rows="4" placeholder="Produto, país de origem/destino, prazo desejado, principal dificuldade hoje…"></textarea>
+              </div>
+
+              <label class="checkbox">
+                <input type="checkbox" id="consent" name="consent" required />
+                <span>Autorizo o contato da ACELERO COMEX e concordo com a <a href="#" >Política de Privacidade</a>. *</span>
+              </label>
+              <span class="field__error" data-error id="consentError"></span>
+
+              <button type="submit" class="btn btn--accent btn--block btn--lg" data-cursor="Enviar">
+                <span>Solicitar minha análise gratuita</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+
+              <p class="form__note">Resposta em até 1 dia útil. Nada de spam — só o retorno do especialista.</p>
+              <p class="form__feedback" id="formFeedback" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__cta">
+        <h2 class="footer__big" data-split>
+          <span class="line">Sua próxima</span>
+          <span class="line">importação pode ser</span>
+          <span class="line">a <em>mais tranquila</em> de todas.</span>
+        </h2>
+        <a href="#contato" class="btn btn--accent btn--lg" data-cursor="Vamos?"><span>Falar com um especialista</span></a>
+      </div>
+
+      <div class="footer__grid">
+        <div class="footer__col footer__col--brand">
+          <a class="brand brand--footer" href="#hero">
+            <span class="brand__mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="26" height="26"><path d="M7 22 15 9l3.4 5.6H14l-2 3.4h8.2L23 22z" fill="currentColor"/></svg>
+            </span>
+            <span class="brand__text">ACELERO<em>COMEX</em></span>
+          </a>
+          <p>Gestão completa de comércio exterior para indústrias, e-commerces e importadores que não podem depender da sorte.</p>
+        </div>
+        <div class="footer__col">
+          <p class="footer__label">Serviços</p>
+          <a href="#servicos">Gestão de comércio exterior</a>
+          <a href="#servicos">Importação</a>
+          <a href="#servicos">Exportação</a>
+          <a href="#servicos">Logística internacional</a>
+          <a href="#servicos">Desembaraço aduaneiro</a>
+          <a href="#servicos">Consultoria estratégica</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__label">Empresa</p>
+          <a href="#sobre">Sobre a Acelero</a>
+          <a href="#processo">Método ACELERO™</a>
+          <a href="#cases">Cases</a>
+          <a href="#proposito">Nosso propósito</a>
+          <a href="#faq">Perguntas frequentes</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__label">Contato</p>
+          <a href="https://wa.me/5500000000000" target="_blank" rel="noopener">WhatsApp comercial</a>
+          <a href="mailto:contato@acelerocomex.com.br">contato@acelerocomex.com.br</a>
+          <p class="footer__addr">Santos · São Paulo · Itajaí<br />Seg. a sex., 8h30 às 18h30</p>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© <span id="year">2026</span> ACELERO COMEX. Todos os direitos reservados. CNPJ 00.000.000/0001-00.</p>
+        <p><a href="#">Política de Privacidade</a> · <a href="#">Termos de uso</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flutuante -->
+  <a class="wa-float" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20ACELERO%20COMEX." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.05L2 22l5.1-1.33A10 10 0 1012 2m0 1.8a8.2 8.2 0 11-4.2 15.24l-.3-.18-3 .78.8-2.92-.2-.31A8.2 8.2 0 0112 3.8m-3.2 4c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02s.87 2.34.99 2.5c.12.16 1.7 2.7 4.2 3.68 2.08.82 2.5.66 2.95.62.45-.04 1.45-.59 1.66-1.17.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.96-1.21-.72-.64-1.21-1.44-1.35-1.68-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.33-.75-1.82-.19-.46-.39-.4-.53-.41z"/></svg>
+    <span>Falar agora</span>
+  </a>
+
+  <!-- Botão voltar ao topo -->
+  <button class="to-top" id="toTop" aria-label="Voltar ao topo">↑</button>
+
+  <!-- GSAP + ScrollTrigger (animações de entrada, scroll e parallax) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
