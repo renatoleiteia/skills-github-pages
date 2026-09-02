@@ -12,26 +12,29 @@
 Cada imagem tem versão `.webp` (30–45% menor) servida via `<picture>`, com o
 `.jpg` como reserva. Nenhuma passa de 280 KB.
 
-## Pendentes — os quatro slots preparados
+## Em uso — as quatro que faltavam (commit e6a4878)
 
-O `index.html` já tem os quatro slots, com `<picture>` (webp + jpg) e o
-tratamento visual pronto. Enquanto o arquivo não existir, o `main.js` sonda a
-URL na carga e remove a figura inteira — nada de imagem quebrada nem de espaço
-vazio na grade.
-
-| Nome do arquivo | Onde entra | Tratamento |
+| Arquivo | Onde entra | Origem |
 |---|---|---|
-| `transporte.jpg` + `.webp` | Processo, etapa **04 Transporte** | dessaturado, escurecido |
-| `entrega.jpg` + `.webp` | Processo, etapa **05 Entrega** | dessaturado, escurecido |
-| `prateleiras-estoque.jpg` + `.webp` | Fundo da seção **04 Resultados** | duotone azul + degradê de leitura |
-| `risco-operacao.jpg` + `.webp` | Fundo da seção **07 Garantias** | duotone azul + degradê de leitura |
+| `transporte.jpg` + `.webp` (1060px) | Processo, etapa **04 Transporte** | porto visto de cima, navio saindo |
+| `entrega.jpg` + `.webp` (474px) | Processo, etapa **05 Entrega** | paletes filmados no galpão |
+| `prateleiras-estoque.jpg` + `.webp` (1488px) | Fundo da seção **04 Resultados** | corredor de prateleiras, duotone azul |
+| `risco-operacao.jpg` + `.webp` (1052px) | Fundo da seção **07 Garantias** | porto ao entardecer, duotone azul |
 
-Para gerar os arquivos com os nomes e tamanhos certos, rode
-`scripts/preparar_imagens.bat` apontando para a pasta onde você baixou as
-fotos — ele renomeia, redimensiona e gera o `.webp` de cada uma.
+A foto do corredor entra **com a logo ACELERO COMEX** gravada, conforme
+pedido do Renato. Sob o duotone ela lê como marca d'água discreta no piso.
 
-**Decisão registrada:** a foto do corredor de prateleiras entra **com a logo
-ACELERO COMEX** gravada na imagem, conforme pedido do Renato.
+**Atenção à resolução de `entrega.jpg`:** o original tem 474px de largura e o
+slot exibe 476px. Em tela retina isso aparece com metade da nitidez das
+outras. Se houver um original maior (a partir de 1000px), vale substituir.
+
+## Guardados em `originais/`
+
+Os arquivos enviados que não foram usados diretamente, mantidos para consulta:
+`PRATELEIRAS.jpg` e `risco.jpg` (fontes das duas placas, antes do tratamento),
+`contanner.jpg` e `navio com contaner.jpg` (portos, reserva), `inspeção.jpg`
+(mesma cena já em uso, em resolução menor), `acelero comex.jpg` e
+`acelero_comex-removebg-preview.png` (arte da logo, ainda não aplicada).
 
 ## Não incluídas
 
