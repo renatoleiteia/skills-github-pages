@@ -460,7 +460,7 @@
     const half = track.scrollWidth / 2;
     let x = 0;
     (function run() {
-      x -= .4;
+      x -= .28;
       if (Math.abs(x) >= half) x = 0;
       track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
       requestAnimationFrame(run);
@@ -671,9 +671,9 @@
   /* ---------- BOOT ---------- */
   function init() {
     prepSplit();
-    createGlobe($('#globe'),         { scale: .40, speed: .00049, tilt: -.34, cx: .68, cy: .48 });
-    createGlobe($('#purposeCanvas'), { scale: .44, speed: .00028, tilt: -.20, cx: .82, cy: .48 });
-    createGlobe($('#contactCanvas'), { scale: .48, speed: .00035, tilt: -.42, cx: .30, cy: .45, rotas: false });
+    createGlobe($('#globe'),         { scale: .40, speed: .000343, tilt: -.34, cx: .68, cy: .48 });
+    createGlobe($('#purposeCanvas'), { scale: .44, speed: .000196, tilt: -.20, cx: .82, cy: .48 });
+    createGlobe($('#contactCanvas'), { scale: .48, speed: .000245, tilt: -.42, cx: .30, cy: .45, rotas: false });
     loader();
     cursor();
     header();
