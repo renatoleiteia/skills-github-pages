@@ -12,7 +12,28 @@
 Cada imagem tem versão `.webp` (30–45% menor) servida via `<picture>`, com o
 `.jpg` como reserva. Nenhuma passa de 280 KB.
 
-## Faltando
+## Pendentes — os quatro slots preparados
+
+O `index.html` já tem os quatro slots, com `<picture>` (webp + jpg) e o
+tratamento visual pronto. Enquanto o arquivo não existir, o `main.js` sonda a
+URL na carga e remove a figura inteira — nada de imagem quebrada nem de espaço
+vazio na grade.
+
+| Nome do arquivo | Onde entra | Tratamento |
+|---|---|---|
+| `transporte.jpg` + `.webp` | Processo, etapa **04 Transporte** | dessaturado, escurecido |
+| `entrega.jpg` + `.webp` | Processo, etapa **05 Entrega** | dessaturado, escurecido |
+| `prateleiras-estoque.jpg` + `.webp` | Fundo da seção **04 Resultados** | duotone azul + degradê de leitura |
+| `risco-operacao.jpg` + `.webp` | Fundo da seção **07 Garantias** | duotone azul + degradê de leitura |
+
+Para gerar os arquivos com os nomes e tamanhos certos, rode
+`scripts/preparar_imagens.bat` apontando para a pasta onde você baixou as
+fotos — ele renomeia, redimensiona e gera o `.webp` de cada uma.
+
+**Decisão registrada:** a foto do corredor de prateleiras entra **com a logo
+ACELERO COMEX** gravada na imagem, conforme pedido do Renato.
+
+## Não incluídas
 
 A 4ª imagem enviada (paleteira carregando contêiner ao pôr do sol) **não foi
 incluída**: ela traz um selo de coroa de banco de imagens no canto inferior

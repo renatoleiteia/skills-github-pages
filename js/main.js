@@ -576,11 +576,16 @@
      ------------------------------------------------------------------- */
   function slotsOpcionais() {
     $$('[data-opcional]').forEach(fig => {
-      const img = fig.tagName === 'IMG' ? fig : $('img', fig);
+      const img = $('img', fig);
       if (!img) return;
-      const remover = () => fig.remove();
-      img.addEventListener('error', remover);
-      if (img.complete && img.naturalWidth === 0) remover();
+      // Sondagem própria em vez de esperar o evento `error` da <img> da página:
+      // com loading="lazy" esse evento só dispararia quando o leitor chegasse
+      // perto, e até lá um slot vazio ficaria ocupando a grade. A sondagem
+      // resolve na carga; quando o arquivo existe, ela apenas aquece o cache
+      // e a carga preguiçosa sai de graça.
+      const sonda = new Image();
+      sonda.onerror = () => fig.remove();
+      sonda.src = img.getAttribute('src');
     });
   }
 
