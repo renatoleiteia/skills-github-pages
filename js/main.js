@@ -37,6 +37,16 @@
   if (GSAP && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
   else document.body.classList.add('no-gsap');
 
+  // Idioma corrente e as mensagens que o próprio JavaScript emite (validação
+  // do formulário). O padrão em português é o argumento; o dicionário só
+  // sobrescreve quando existe tradução.
+  let idiomaAtual = 'pt';
+  let reformatarNumeros = () => {};
+  const msg = (chave, padrao) => {
+    const x = (window.ACELERO_IDIOMAS_EXTRA || {})[idiomaAtual];
+    return (x && x.msg && x.msg[chave]) || padrao;
+  };
+
   /* ---------- 02. GLOBO DE ROTAS ---------------------------------------
      Esfera em arame desenhada por trigonometria — sem dados de mapa e sem
      imagem. Os pontos são portos reais; as rotas seguem o arco de círculo
@@ -351,7 +361,7 @@
       let cur = secs[0];
       secs.forEach(s => { if (s.getBoundingClientRect().top <= innerHeight * 0.4) cur = s; });
       if (cur) {
-        if (code)  code.textContent  = cur.dataset.chapter;
+        if (code)  code.textContent  = cur.dataset['chapter' + (idiomaAtual === 'pt' ? '' : idiomaAtual.charAt(0).toUpperCase() + idiomaAtual.slice(1))] || cur.dataset.chapter;
         if (coord) coord.textContent = cur.dataset.coord;
         navs.forEach(a => a.classList.toggle('act', a.getAttribute('href') === '#' + cur.id));
       }
@@ -486,13 +496,14 @@
       const target = parseFloat(el.dataset.count);
       const dec = parseInt(el.dataset.dec || '0', 10);
       const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
-      const fmt = v => pre + v.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
-      if (reduced) { el.textContent = fmt(target); return; }
+      const local = { pt: 'pt-BR', en: 'en-US', es: 'es-ES' }[idiomaAtual] || 'pt-BR';
+      const fmt = v => pre + v.toLocaleString(local, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
+      if (reduced) { el.textContent = fmt(target); el.dataset.pronto = '1'; return; }
       const t0 = performance.now(), dur = 1700;
       (function step(now) {
         const p = clamp((now - t0) / dur, 0, 1);
         el.textContent = fmt(target * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) requestAnimationFrame(step);
+        if (p < 1) requestAnimationFrame(step); else el.dataset.pronto = '1';
       })(t0);
     };
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -500,6 +511,9 @@
       run(e.target); io.unobserve(e.target);
     }), { threshold: .4 });
     ns.forEach(n => io.observe(n));
+    // Um contador já animado guarda o formato do idioma antigo; ao trocar,
+    // reescrevemos só os que terminaram.
+    reformatarNumeros = () => $$('[data-count][data-pronto]').forEach(run);
   }
 
   /* ---------- 11. DEPOIMENTOS ---------- */
@@ -612,18 +626,18 @@
 
     const valid = () => {
       let ok = true;
-      [['#nome', 'Informe o seu nome.'],
-       ['#empresa', 'Informe o nome da empresa.'],
-       ['#interesse', 'Selecione o que você precisa.']].forEach(([s, m]) => {
+      [['#nome', msg('nome', 'Informe o seu nome.')],
+       ['#empresa', msg('empresa', 'Informe o nome da empresa.')],
+       ['#interesse', msg('interesse', 'Selecione o que você precisa.')]].forEach(([s, m]) => {
         const el = $(s);
         if (!el.value.trim()) { setErr(el, m); ok = false; } else setErr(el, '');
       });
       const em = $('#email');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())) { setErr(em, 'Informe um e-mail válido.'); ok = false; } else setErr(em, '');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())) { setErr(em, msg('email', 'Informe um e-mail válido.')); ok = false; } else setErr(em, '');
       const tl = $('#telefone');
-      if (tl.value.replace(/\D/g, '').length < 10) { setErr(tl, 'Informe um WhatsApp com DDD.'); ok = false; } else setErr(tl, '');
+      if (tl.value.replace(/\D/g, '').length < 10) { setErr(tl, msg('telefone', 'Informe um WhatsApp com DDD.')); ok = false; } else setErr(tl, '');
       const cs = $('#consent'), ce = $('#consentError');
-      if (!cs.checked) { ce.textContent = 'É preciso autorizar o contato para enviar.'; ok = false; } else ce.textContent = '';
+      if (!cs.checked) { ce.textContent = msg('consent', 'É preciso autorizar o contato para enviar.'); ok = false; } else ce.textContent = '';
       return ok;
     };
 
@@ -632,7 +646,7 @@
       fb.textContent = ''; fb.className = 'form__fb';
 
       if (!valid()) {
-        fb.textContent = 'Confira os campos destacados acima.';
+        fb.textContent = msg('campos', 'Confira os campos destacados acima.');
         fb.classList.add('bad');
         const first = f.querySelector('.err input, .err select');
         if (first) first.focus();
@@ -642,7 +656,7 @@
       const btn = f.querySelector('button[type="submit"]');
       const span = btn.querySelector('span');
       const label = span.textContent;
-      btn.disabled = true; span.textContent = 'Enviando…';
+      btn.disabled = true; span.textContent = msg('enviando', 'Enviando…');
 
       const data = Object.fromEntries(new FormData(f).entries());
 
@@ -662,15 +676,109 @@
         await new Promise(r => setTimeout(r, 850));
 
         f.reset();
-        fb.textContent = 'Recebido. Um especialista entra em contato em até 1 dia útil.';
+        fb.textContent = msg('ok', 'Recebido. Um especialista entra em contato em até 1 dia útil.');
         fb.classList.add('ok');
       } catch (err) {
-        fb.textContent = 'Não conseguimos enviar agora. Chame no WhatsApp que resolvemos na hora.';
+        fb.textContent = msg('erro', 'Não conseguimos enviar agora. Chame no WhatsApp que resolvemos na hora.');
         fb.classList.add('bad');
       } finally {
         btn.disabled = false; span.textContent = label;
       }
     });
+  }
+
+  /* ---------- 15. IDIOMAS -------------------------------------------------
+     O português é o texto que está no HTML; inglês e espanhol vêm de
+     js/idiomas.js. Ao carregar, guardamos o original de cada elemento, então
+     voltar para PT é restaurar — não há dicionário português a manter.
+     ------------------------------------------------------------------- */
+  function idiomas() {
+    const raiz  = $('#lang');
+    const botao = $('#langBtn');
+    const lista = $('#langLista');
+    const rotulo = $('#langAtual');
+    const dic   = window.ACELERO_IDIOMAS || {};
+    const extra = window.ACELERO_IDIOMAS_EXTRA || {};
+    if (!raiz || !botao || !lista) return;
+
+    // Guarda o português como está no HTML.
+    const original = new Map();
+    $$('[data-i18n]').forEach(el => original.set(el, alvo(el).innerHTML));
+    const originalExtra = {
+      placeholders: {}, opcoes: {},
+      consentimento: $('.chk span') ? $('.chk span').innerHTML : ''
+    };
+    ['nome','empresa','email','telefone','mensagem'].forEach(id => {
+      const el = $('#' + id);
+      if (el) originalExtra.placeholders[id] = el.placeholder;
+    });
+    ['interesse','volume'].forEach(id => {
+      const el = $('#' + id);
+      if (el) originalExtra.opcoes[id] = $$('option', el).map(o => o.textContent);
+    });
+
+    // Numa linha de título já preparada para animar, o texto mora no <span>
+    // interno — escrever nele preserva o alvo que o GSAP está animando.
+    function alvo(el) {
+      return el.classList.contains('ln') && el.firstElementChild
+        ? el.firstElementChild
+        : el;
+    }
+
+    function aplicar(idioma) {
+      const t = dic[idioma];
+      $$('[data-i18n]').forEach(el => {
+        const chave = el.getAttribute('data-i18n');
+        const txt = t ? t[chave] : null;
+        alvo(el).innerHTML = txt != null ? txt : original.get(el);
+      });
+
+      const x = extra[idioma];
+      Object.keys(originalExtra.placeholders).forEach(id => {
+        const el = $('#' + id);
+        if (el) el.placeholder = x && x.placeholders[id] ? x.placeholders[id] : originalExtra.placeholders[id];
+      });
+      Object.keys(originalExtra.opcoes).forEach(id => {
+        const el = $('#' + id);
+        if (!el) return;
+        const textos = x && x.opcoes[id] ? x.opcoes[id] : originalExtra.opcoes[id];
+        $$('option', el).forEach((o, i) => { if (textos[i]) o.textContent = textos[i]; });
+      });
+      const consent = $('.chk span');
+      if (consent) consent.innerHTML = x && x.consentimento ? x.consentimento : originalExtra.consentimento;
+
+      idiomaAtual = idioma;
+      document.documentElement.lang = idioma === 'pt' ? 'pt-BR' : idioma;
+      if (rotulo) rotulo.textContent = idioma.toUpperCase();
+      reformatarNumeros();
+      $$('button[data-idioma]', lista).forEach(b =>
+        b.setAttribute('aria-selected', String(b.dataset.idioma === idioma)));
+      try { localStorage.setItem('acelero.idioma', idioma); } catch (e) { /* sem armazenamento: segue */ }
+      // O ScrollTrigger mede alturas; o texto traduzido muda o tamanho dos blocos.
+      if (GSAP && window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+
+    const abrir  = () => { lista.hidden = false; requestAnimationFrame(() => raiz.classList.add('aberto')); botao.setAttribute('aria-expanded', 'true'); };
+    const fechar = () => { raiz.classList.remove('aberto'); botao.setAttribute('aria-expanded', 'false'); setTimeout(() => { if (!raiz.classList.contains('aberto')) lista.hidden = true; }, 300); };
+
+    botao.addEventListener('click', e => {
+      e.stopPropagation();
+      raiz.classList.contains('aberto') ? fechar() : abrir();
+    });
+    $$('button[data-idioma]', lista).forEach(b =>
+      b.addEventListener('click', () => { aplicar(b.dataset.idioma); fechar(); }));
+    document.addEventListener('click', e => { if (!raiz.contains(e.target)) fechar(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') fechar(); });
+
+    // Escolha anterior; senão, o idioma do navegador; senão, português.
+    let inicial = 'pt';
+    try { inicial = localStorage.getItem('acelero.idioma') || ''; } catch (e) { inicial = ''; }
+    if (!inicial) {
+      const nav = (navigator.language || 'pt').slice(0, 2).toLowerCase();
+      inicial = (nav === 'en' || nav === 'es') ? nav : 'pt';
+    }
+    if (inicial !== 'pt') aplicar(inicial);
+    else { if (rotulo) rotulo.textContent = 'PT'; }
   }
 
   /* ---------- BOOT ---------- */
@@ -692,6 +800,7 @@
     heroVideo();
     slotsOpcionais();
     form();
+    idiomas();
   }
 
   document.readyState === 'loading'
