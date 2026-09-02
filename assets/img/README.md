@@ -12,21 +12,30 @@
 Cada imagem tem versão `.webp` (30–45% menor) servida via `<picture>`, com o
 `.jpg` como reserva. Nenhuma passa de 280 KB.
 
-## Em uso — as quatro que faltavam (commit e6a4878)
+## Em uso
 
-| Arquivo | Onde entra | Origem |
-|---|---|---|
-| `transporte.jpg` + `.webp` (1060px) | Processo, etapa **04 Transporte** | porto visto de cima, navio saindo |
-| `entrega.jpg` + `.webp` (474px) | Processo, etapa **05 Entrega** | paletes filmados no galpão |
-| `prateleiras-estoque.jpg` + `.webp` (1488px) | Fundo da seção **04 Resultados** | corredor de prateleiras, duotone azul |
-| `risco-operacao.jpg` + `.webp` (1052px) | Fundo da seção **07 Garantias** | porto ao entardecer, duotone azul |
+| Arquivo | Onde entra |
+|---|---|
+| `conteiner-acelero` (2000px, +1200px) | Faixa full-bleed da seção **01 Sobre** |
+| `planejamento` (1400px) | Processo, etapa **01 Planejamento** — mesa com mapa de rotas e cronograma |
+| `linha-producao` (1150px) | Processo, etapa **02 Produção** |
+| `inspecao-fornecedor` (1100px) | Processo, etapa **03 Inspeção** |
+| `transporte` (1060px) | Processo, etapa **04 Transporte** |
+| `entrega` (474px) | Processo, etapa **05 Entrega** |
+| `prateleiras-estoque` (1488px) | Fundo da seção **04 Resultados**, duotone azul |
+| `risco-operacao` (1052px) | Fundo da seção **07 Garantias**, duotone azul |
 
-A foto do corredor entra **com a logo ACELERO COMEX** gravada, conforme
-pedido do Renato. Sob o duotone ela lê como marca d'água discreta no piso.
+Cada uma tem versão `.webp` servida por `<picture>`, com o `.jpg` de reserva.
+A foto do corredor de prateleiras entra **com a logo ACELERO COMEX** gravada,
+conforme pedido do Renato.
 
 **Atenção à resolução de `entrega.jpg`:** o original tem 474px de largura e o
-slot exibe 476px. Em tela retina isso aparece com metade da nitidez das
-outras. Se houver um original maior (a partir de 1000px), vale substituir.
+slot exibe 476px. Em tela retina aparece com metade da nitidez das outras. Se
+houver um original maior (a partir de 1000px), vale substituir.
+
+Para preparar qualquer uma delas a partir de um arquivo novo, use
+`scripts\preparar_imagens.bat` — ele cobre os oito slots, renomeia,
+redimensiona sem ampliar e gera o `.webp`.
 
 ## Guardados em `originais/`
 

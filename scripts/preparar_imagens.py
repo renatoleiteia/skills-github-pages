@@ -24,10 +24,14 @@ DESTINO = os.path.join(RAIZ, "assets", "img")
 
 # nome do campo -> (arquivo final, largura maxima, descricao mostrada ao operador)
 CAMPOS = [
-    ("transporte",  "transporte.jpg",          1600, "Etapa 04 Transporte — navio/pátio visto de cima"),
-    ("entrega",     "entrega.jpg",             1600, "Etapa 05 Entrega — paletes prontos no galpão"),
-    ("prateleiras", "prateleiras-estoque.jpg", 2000, "Seção 04 Resultados — corredor de prateleiras (fundo)"),
-    ("risco",       "risco-operacao.jpg",      2000, "Seção 07 Garantias — porto ao entardecer (fundo)"),
+    ("planejamento", "planejamento.jpg",        1400, "Etapa 01 Planejamento — mesa com mapa de rotas e cronograma"),
+    ("producao",     "linha-producao.jpg",      1400, "Etapa 02 Producao — corredor da linha de montagem"),
+    ("inspecao",     "inspecao-fornecedor.jpg", 1400, "Etapa 03 Inspecao — conferencia de amostras e desenhos"),
+    ("transporte",   "transporte.jpg",          1400, "Etapa 04 Transporte — navio/patio visto de cima"),
+    ("entrega",      "entrega.jpg",             1400, "Etapa 05 Entrega — paletes prontos no galpao"),
+    ("prateleiras",  "prateleiras-estoque.jpg", 2000, "Secao 04 Resultados — corredor de prateleiras (fundo)"),
+    ("risco",        "risco-operacao.jpg",      2000, "Secao 07 Garantias — porto ao entardecer (fundo)"),
+    ("conteiner",    "conteiner-acelero.jpg",   2000, "Secao 01 Sobre — conteiner com a marca (faixa larga)"),
 ]
 
 EXTENSOES = (".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff")
