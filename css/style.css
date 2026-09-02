@@ -775,3 +775,60 @@ h1, h2, h3, h4 {
 .res .nums li:hover { background: rgba(18,40,60,.9); }
 .offer .gtee, .offer .bonus { background: rgba(4,7,12,.90); backdrop-filter: blur(3px); }
 .offer .gtee:hover { background: rgba(18,40,60,.9); }
+
+/* ---------- WEBMAIL NO MENU PRINCIPAL ---------- */
+/* Destino externo, então em vez do número do capítulo leva o ícone de saída. */
+.nav__ext .mono { display: inline-flex; align-items: center; color: var(--metal); transition: color .35s ease; }
+.nav a.nav__ext:hover .mono { color: var(--signal); }
+
+/* ---------- SELETOR DE IDIOMA ---------- */
+.lang { position: relative; }
+.lang__btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .55rem .7rem;
+  color: var(--fog);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: color .35s ease, box-shadow .35s ease, background .35s ease;
+}
+.lang__btn:hover, .lang.aberto .lang__btn { color: var(--paper); box-shadow: inset 0 0 0 1px var(--signal-dim); background: rgba(63,178,224,.07); }
+.lang__btn .mono { font-size: .7rem; letter-spacing: .12em; }
+.lang__seta {
+  width: 7px; height: 7px; margin-left: .1rem;
+  border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .4s var(--ease);
+}
+.lang.aberto .lang__seta { transform: translateY(1px) rotate(-135deg); }
+
+.lang__lista {
+  position: absolute; top: calc(100% + .5rem); right: 0; z-index: 60;
+  min-width: 168px;
+  background: var(--steel);
+  box-shadow: inset 0 0 0 1px var(--line), 0 22px 46px -22px rgba(0,0,0,.95);
+  display: grid;
+  opacity: 0; transform: translateY(-8px); pointer-events: none;
+  transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.lang__lista[hidden] { display: none; }
+.lang.aberto .lang__lista { opacity: 1; transform: none; pointer-events: auto; }
+.lang__lista button {
+  display: flex; align-items: center; gap: .7rem; width: 100%;
+  padding: .7rem .9rem;
+  font-family: var(--f-disp); font-size: .86rem; font-weight: 500;
+  color: var(--fog); text-align: left;
+  transition: background .3s ease, color .3s ease;
+}
+.lang__lista button .mono { font-size: .66rem; color: var(--metal); transition: color .3s ease; }
+.lang__lista button:hover { background: rgba(63,178,224,.12); color: var(--paper); }
+.lang__lista button[aria-selected="true"] { color: var(--paper); }
+.lang__lista button[aria-selected="true"] .mono,
+.lang__lista button:hover .mono { color: var(--signal); }
+.lang__lista button[aria-selected="true"]::after {
+  content: ''; margin-left: auto; width: 5px; height: 5px; border-radius: 50%; background: var(--signal);
+}
+
+@media (max-width: 900px) {
+  /* No mobile o seletor fica entre a marca e o botão de menu. */
+  .lang__btn { padding: .5rem .6rem; }
+  .lang__lista { right: -.4rem; }
+}

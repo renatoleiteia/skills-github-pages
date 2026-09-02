@@ -89,11 +89,27 @@
       <a href="#servicos"><span class="mono">02</span>Serviços</a>
       <a href="#processo"><span class="mono">03</span>Processo</a>
       <a href="#cases"><span class="mono">05</span>Cases</a>
-      <a href="#contato"><span class="mono">09</span>Contato</a>
+      <a href="#contato" data-i18n="nav.contato"><span class="mono">09</span>Contato</a>
+      <a class="nav__ext" href="https://webmail.acelerocomex.com.br" target="_blank" rel="noopener">
+        <span class="mono" aria-hidden="true"><svg viewBox="0 0 12 12" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4.5 1.5h6v6M10.5 1.5 4 8M8 10.5H1.5v-6"/></svg></span>Webmail</a>
     </nav>
 
     <div class="head__act">
-      <a href="#contato" class="btn btn--solid btn--sm" data-cursor="Agendar"><span>Agendar consultoria</span></a>
+      <div class="lang" id="lang">
+        <button class="lang__btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Idioma / Language / Idioma">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3.6 3.2 13.4 0 18M12 3c-3.2 3.6-3.2 13.4 0 18"/>
+          </svg>
+          <span class="mono" id="langAtual">PT</span>
+          <i class="lang__seta" aria-hidden="true"></i>
+        </button>
+        <ul class="lang__lista" id="langLista" role="listbox" hidden>
+          <li><button role="option" aria-selected="true"  data-idioma="pt"><span class="mono">PT</span>Português</button></li>
+          <li><button role="option" aria-selected="false" data-idioma="en"><span class="mono">EN</span>English</button></li>
+          <li><button role="option" aria-selected="false" data-idioma="es"><span class="mono">ES</span>Español</button></li>
+        </ul>
+      </div>
+      <a href="#contato" class="btn btn--solid btn--sm" data-cursor="Agendar"><span data-i18n="nav.cta">Agendar consultoria</span></a>
       <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     </div>
   </div>
@@ -117,6 +133,7 @@
       <p class="mono menu__lbl">Atendimento</p>
       <a class="menu__ct" href="https://wa.me/5531994942100" target="_blank" rel="noopener">WhatsApp direto</a>
       <a class="menu__ct" href="tel:+552725704400">+55 27 2570-4400</a>
+      <a class="menu__ct" href="https://webmail.acelerocomex.com.br" target="_blank" rel="noopener">Webmail corporativo</a>
       <a class="menu__ct" href="mailto:contato@acelerocomex.com.br">contato@acelerocomex.com.br</a>
       <p class="mono menu__lbl menu__lbl--t">Operação</p>
       <p class="menu__note">Santos · Itajaí · Paranaguá · Viracopos · Guarulhos<br />Parceiros em Xangai, Shenzhen, Roterdã, Miami e Cidade do México.</p>
@@ -146,9 +163,9 @@
       <p class="mono tag" data-rv><i class="tag__dot"></i>Gestão completa de comércio exterior</p>
 
       <h1 class="hero__h" data-split>
-        <span class="ln">Conectando</span>
-        <span class="ln">o mundo através</span>
-        <span class="ln">do <em>comércio exterior.</em></span>
+        <span class="ln" data-i18n="hero.h.l1">Conectando</span>
+        <span class="ln" data-i18n="hero.h.l2">o mundo através</span>
+        <span class="ln" data-i18n="hero.h.l3">do <em>comércio exterior.</em></span>
       </h1>
 
       <p class="hero__sub" data-rv data-d="0.12">
@@ -210,10 +227,10 @@
       <header class="hd">
         <p class="mono hd__n">01 — Sobre</p>
         <h2 class="hd__t" data-split>
-          <span class="ln">Não somos mais um</span>
-          <span class="ln">intermediário. Somos o</span>
-          <span class="ln">seu <em>departamento</em></span>
-          <span class="ln"><em>de comex.</em></span>
+          <span class="ln" data-i18n="sobre.h.l1">Não somos mais um</span>
+          <span class="ln" data-i18n="sobre.h.l2">intermediário. Somos o</span>
+          <span class="ln" data-i18n="sobre.h.l3">seu <em>departamento</em></span>
+          <span class="ln" data-i18n="sobre.h.l4"><em>de comex.</em></span>
         </h2>
       </header>
 
@@ -259,8 +276,8 @@
         <div>
           <p class="mono hd__n">02 — Serviços</p>
           <h2 class="hd__t" data-split>
-            <span class="ln">Quatro frentes.</span>
-            <span class="ln">Uma <em>única</em> operação.</span>
+            <span class="ln" data-i18n="serv.h.l1">Quatro frentes.</span>
+            <span class="ln" data-i18n="serv.h.l2">Uma <em>única</em> operação.</span>
           </h2>
         </div>
         <p class="hd__lead" data-rv>
@@ -345,8 +362,8 @@
         <div>
           <p class="mono hd__n">03 — Processo</p>
           <h2 class="hd__t" data-split>
-            <span class="ln">Cinco etapas.</span>
-            <span class="ln">Nenhuma <em>surpresa.</em></span>
+            <span class="ln" data-i18n="proc.h.l1">Cinco etapas.</span>
+            <span class="ln" data-i18n="proc.h.l2">Nenhuma <em>surpresa.</em></span>
           </h2>
         </div>
         <p class="hd__lead" data-rv>
@@ -471,9 +488,9 @@
       <header class="hd">
         <p class="mono hd__n">04 — Resultados</p>
         <h2 class="hd__t" data-split>
-          <span class="ln">Resultado não é</span>
-          <span class="ln">promessa. É <em>número</em></span>
-          <span class="ln"><em>auditado.</em></span>
+          <span class="ln" data-i18n="res.h.l1">Resultado não é</span>
+          <span class="ln" data-i18n="res.h.l2">promessa. É <em>número</em></span>
+          <span class="ln" data-i18n="res.h.l3"><em>auditado.</em></span>
         </h2>
       </header>
 
@@ -498,8 +515,8 @@
         <div>
           <p class="mono hd__n">05 — Cases</p>
           <h2 class="hd__t" data-split>
-            <span class="ln">Provas</span>
-            <span class="ln">de <em>campo.</em></span>
+            <span class="ln" data-i18n="cases.h.l1">Provas</span>
+            <span class="ln" data-i18n="cases.h.l2">de <em>campo.</em></span>
           </h2>
         </div>
         <p class="hd__lead" data-rv>
@@ -584,9 +601,9 @@
     <div class="wrap purp__in">
       <p class="mono hd__n">06 — Por que fazemos</p>
       <h2 class="hd__t hd__t--xl" data-split>
-        <span class="ln">Toda empresa brasileira</span>
-        <span class="ln">deveria conseguir competir</span>
-        <span class="ln">com o <em>mundo inteiro.</em></span>
+        <span class="ln" data-i18n="purp.h.l1">Toda empresa brasileira</span>
+        <span class="ln" data-i18n="purp.h.l2">deveria conseguir competir</span>
+        <span class="ln" data-i18n="purp.h.l3">com o <em>mundo inteiro.</em></span>
       </h2>
       <div class="purp__txt" data-rv>
         <p>
@@ -623,8 +640,8 @@
       <header class="hd">
         <p class="mono hd__n">07 — Garantias</p>
         <h2 class="hd__t" data-split>
-          <span class="ln">O risco de tentar</span>
-          <span class="ln">é <em>nosso.</em> O ganho é seu.</span>
+          <span class="ln" data-i18n="offer.h.l1">O risco de tentar</span>
+          <span class="ln" data-i18n="offer.h.l2">é <em>nosso.</em> O ganho é seu.</span>
         </h2>
       </header>
 
@@ -689,9 +706,9 @@
         <div>
           <p class="mono hd__n">08 — Dúvidas</p>
           <h2 class="hd__t" data-split>
-            <span class="ln">Perguntas que</span>
-            <span class="ln">todo mundo faz</span>
-            <span class="ln"><em>antes de começar.</em></span>
+            <span class="ln" data-i18n="faq.h.l1">Perguntas que</span>
+            <span class="ln" data-i18n="faq.h.l2">todo mundo faz</span>
+            <span class="ln" data-i18n="faq.h.l3"><em>antes de começar.</em></span>
           </h2>
         </div>
         <p class="hd__lead" data-rv>
@@ -723,8 +740,8 @@
       <div class="cont__l">
         <p class="mono hd__n">09 — Contato</p>
         <h2 class="hd__t" data-split>
-          <span class="ln">Fale com um</span>
-          <span class="ln"><em>especialista</em> agora.</span>
+          <span class="ln" data-i18n="cont.h.l1">Fale com um</span>
+          <span class="ln" data-i18n="cont.h.l2"><em>especialista</em> agora.</span>
         </h2>
         <p class="cont__lead" data-rv>
           Preencha o formulário e um especialista sênior — não um atendente de triagem —
@@ -803,9 +820,9 @@
   <div class="wrap">
     <div class="foot__cta">
       <h2 class="foot__big" data-split>
-        <span class="ln">Sua próxima importação</span>
-        <span class="ln">pode ser a <em>mais</em></span>
-        <span class="ln"><em>tranquila</em> de todas.</span>
+        <span class="ln" data-i18n="foot.h.l1">Sua próxima importação</span>
+        <span class="ln" data-i18n="foot.h.l2">pode ser a <em>mais</em></span>
+        <span class="ln" data-i18n="foot.h.l3"><em>tranquila</em> de todas.</span>
       </h2>
       <a href="#contato" class="btn btn--solid btn--lg" data-cursor="Vamos?"><span>Falar com um especialista</span></a>
     </div>
