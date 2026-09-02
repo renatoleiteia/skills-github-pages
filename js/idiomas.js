@@ -449,6 +449,15 @@ window.ACELERO_IDIOMAS_EXTRA = {
       volume: ['Select…', 'Not sure yet', 'Up to 2 containers/year', '3 to 12 containers/year',
                'More than 12 containers/year', 'Air freight / courier only']
     },
+    cursor: {
+      'Agendar': 'Book', 'Ver': 'View', 'Detalhes': 'Details', 'Vamos?': 'Let’s go',
+      'Planejamento': 'Planning', 'Produção': 'Production', 'Inspeção': 'Inspection',
+      'Transporte': 'Transport', 'Entrega': 'Delivery', 'Ligar': 'Call',
+      'E-mail': 'Email', 'Enviar': 'Send', 'WhatsApp': 'WhatsApp',
+      'Ir': 'Go', 'Abrir': 'Open', 'Ler': 'Read', 'Fechar': 'Close',
+      'Digite': 'Type', 'Escolha': 'Choose', 'Marcar': 'Tick', 'Clique': 'Click',
+      'Idioma': 'Language'
+    },
     consentimento: 'I authorise ACELERO COMEX to contact me and I agree to the <a href="#">Privacy Policy</a>. *',
     msg: {
       enviando: 'Sending…',
@@ -473,6 +482,15 @@ window.ACELERO_IDIOMAS_EXTRA = {
                   'Consultoría y revisión tributaria', 'Destrabar una carga urgente'],
       volume: ['Seleccione…', 'Aún no sé estimar', 'Hasta 2 contenedores/año',
                '3 a 12 contenedores/año', 'Más de 12 contenedores/año', 'Solo carga aérea / courier']
+    },
+    cursor: {
+      'Agendar': 'Agendar', 'Ver': 'Ver', 'Detalhes': 'Detalles', 'Vamos?': '¿Vamos?',
+      'Planejamento': 'Planificación', 'Produção': 'Producción', 'Inspeção': 'Inspección',
+      'Transporte': 'Transporte', 'Entrega': 'Entrega', 'Ligar': 'Llamar',
+      'E-mail': 'Correo', 'Enviar': 'Enviar', 'WhatsApp': 'WhatsApp',
+      'Ir': 'Ir', 'Abrir': 'Abrir', 'Ler': 'Leer', 'Fechar': 'Cerrar',
+      'Digite': 'Escriba', 'Escolha': 'Elija', 'Marcar': 'Marcar', 'Clique': 'Clic',
+      'Idioma': 'Idioma'
     },
     consentimento: 'Autorizo el contacto de ACELERO COMEX y acepto la <a href="#">Política de Privacidad</a>. *',
     msg: {

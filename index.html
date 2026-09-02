@@ -59,7 +59,7 @@
 
 <div class="cursor" id="cursor" aria-hidden="true">
   <span class="cursor__dot"></span>
-  <span class="cursor__ring"><em id="cursorLabel"></em></span>
+  <span class="cursor__ring"><canvas class="cursor__globo" id="cursorGlobo"></canvas><em id="cursorLabel"></em></span>
 </div>
 
 <!-- Trilho lateral: código do capítulo + coordenadas, como um diário de bordo -->
@@ -96,7 +96,7 @@
 
     <div class="head__act">
       <div class="lang" id="lang">
-        <button class="lang__btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Idioma / Language / Idioma">
+        <button class="lang__btn" id="langBtn" data-cursor="Idioma" aria-haspopup="listbox" aria-expanded="false" aria-label="Idioma / Language / Idioma">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3.6 3.2 13.4 0 18M12 3c-3.2 3.6-3.2 13.4 0 18"/>
           </svg>

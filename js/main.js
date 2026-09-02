@@ -143,7 +143,7 @@
 
   function createGlobe(canvas, opt) {
     if (!canvas) return null;
-    const o = Object.assign({ scale: .42, speed: .0007, tilt: -.32, rotas: true, cx: .5, cy: .5 }, opt);
+    const o = Object.assign({ scale: .42, speed: .0007, tilt: -.32, rotas: true, nos: true, cx: .5, cy: .5 }, opt);
     const ctx = canvas.getContext('2d');
     let W = 0, H = 0, R = 0, cx = 0, cy = 0;
     let ang = 0, raf = null;
@@ -233,7 +233,7 @@
       ctx.strokeStyle = 'rgba(63,178,224,.58)'; ctx.stroke();
 
       if (o.rotas) desenharRotas(t);
-      desenharNos(t);
+      if (o.nos) desenharNos(t);
 
       if (!reduced) ang += o.speed * 16;
       raf = requestAnimationFrame(frame);
@@ -297,12 +297,40 @@
       requestAnimationFrame(loop);
     })();
 
+    // A bola azul nunca aparece vazia. Quando o elemento não traz um
+    // data-cursor próprio, o rótulo é deduzido do que ele faz.
+    const traduzir = r => {
+      const x = (window.ACELERO_IDIOMAS_EXTRA || {})[idiomaAtual];
+      return (x && x.cursor && x.cursor[r]) || r;
+    };
+    const deduzir = el => {
+      const tag = el.tagName;
+      if (tag === 'SUMMARY') return el.parentElement && el.parentElement.open ? 'Fechar' : 'Ler';
+      if (tag === 'SELECT') return 'Escolha';
+      if (tag === 'TEXTAREA') return 'Digite';
+      if (tag === 'INPUT') return el.type === 'checkbox' ? 'Marcar' : 'Digite';
+      if (tag === 'A') {
+        const h = el.getAttribute('href') || '';
+        if (h.indexOf('wa.me') !== -1) return 'WhatsApp';
+        if (h.indexOf('mailto:') === 0) return 'E-mail';
+        if (h.indexOf('tel:') === 0) return 'Ligar';
+        if (h.charAt(0) === '#') return 'Ir';
+        return 'Abrir';
+      }
+      return 'Clique';
+    };
+
+    // Globo em miniatura: mesma matemática do herói, sem rotas nem pontos de
+    // porto, que a 34px virariam sujeira. Gira um pouco mais rápido porque
+    // nesse tamanho o movimento do herói seria imperceptível.
+    createGlobe($('#cursorGlobo'), { scale: .46, speed: .0011, tilt: -.30, rotas: false, nos: false });
+
     const sel = 'a, button, summary, input, select, textarea, [data-cursor]';
     document.addEventListener('mouseover', e => {
       const t = e.target.closest(sel);
       if (!t) return;
       c.classList.add('hov');
-      lab.textContent = t.getAttribute('data-cursor') || '';
+      lab.textContent = traduzir(t.getAttribute('data-cursor') || deduzir(t));
     });
     document.addEventListener('mouseout', e => {
       if (!e.target.closest(sel)) return;
