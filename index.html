@@ -90,7 +90,7 @@
       <a href="#processo" data-i18n="nav.processo"><span class="mono">03</span>Processo</a>
       <a href="#cases" data-i18n="nav.cases"><span class="mono">05</span>Cases</a>
       <a href="#contato" data-i18n="nav.contato"><span class="mono">09</span>Contato</a>
-      <a class="nav__ext" href="https://webmail.acelerocomex.com.br" target="_blank" rel="noopener">
+      <a class="nav__ext" href="webmail.html">
         <span class="mono" aria-hidden="true"><svg viewBox="0 0 12 12" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4.5 1.5h6v6M10.5 1.5 4 8M8 10.5H1.5v-6"/></svg></span>Webmail</a>
     </nav>
 
@@ -133,7 +133,7 @@
       <p class="mono menu__lbl">Atendimento</p>
       <a class="menu__ct" href="https://wa.me/5527992744587" target="_blank" rel="noopener">WhatsApp direto</a>
       <a class="menu__ct" href="tel:+552725704400">+55 27 2570-4400</a>
-      <a class="menu__ct" href="https://webmail.acelerocomex.com.br" target="_blank" rel="noopener">Webmail corporativo</a>
+      <a class="menu__ct" href="webmail.html">Webmail corporativo</a>
       <a class="menu__ct" href="mailto:contato@acelerocomex.com.br">contato@acelerocomex.com.br</a>
       <p class="mono menu__lbl menu__lbl--t">Operação</p>
       <p class="menu__note">Santos · Itajaí · Paranaguá · Viracopos · Guarulhos<br />Parceiros em Xangai, Shenzhen, Roterdã, Miami e Cidade do México.</p>
@@ -817,6 +817,12 @@
      FOOTER
      ============================================================ -->
 <footer class="foot">
+  <figure class="plate-bg plate-bg--rodape" aria-hidden="true">
+    <picture>
+      <source srcset="assets/img/risco-operacao.webp" type="image/webp" />
+      <img src="assets/img/risco-operacao.jpg" alt="" loading="lazy" />
+    </picture>
+  </figure>
   <div class="wrap">
     <div class="foot__cta">
       <h2 class="foot__big" data-split>
@@ -837,25 +843,25 @@
       </div>
       <div class="foot__c">
         <p class="mono foot__l" data-i18n="foot.lbl.1">Serviços</p>
-        <a href="#servicos">Importação e Exportação</a>
-        <a href="#servicos">Logística Internacional</a>
-        <a href="#servicos">Desembaraço Aduaneiro</a>
-        <a href="#servicos">Consultoria Estratégica</a>
+        <a href="#servicos" data-i18n="foot.serv.1">Importação e Exportação</a>
+        <a href="#servicos" data-i18n="foot.serv.2">Logística Internacional</a>
+        <a href="#servicos" data-i18n="foot.serv.3">Desembaraço Aduaneiro</a>
+        <a href="#servicos" data-i18n="foot.serv.4">Consultoria Estratégica</a>
       </div>
       <div class="foot__c">
         <p class="mono foot__l" data-i18n="foot.lbl.2">Empresa</p>
-        <a href="#sobre">Sobre a Acelero</a>
-        <a href="#processo">Processo</a>
-        <a href="#cases">Cases</a>
-        <a href="#proposito">Por que fazemos</a>
-        <a href="#faq">Perguntas frequentes</a>
+        <a href="#sobre" data-i18n="foot.emp.1">Sobre a Acelero</a>
+        <a href="#processo" data-i18n="foot.emp.2">Processo</a>
+        <a href="#cases" data-i18n="foot.emp.3">Cases</a>
+        <a href="#proposito" data-i18n="foot.emp.4">Por que fazemos</a>
+        <a href="#faq" data-i18n="foot.emp.5">Perguntas frequentes</a>
       </div>
       <div class="foot__c">
         <p class="mono foot__l" data-i18n="foot.lbl.3">Contato</p>
         <a href="https://wa.me/5527992744587" target="_blank" rel="noopener">WhatsApp +55 27 99274-4587</a>
         <a href="tel:+552725704400">+55 27 2570-4400</a>
         <a href="mailto:contato@acelerocomex.com.br">contato@acelerocomex.com.br</a>
-        <p class="foot__ad mono">Santos · São Paulo · Itajaí · Espírito Santo · Minas Gerais<br />Seg. a sex., 8h30 às 18h30</p>
+        <p class="foot__ad mono">Santos · São Paulo · Itajaí · Espírito Santo · Minas Gerais<br /><span data-i18n="foot.hora">Seg. a sex., 8h30 às 18h30</span></p>
       </div>
     </div>
 
@@ -873,6 +879,7 @@
 
 <button class="top" id="toTop" aria-label="Voltar ao topo">↑</button>
 
+<script src="js/globo.js" defer></script>
 <script src="js/idiomas.js" defer></script>
 <script src="js/vendor/gsap.min.js" defer></script>
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>

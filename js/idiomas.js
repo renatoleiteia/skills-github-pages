@@ -219,6 +219,11 @@ window.ACELERO_IDIOMAS = {
     'foot.h.l3': '<em>one</em> yet.',
     'foot.cta.1': 'Talk to a specialist',
     'foot.desc.1': 'Complete foreign trade management for manufacturers, e-commerce operations and importers who cannot afford to rely on luck.',
+    'foot.serv.1': 'Import and Export', 'foot.serv.2': 'International Logistics',
+    'foot.serv.3': 'Customs Clearance', 'foot.serv.4': 'Strategic Consulting',
+    'foot.emp.1': 'About Acelero', 'foot.emp.2': 'Process', 'foot.emp.3': 'Cases',
+    'foot.emp.4': 'Why we do it', 'foot.emp.5': 'Frequently asked questions',
+    'foot.hora': 'Mon to Fri, 8:30 to 18:30',
     'foot.lbl.1': 'Services', 'foot.lbl.2': 'Company', 'foot.lbl.3': 'Contact'
   },
 
@@ -429,6 +434,11 @@ window.ACELERO_IDIOMAS = {
     'foot.h.l3': '<em>tranquila</em> de todas.',
     'foot.cta.1': 'Hablar con un especialista',
     'foot.desc.1': 'Gestión integral de comercio exterior para industrias, e-commerces e importadores que no pueden depender de la suerte.',
+    'foot.serv.1': 'Importación y Exportación', 'foot.serv.2': 'Logística Internacional',
+    'foot.serv.3': 'Despacho Aduanero', 'foot.serv.4': 'Consultoría Estratégica',
+    'foot.emp.1': 'Sobre Acelero', 'foot.emp.2': 'Proceso', 'foot.emp.3': 'Casos',
+    'foot.emp.4': 'Por qué lo hacemos', 'foot.emp.5': 'Preguntas frecuentes',
+    'foot.hora': 'Lun a vie, 8:30 a 18:30',
     'foot.lbl.1': 'Servicios', 'foot.lbl.2': 'Empresa', 'foot.lbl.3': 'Contacto'
   }
 };

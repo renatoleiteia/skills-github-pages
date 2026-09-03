@@ -842,3 +842,19 @@ h1, h2, h3, h4 {
   .lang__btn { padding: .5rem .6rem; }
   .lang__lista { right: -.4rem; }
 }
+
+/* ---------- FUNDO DO RODAPÉ ----------------------------------------------
+   A mesma placa em duotone das seções 04 e 07, aqui concentrada na faixa da
+   chamada final e dissolvendo antes das colunas de links, que precisam de
+   fundo limpo para continuarem legíveis.
+   ----------------------------------------------------------------------- */
+.foot { position: relative; }
+.foot > .wrap { position: relative; z-index: 2; }
+.plate-bg--rodape { height: 62%; bottom: auto; }
+.plate-bg--rodape img { object-position: center 62%; filter: grayscale(1) contrast(1.06) brightness(.66); }
+.plate-bg--rodape::after {
+  background:
+    linear-gradient(180deg, rgba(4,7,12,.72) 0%, rgba(4,7,12,.5) 30%, rgba(4,7,12,.86) 78%, var(--abyss) 100%),
+    linear-gradient(90deg, rgba(4,7,12,.9) 2%, rgba(4,7,12,.34) 46%, rgba(4,7,12,.74));
+}
+@media (max-width: 900px) { .plate-bg--rodape { height: 46%; } }
