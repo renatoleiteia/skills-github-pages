@@ -397,7 +397,7 @@
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    top && top.addEventListener('click', () => scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }));
+    // O clique fica com navegacaoFluida(), que usa a mesma curva das âncoras.
     const y = $('#year'); if (y) y.textContent = new Date().getFullYear();
   }
 
@@ -809,6 +809,105 @@
     else { if (rotulo) rotulo.textContent = 'PT'; }
   }
 
+  /* ---------- 16. NAVEGAÇÃO FLUIDA --------------------------------------
+     Duas coisas: inércia na roda do mouse e uma viagem animada ao clicar
+     num item do menu.
+
+     Decisão importante: a rolagem continua sendo a do documento — cada
+     quadro chama scrollTo() de verdade. A alternativa comum (transformar um
+     wrapper e fingir a rolagem) quebraria position:sticky, o parallax do
+     ScrollTrigger e o cálculo de offset das âncoras, tudo de uma vez.
+
+     Toque, teclado e barra de rolagem seguem nativos: só a roda é
+     interceptada. Quem pede menos movimento não recebe nada disto.
+     ------------------------------------------------------------------- */
+  function navegacaoFluida() {
+    if (reduced) return;
+
+    let alvo = scrollY, animando = false, raf = null;
+    const limite = () => Math.max(0, document.documentElement.scrollHeight - innerHeight);
+    const irInstantaneo = y => scrollTo({ top: y, behavior: 'instant' });
+
+    function inercia() {
+      const resto = alvo - scrollY;
+      if (Math.abs(resto) < 1) { irInstantaneo(alvo); animando = false; raf = null; return; }
+      // Passo mínimo de 1px. Sem isto, na reta final o passo vira fração de
+      // pixel, o navegador arredonda de volta para a mesma posição, o laço
+      // nunca alcança o alvo e fica preso — travando qualquer outra rolagem
+      // da página, inclusive a do teclado e a do botão de voltar ao topo.
+      const passo = Math.sign(resto) * Math.max(1, Math.abs(resto) * 0.14);
+      irInstantaneo(scrollY + passo);
+      raf = requestAnimationFrame(inercia);
+    }
+
+    // Roda do mouse: acumula um destino e persegue com atraso.
+    if (!touch) {
+      addEventListener('wheel', e => {
+        if (e.ctrlKey) return;                                   // zoom do navegador
+        if (document.body.classList.contains('menu-on')) return;  // menu trava a página
+        if (e.target.closest('textarea')) return;                 // rolagem interna do campo
+        e.preventDefault();
+        const passo = e.deltaMode === 1 ? 18 : e.deltaMode === 2 ? innerHeight : 1;
+        alvo = clamp(alvo + e.deltaY * passo, 0, limite());
+        if (!animando) { animando = true; raf = requestAnimationFrame(inercia); }
+      }, { passive: false });
+    }
+
+    // Qualquer rolagem que não seja nossa (teclado, barra, busca na página)
+    // ressincroniza o destino, senão o próximo giro da roda daria um salto.
+    addEventListener('scroll', () => { if (!animando) alvo = scrollY; }, { passive: true });
+    addEventListener('resize', () => { alvo = scrollY; }, { passive: true });
+
+    // Viagem entre seções: distância maior, tempo um pouco maior, com teto.
+    function viajar(destino) {
+      const inicio = scrollY;
+      const fim = clamp(destino, 0, limite());
+      const dist = fim - inicio;
+      if (Math.abs(dist) < 2) return;
+      const dur = clamp(420 + Math.sqrt(Math.abs(dist)) * 21, 700, 1500);
+      const t0 = performance.now();
+      if (raf) cancelAnimationFrame(raf);
+      animando = true;
+      (function passo(agora) {
+        const p = clamp((agora - t0) / dur, 0, 1);
+        // easeInOutExpo: arranca devagar, cruza rápido, pousa macio
+        const e = p === 0 ? 0 : p === 1 ? 1
+                : p < .5 ? Math.pow(2, 20 * p - 10) / 2
+                : (2 - Math.pow(2, -20 * p + 10)) / 2;
+        irInstantaneo(inicio + dist * e);
+        if (p < 1) raf = requestAnimationFrame(passo);
+        else { alvo = fim; animando = false; raf = null; }
+      })(t0);
+    }
+
+    const topoDe = el => {
+      const cab = $('#head');
+      const folga = cab ? cab.offsetHeight : 78;
+      return el.getBoundingClientRect().top + scrollY - folga;
+    };
+
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id = a.getAttribute('href');
+      if (!id || id.length < 2) return;
+      const destino = document.querySelector(id);
+      if (!destino) return;
+      e.preventDefault();
+      // Com o menu aberto, deixa a cortina subir antes de viajar — senão a
+      // página desliza por baixo de um overlay que ainda está fechando.
+      const espera = document.body.classList.contains('menu-on') ? 380 : 0;
+      setTimeout(() => viajar(topoDe(destino)), espera);
+      if (history.replaceState) history.replaceState(null, '', id);
+    });
+
+    // O botão de voltar ao topo usa a mesma curva das âncoras. Ele não é
+    // substituído: o trilho guarda uma referência a este mesmo nó para
+    // mostrá-lo e escondê-lo conforme a rolagem.
+    const topo = $('#toTop');
+    if (topo) topo.addEventListener('click', () => viajar(0));
+  }
+
   /* ---------- BOOT ---------- */
   function init() {
     prepSplit();
@@ -829,6 +928,7 @@
     slotsOpcionais();
     form();
     idiomas();
+    navegacaoFluida();
   }
 
   document.readyState === 'loading'
