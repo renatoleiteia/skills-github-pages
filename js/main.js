@@ -810,53 +810,46 @@
   }
 
   /* ---------- 16. NAVEGAÇÃO FLUIDA --------------------------------------
-     Duas coisas: inércia na roda do mouse e uma viagem animada ao clicar
-     num item do menu.
+     Roda, setas, PageUp/Down, espaço, Home/End e os cliques do menu passam
+     todos pelo mesmo motor, para que nada na página role de um jeito e o
+     resto de outro.
 
      Decisão importante: a rolagem continua sendo a do documento — cada
      quadro chama scrollTo() de verdade. A alternativa comum (transformar um
      wrapper e fingir a rolagem) quebraria position:sticky, o parallax do
      ScrollTrigger e o cálculo de offset das âncoras, tudo de uma vez.
 
-     Toque, teclado e barra de rolagem seguem nativos: só a roda é
-     interceptada. Quem pede menos movimento não recebe nada disto.
+     Toque e barra de rolagem seguem nativos. Quem pede menos movimento não
+     recebe nada disto.
      ------------------------------------------------------------------- */
   function navegacaoFluida() {
     if (reduced) return;
 
-    let alvo = scrollY, animando = false, raf = null;
+    const ATRITO = 0.12;          // menor = mais deslize; maior = mais seco
+    let alvo = scrollY, animando = false, raf = null, modo = null;
+
     const limite = () => Math.max(0, document.documentElement.scrollHeight - innerHeight);
     const irInstantaneo = y => scrollTo({ top: y, behavior: 'instant' });
+    const parar = () => { if (raf) cancelAnimationFrame(raf); raf = null; animando = false; modo = null; };
 
     function inercia() {
       const resto = alvo - scrollY;
-      if (Math.abs(resto) < 1) { irInstantaneo(alvo); animando = false; raf = null; return; }
+      if (Math.abs(resto) < 1) { irInstantaneo(alvo); parar(); return; }
       // Passo mínimo de 1px. Sem isto, na reta final o passo vira fração de
       // pixel, o navegador arredonda de volta para a mesma posição, o laço
       // nunca alcança o alvo e fica preso — travando qualquer outra rolagem
       // da página, inclusive a do teclado e a do botão de voltar ao topo.
-      const passo = Math.sign(resto) * Math.max(1, Math.abs(resto) * 0.14);
-      irInstantaneo(scrollY + passo);
+      irInstantaneo(scrollY + Math.sign(resto) * Math.max(1, Math.abs(resto) * ATRITO));
       raf = requestAnimationFrame(inercia);
     }
 
-    // Roda do mouse: acumula um destino e persegue com atraso.
-    if (!touch) {
-      addEventListener('wheel', e => {
-        if (e.ctrlKey) return;                                   // zoom do navegador
-        if (document.body.classList.contains('menu-on')) return;  // menu trava a página
-        if (e.target.closest('textarea')) return;                 // rolagem interna do campo
-        e.preventDefault();
-        const passo = e.deltaMode === 1 ? 18 : e.deltaMode === 2 ? innerHeight : 1;
-        alvo = clamp(alvo + e.deltaY * passo, 0, limite());
-        if (!animando) { animando = true; raf = requestAnimationFrame(inercia); }
-      }, { passive: false });
+    // Empurra o destino e deixa a página persegui-lo. Se uma viagem estiver
+    // em curso, o gesto do leitor tem precedência e assume o comando.
+    function empurrar(delta) {
+      if (modo === 'viagem') { parar(); alvo = scrollY; }
+      alvo = clamp(alvo + delta, 0, limite());
+      if (!animando) { animando = true; modo = 'inercia'; raf = requestAnimationFrame(inercia); }
     }
-
-    // Qualquer rolagem que não seja nossa (teclado, barra, busca na página)
-    // ressincroniza o destino, senão o próximo giro da roda daria um salto.
-    addEventListener('scroll', () => { if (!animando) alvo = scrollY; }, { passive: true });
-    addEventListener('resize', () => { alvo = scrollY; }, { passive: true });
 
     // Viagem entre seções: distância maior, tempo um pouco maior, com teto.
     function viajar(destino) {
@@ -864,21 +857,72 @@
       const fim = clamp(destino, 0, limite());
       const dist = fim - inicio;
       if (Math.abs(dist) < 2) return;
-      const dur = clamp(420 + Math.sqrt(Math.abs(dist)) * 21, 700, 1500);
+      const dur = clamp(500 + Math.sqrt(Math.abs(dist)) * 24, 800, 1700);
       const t0 = performance.now();
-      if (raf) cancelAnimationFrame(raf);
-      animando = true;
+      parar();
+      animando = true; modo = 'viagem';
       (function passo(agora) {
         const p = clamp((agora - t0) / dur, 0, 1);
-        // easeInOutExpo: arranca devagar, cruza rápido, pousa macio
-        const e = p === 0 ? 0 : p === 1 ? 1
-                : p < .5 ? Math.pow(2, 20 * p - 10) / 2
-                : (2 - Math.pow(2, -20 * p + 10)) / 2;
+        // easeInOutCubic: velocidade quase constante no miolo. A curva expo
+        // que estava aqui antes disparava no meio do trajeto e o percurso
+        // virava um borrão — o oposto de fluido.
+        const e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
         irInstantaneo(inicio + dist * e);
         if (p < 1) raf = requestAnimationFrame(passo);
-        else { alvo = fim; animando = false; raf = null; }
+        else { alvo = fim; parar(); }
       })(t0);
     }
+
+    // Roda do mouse.
+    if (!touch) {
+      addEventListener('wheel', e => {
+        if (e.ctrlKey) return;                                    // zoom do navegador
+        if (document.body.classList.contains('menu-on')) return;   // menu trava a página
+        if (e.target.closest('textarea')) return;                  // rolagem interna do campo
+        e.preventDefault();
+        const unidade = e.deltaMode === 1 ? 18 : e.deltaMode === 2 ? innerHeight : 1;
+        empurrar(e.deltaY * unidade);
+      }, { passive: false });
+    }
+
+    // Teclado. Sem isto as setas dariam saltos seccos no meio de uma página
+    // que desliza — o contraste é justamente o que denuncia a emenda.
+    const digitando = el => {
+      if (!el) return false;
+      const t = el.tagName;
+      return t === 'INPUT' || t === 'TEXTAREA' || t === 'SELECT' || el.isContentEditable;
+    };
+    addEventListener('keydown', e => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (document.body.classList.contains('menu-on')) return;
+      if (digitando(e.target)) return;                            // está escrevendo, não rolando
+
+      const seta = 120;
+      const pagina = innerHeight * 0.85;
+      let delta = null, destino = null;
+
+      switch (e.key) {
+        case 'ArrowDown': delta = seta; break;
+        case 'ArrowUp':   delta = -seta; break;
+        case 'PageDown':  delta = pagina; break;
+        case 'PageUp':    delta = -pagina; break;
+        case ' ':
+          // Espaço num botão ou link focado aciona o elemento; não é rolagem.
+          if (e.target && e.target.closest && e.target.closest('a, button, summary')) return;
+          delta = e.shiftKey ? -pagina : pagina; break;
+        case 'Home': destino = 0; break;
+        case 'End':  destino = limite(); break;
+        default: return;
+      }
+      e.preventDefault();
+      if (destino !== null) viajar(destino);
+      else empurrar(delta);
+    });
+
+    // Qualquer rolagem que não seja nossa (barra, busca na página, foco por
+    // Tab) ressincroniza o destino, senão o próximo gesto daria um salto.
+    addEventListener('scroll', () => { if (!animando) alvo = scrollY; }, { passive: true });
+    addEventListener('resize', () => { if (!animando) alvo = scrollY; }, { passive: true });
 
     const topoDe = el => {
       const cab = $('#head');

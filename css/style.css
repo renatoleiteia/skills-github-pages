@@ -742,7 +742,7 @@ h1, h2, h3, h4 {
 @media (hover: none), (pointer: coarse) { .cursor { display: none; } }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: smooth; }   /* sem inércia: o salto suave nativo basta */
+  html { scroll-behavior: auto; }   /* quem pede menos movimento recebe salto instantâneo */
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   [data-rv] { opacity: 1 !important; transform: none !important; }
   .ticker__t { transform: none !important; }
