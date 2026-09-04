@@ -255,20 +255,19 @@
     }
 
     if (GSAP && window.ScrollTrigger) {
+      /* O alcance vai do topo do gatilho até ele sair por cima, e as ações
+         tocam nas duas direções ('play' no 1º e no 3º campo). Sem isto, quem
+         pula para o rodapé pelo menu e volta subindo encontrava o meio do
+         site parado: a entrada só existia descendo. */
+      const acoes = 'play none play none';
       splits.forEach(b => gsap.to(b.querySelectorAll('.ln > span'), {
         y: '0%', opacity: 1, duration: 1.15, ease: 'expo.out', stagger: .08,
-        scrollTrigger: { trigger: b, start: 'top 86%', once: true }
+        scrollTrigger: { trigger: b, start: 'top 86%', end: 'bottom top', toggleActions: acoes, once: true }
       }));
       rvs.forEach(e => gsap.to(e, {
         y: 0, opacity: 1, duration: 1, ease: 'expo.out',
         delay: parseFloat(e.dataset.d || 0),
-        scrollTrigger: { trigger: e, start: 'top 90%', once: true }
-      }));
-      secs.forEach(e => ScrollTrigger.create({
-        trigger: e, start: 'top 88%', once: true, onEnter: () => e.classList.add('vis')
-      }));
-      mans.forEach(e => ScrollTrigger.create({
-        trigger: e, start: 'top 82%', once: true, onEnter: () => e.classList.add('in')
+        scrollTrigger: { trigger: e, start: 'top 90%', end: 'bottom top', toggleActions: acoes, once: true }
       }));
       $$('[data-parallax]').forEach(e => {
         const amt = parseFloat(e.dataset.parallax) || .1;
@@ -278,9 +277,16 @@
         });
       });
       ScrollTrigger.refresh();
+      // Seções e manifesto ficam no observador mesmo com o GSAP presente: ele
+      // não tem noção de direção, então subir vale tanto quanto descer.
+      observar(secs.concat(mans));
       return;
     }
 
+    observar(splits.concat(rvs, secs, mans));
+  }
+
+  function observar(alvos) {
     const io = new IntersectionObserver(es => {
       es.forEach(en => {
         if (!en.isIntersecting) return;
@@ -302,10 +308,7 @@
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: .1 });
 
-    splits.forEach(e => io.observe(e));
-    rvs.forEach(e => io.observe(e));
-    secs.forEach(e => io.observe(e));
-    mans.forEach(e => io.observe(e));
+    alvos.forEach(e => io.observe(e));
   }
 
   /* ---------- 08. TICKER ---------- */
@@ -393,9 +396,13 @@
       const gap = parseFloat(cs.columnGap || cs.gap || 0) || 0;
       track.style.transform = `translate3d(-${(slides[0].offsetWidth + gap) * i}px,0,0)`;
       $$('button', dots).forEach((d, di) => d.classList.toggle('act', di === i));
+      // A seta que não leva a lugar nenhum fica visivelmente desligada.
+      prev.disabled = i <= 0;
+      next.disabled = i >= maxI();
     }
-    $('[data-q-prev]', root).addEventListener('click', () => go(i - 1));
-    $('[data-q-next]', root).addEventListener('click', () => go(i + 1));
+    const prev = $('[data-q-prev]', root), next = $('[data-q-next]', root);
+    prev.addEventListener('click', () => go(i - 1));
+    next.addEventListener('click', () => go(i + 1));
 
     let sx = 0, drag = false;
     track.addEventListener('pointerdown', e => { drag = true; sx = e.clientX; });
@@ -1147,7 +1154,46 @@
   const createGlobe = (c, o) => GLOBO && GLOBO.criar(c, o);
   const INCLINACAO_TERRA = GLOBO ? GLOBO.INCLINACAO_TERRA : 23.5 * Math.PI / 180;
 
+  /* ---------- 17. SEMPRE COMEÇAR NO TOPO ---------------------------------
+     O navegador restaura a posição da rolagem ao recarregar, e a página
+     reabria no meio, sem a abertura.
+
+     Zerar uma vez no DOMContentLoaded não basta: o salto para a âncora da URL
+     e a restauração do próprio navegador acontecem DEPOIS, já com o layout
+     montado. Por isso repetimos no `load` e no quadro seguinte a ele — e
+     retiramos a âncora, para o refresh seguinte não voltar a pular.
+     ------------------------------------------------------------------- */
+  function sempreNoTopo() {
+    const manual = () => { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; };
+    const zerar = () => {
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+      window.scrollTo(0, 0);
+    };
+    // Quem age primeiro manda: se a pessoa já rolou, paramos de insistir.
+    let agiu = false;
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(ev =>
+      addEventListener(ev, () => { agiu = true; }, { once: true, passive: true }));
+
+    manual(); zerar();
+    addEventListener('load', () => {
+      manual();
+      // O salto para a âncora e o ScrollTrigger.refresh() ainda mexem na
+      // rolagem depois do load. Seguramos o topo por meio segundo — tempo de
+      // todos eles terminarem — e largamos ao primeiro gesto.
+      const t0 = performance.now();
+      (function insistir() {
+        if (agiu) return;
+        zerar();
+        if (performance.now() - t0 < 600) requestAnimationFrame(insistir);
+      })();
+    }, { once: true });
+    // Sair com a página no topo também evita a restauração em navegadores que
+    // ignoram scrollRestoration.
+    addEventListener('beforeunload', () => window.scrollTo(0, 0));
+  }
+
   function init() {
+    sempreNoTopo();
     prepSplit();
     createGlobe($('#globe'),         { scale: .40, speed: .0001784, inclinacao: INCLINACAO_TERRA, cx: .68, cy: .48 });
     createGlobe($('#purposeCanvas'), { scale: .44, speed: .0001016, inclinacao: INCLINACAO_TERRA, cx: .82, cy: .48 });

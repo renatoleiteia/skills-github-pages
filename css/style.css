@@ -549,11 +549,14 @@ h1, h2, h3, h4 {
 .quotes__hd { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 1.8rem; }
 .quotes__hd h3 { font-size: var(--fs-h3); }
 .quotes__nav { display: flex; gap: .5rem; }
+/* Setas no azul do site. Desabilitadas quando não há para onde ir — antes
+   elas pareciam clicáveis nas duas pontas e não faziam nada. */
 .quotes__nav button {
-  width: 46px; height: 46px; box-shadow: inset 0 0 0 1px var(--line); color: var(--mist);
-  transition: background .4s var(--ease), color .35s, box-shadow .35s;
+  width: 46px; height: 46px; color: #FFFFFF; background: var(--signal-fundo);
+  transition: background .35s var(--ease), color .35s, opacity .35s;
 }
-.quotes__nav button:hover { background: var(--signal); color: var(--abyss); box-shadow: none; }
+.quotes__nav button:hover:not(:disabled) { background: var(--signal); color: var(--abyss); }
+.quotes__nav button:disabled { opacity: .35; cursor: default; background: transparent; color: var(--metal); box-shadow: inset 0 0 0 1px var(--line); }
 .quotes__vp { overflow: hidden; }
 .quotes__tr { display: flex; gap: clamp(1rem, 1.8vw, 1.5rem); transition: transform .9s var(--ease); }
 .q {
@@ -800,6 +803,9 @@ h1, h2, h3, h4 {
 .foot__ad { color: var(--metal); margin-top: .6rem; text-transform: none; letter-spacing: .04em; font-size: .76rem; }
 .foot__b { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; padding-block: 1.7rem; border-top: 1px solid var(--line-soft); color: var(--metal); text-transform: none; letter-spacing: .05em; font-size: .72rem; }
 .foot__b a:hover { color: var(--signal); }
+.foot__cnpj { display: grid; gap: .3rem; line-height: 1.5; }
+.foot__cnpj p { margin: 0; }
+.foot__cnpj b { color: var(--fog); font-weight: 500; letter-spacing: .12em; }
 
 /* ---------- FLUTUANTES ---------- */
 .wa {
