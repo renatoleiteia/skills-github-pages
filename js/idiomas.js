@@ -210,6 +210,9 @@ window.ACELERO_IDIOMAS = {
     'form.lbl.1': 'Full name *', 'form.lbl.2': 'Company *', 'form.lbl.3': 'Work email *',
     'form.lbl.4': 'WhatsApp *', 'form.lbl.5': 'What do you need? *',
     'form.lbl.6': 'Estimated volume', 'form.lbl.7': 'Tell us briefly about the operation',
+    'form.conf.t': 'Confirm the number — this is how we will reach you',
+    'form.conf.c': 'Yes, this is my WhatsApp and I can receive messages there.',
+    'form.conf.l': 'Test it: open this chat on WhatsApp',
     'form.cta.1': 'Request my free review',
     'form.n.1': 'Answered within 1 business day. No spam.',
 
@@ -425,6 +428,9 @@ window.ACELERO_IDIOMAS = {
     'form.lbl.1': 'Nombre completo *', 'form.lbl.2': 'Empresa *', 'form.lbl.3': 'Correo corporativo *',
     'form.lbl.4': 'WhatsApp *', 'form.lbl.5': '¿Qué necesita? *',
     'form.lbl.6': 'Volumen estimado', 'form.lbl.7': 'Cuéntenos brevemente sobre la operación',
+    'form.conf.t': 'Confirme el número — por ahí lo vamos a contactar',
+    'form.conf.c': 'Sí, este es mi WhatsApp y puedo recibir mensajes allí.',
+    'form.conf.l': 'Probar: abrir esta conversación en WhatsApp',
     'form.cta.1': 'Solicitar mi análisis gratuito',
     'form.n.1': 'Respuesta en hasta 1 día hábil. Sin spam.',
 
@@ -468,7 +474,7 @@ window.ACELERO_IDIOMAS_EXTRA = {
       'Digite': 'Type', 'Escolha': 'Choose', 'Marcar': 'Tick', 'Clique': 'Click',
       'Idioma': 'Language'
     },
-    consentimento: 'I authorise ACELERO COMEX to contact me and I agree to the <a href="#">Privacy Policy</a>. *',
+    consentimento: 'I authorise ACELERO COMEX to contact me and I agree to the <a href="politica-privacidade.html">Privacy Policy</a>. *',
     msg: {
       enviando: 'Sending…',
       ok: 'Received. A specialist will be in touch within 1 business day.',
@@ -477,7 +483,13 @@ window.ACELERO_IDIOMAS_EXTRA = {
       nome: 'Please enter your name.', empresa: 'Please enter the company name.',
       interesse: 'Please select what you need.', email: 'Please enter a valid email.',
       telefone: 'Please enter a WhatsApp number with area code.',
-      consent: 'You need to authorise contact before sending.'
+      consent: 'You need to authorise contact before sending.',
+      telDig: 'Number is incomplete for the country you selected.',
+      telFalso: 'This does not look like a real number. Please check it.',
+      telDDD: 'That Brazilian area code does not exist. Check the first two digits.',
+      telCel: 'WhatsApp in Brazil is a mobile line: 11 digits, with a 9 after the area code.',
+      emailCorp: 'Please use your company email. We do not take enquiries from personal email.',
+      waConf: 'Tick the WhatsApp confirmation so we can reach you.'
     }
   },
   es: {
@@ -502,7 +514,7 @@ window.ACELERO_IDIOMAS_EXTRA = {
       'Digite': 'Escriba', 'Escolha': 'Elija', 'Marcar': 'Marcar', 'Clique': 'Clic',
       'Idioma': 'Idioma'
     },
-    consentimento: 'Autorizo el contacto de ACELERO COMEX y acepto la <a href="#">Política de Privacidad</a>. *',
+    consentimento: 'Autorizo el contacto de ACELERO COMEX y acepto la <a href="politica-privacidade.html">Política de Privacidad</a>. *',
     msg: {
       enviando: 'Enviando…',
       ok: 'Recibido. Un especialista lo contactará en hasta 1 día hábil.',
@@ -511,7 +523,13 @@ window.ACELERO_IDIOMAS_EXTRA = {
       nome: 'Informe su nombre.', empresa: 'Informe el nombre de la empresa.',
       interesse: 'Seleccione lo que necesita.', email: 'Informe un correo válido.',
       telefone: 'Informe un WhatsApp con código de área.',
-      consent: 'Es necesario autorizar el contacto para enviar.'
+      consent: 'Es necesario autorizar el contacto para enviar.',
+      telDig: 'Número incompleto para el país elegido.',
+      telFalso: 'Este número no parece real. Verifíquelo e ingréselo de nuevo.',
+      telDDD: 'Ese código de área brasileño no existe. Revise los dos primeros dígitos.',
+      telCel: 'En Brasil WhatsApp es celular: 11 dígitos, con el 9 después del código de área.',
+      emailCorp: 'Use el correo de la empresa. No atendemos por correo personal.',
+      waConf: 'Marque la confirmación de WhatsApp para que podamos contactarlo.'
     }
   }
 };

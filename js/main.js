@@ -429,39 +429,198 @@
   function form() {
     const f = $('#contactForm');
     if (!f) return;
-    const fb = $('#formFeedback'), tel = $('#telefone');
+    const fb = $('#formFeedback');
+    const tel = $('#telefone'), selPais = $('#pais');
+    const conf = $('#waConf'), waOk = $('#waOk'), waNumero = $('#waNumero'), waTeste = $('#waTeste');
+    const PAISES = window.ACELERO_PAISES || [];
+    const DDD_BR = window.ACELERO_DDD_BR || [];
+    const PESSOAL = window.ACELERO_EMAIL_PESSOAL || [];
+
+    /* ---- seletor de país ------------------------------------------------
+       O código de discagem vem primeiro de propósito: fechado, o controle é
+       estreito e o nome do país é o que se perde na reticência. O código,
+       que é o que muda a validação, fica sempre visível. */
+    function ordenar(idioma) {
+      const nome = pa => pa[idioma] || pa.pt;
+      return PAISES.slice().sort((a, b) => {
+        if (a.iso === 'BR') return -1;
+        if (b.iso === 'BR') return 1;
+        return nome(a).localeCompare(nome(b), idioma === 'en' ? 'en' : 'pt');
+      });
+    }
+
+    function preencherPaises() {
+      if (!selPais || !PAISES.length) return;
+      const escolhido = selPais.value || 'BR';
+      selPais.innerHTML = '';
+      ordenar(idiomaAtual).forEach(pa => {
+        const o = document.createElement('option');
+        const nome = pa[idiomaAtual] || pa.pt;
+        o.value = pa.iso;
+        o.textContent = '+' + pa.ddi + ' ' + nome;
+        o.title = nome + ' (+' + pa.ddi + ')';
+        selPais.appendChild(o);
+      });
+      selPais.value = escolhido;
+      if (!selPais.value) selPais.value = 'BR';
+    }
+
+    const pais = () => PAISES.find(pa => pa.iso === (selPais ? selPais.value : 'BR')) ||
+                       PAISES.find(pa => pa.iso === 'BR') ||
+                       { iso: 'BR', ddi: '55', dig: [10, 11] };
+
+    const digitos = v => (v || '').replace(/\D/g, '');
+
+    /* ---- máscara --------------------------------------------------------
+       Só mascaramos onde o formato é conhecido de verdade (Brasil e o plano
+       norte-americano). Para o resto, agrupar em blocos inventados atrapalha
+       mais do que ajuda: fica só o limite de dígitos do país. */
+    function mascarar(v, pa) {
+      const max = pa.dig[1];
+      let d = digitos(v).slice(0, max);
+      if (pa.iso === 'BR') {
+        if (d.length > 6)      return d.replace(/^(\d{2})(\d{4,5})(\d{0,4}).*/, '($1) $2-$3');
+        if (d.length > 2)      return d.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+        if (d.length > 0)      return d.replace(/^(\d{0,2})/, '($1');
+        return d;
+      }
+      if (pa.ddi === '1') {
+        if (d.length > 6) return d.replace(/^(\d{3})(\d{3})(\d{0,4}).*/, '($1) $2-$3');
+        if (d.length > 3) return d.replace(/^(\d{3})(\d{0,3})/, '($1) $2');
+        return d;
+      }
+      return d.replace(/(\d{3})(?=\d)/g, '$1 ').trim();
+    }
+
+    const modelo = pa => pa.iso === 'BR' ? '(00) 00000-0000'
+                       : pa.ddi === '1'  ? '(000) 000-0000'
+                       : '0'.repeat(pa.dig[1]).replace(/(\d{3})(?=\d)/g, '$1 ');
+
+    /* ---- é um número plausível? -----------------------------------------
+       Não existe validação de verdade sem mandar mensagem — isso é backend.
+       O que dá para fazer aqui é recusar o que claramente não é telefone:
+       comprimento fora da faixa do país, DDD que não existe, celular
+       brasileiro sem o 9, dígito repetido e sequência crescente. */
+    function problemaNoNumero() {
+      const pa = pais();
+      const d = digitos(tel.value);
+      if (!d) return msg('telefone', 'Informe o seu WhatsApp com DDD.');
+      if (d.length < pa.dig[0] || d.length > pa.dig[1])
+        return msg('telDig', 'Número incompleto para o país escolhido.');
+      if (/^(\d)\1+$/.test(d)) return msg('telFalso', 'Este número não parece real. Confira e digite de novo.');
+      if ('01234567890123456789'.indexOf(d) !== -1 || '98765432109876543210'.indexOf(d) !== -1)
+        return msg('telFalso', 'Este número não parece real. Confira e digite de novo.');
+      if (pa.iso === 'BR') {
+        if (DDD_BR.indexOf(parseInt(d.slice(0, 2), 10)) === -1)
+          return msg('telDDD', 'DDD inexistente. Confira os dois primeiros dígitos.');
+        if (!(d.length === 11 && d.charAt(2) === '9'))
+          return msg('telCel', 'WhatsApp no Brasil é celular: 11 dígitos, com o 9 depois do DDD.');
+      }
+      return '';
+    }
+
+    const e164 = () => '+' + pais().ddi + digitos(tel.value);
+
+    function exibirE164() {
+      const pa = pais(), d = digitos(tel.value);
+      if (pa.iso === 'BR' && d.length === 11)
+        return '+' + pa.ddi + ' ' + d.slice(0, 2) + ' ' + d.slice(2, 7) + '-' + d.slice(7);
+      return '+' + pa.ddi + ' ' + d.replace(/(\d{3})(?=\d)/g, '$1 ').trim();
+    }
+
+    /* ---- bloco de confirmação -------------------------------------------
+       Aparece só quando o número já passa nas checagens acima: pedir
+       confirmação de um campo pela metade seria ruído. Mudar o número
+       derruba a confirmação — é o ponto do controle. */
+    function atualizarConfirmacao() {
+      if (!conf) return;
+      const bom = !problemaNoNumero();
+      if (!bom) {
+        if (!conf.hidden) { conf.hidden = true; if (waOk) waOk.checked = false; }
+        return;
+      }
+      const num = exibirE164();
+      if (waNumero && waNumero.textContent !== num) {
+        waNumero.textContent = num;
+        if (waOk) waOk.checked = false;   // número novo, confirmação zerada
+      }
+      if (waTeste) waTeste.href = 'https://wa.me/' + digitos(e164()) +
+        '?text=' + encodeURIComponent('Ola, sou eu — confirmando meu WhatsApp para a ACELERO COMEX.');
+      conf.hidden = false;
+    }
+
+    if (selPais) {
+      preencherPaises();
+      selPais.addEventListener('change', () => {
+        tel.value = mascarar(tel.value, pais());
+        tel.placeholder = modelo(pais());
+        setErr(tel, '');
+        atualizarConfirmacao();
+      });
+      document.addEventListener('acelero:idioma', () => {
+        preencherPaises();
+        tel.placeholder = modelo(pais());
+      });
+      tel.placeholder = modelo(pais());
+    }
 
     tel && tel.addEventListener('input', () => {
-      let v = tel.value.replace(/\D/g, '').slice(0, 11);
-      if (v.length > 6)      v = v.replace(/^(\d{2})(\d{4,5})(\d{0,4}).*/, '($1) $2-$3');
-      else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
-      else if (v.length > 0) v = v.replace(/^(\d{0,2})/, '($1');
-      tel.value = v;
+      tel.value = mascarar(tel.value, pais());
+      atualizarConfirmacao();
     });
 
-    const setErr = (el, msg) => {
+    const setErr = (el, texto) => {
       const w = el.closest('.fd') || el.parentElement;
       const slot = w && w.querySelector('[data-error]');
-      if (w) w.classList.toggle('err', !!msg);
-      if (slot) slot.textContent = msg || '';
+      if (w) w.classList.toggle('err', !!texto);
+      if (slot) slot.textContent = texto || '';
     };
+
+    /* ---- e-mail corporativo ---------------------------------------------
+       A regra é do negócio, não da técnica: a lista de provedores pessoais
+       está em js/paises.js justamente para ser afrouxada sem mexer aqui. */
+    function problemaNoEmail() {
+      const v = $('#email').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v))
+        return msg('email', 'Informe um e-mail válido.');
+      const dom = v.split('@').pop().toLowerCase();
+      if (PESSOAL.indexOf(dom) !== -1)
+        return msg('emailCorp', 'Use o e-mail da empresa. Não atendemos por e-mail pessoal.');
+      if (dom.split('.').length < 2) return msg('email', 'Informe um e-mail válido.');
+      return '';
+    }
 
     const valid = () => {
       let ok = true;
       [['#nome', msg('nome', 'Informe o seu nome.')],
        ['#empresa', msg('empresa', 'Informe o nome da empresa.')],
-       ['#interesse', msg('interesse', 'Selecione o que você precisa.')]].forEach(([s, m]) => {
-        const el = $(s);
+       ['#interesse', msg('interesse', 'Selecione o que você precisa.')]].forEach(([sel, m]) => {
+        const el = $(sel);
         if (!el.value.trim()) { setErr(el, m); ok = false; } else setErr(el, '');
       });
-      const em = $('#email');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())) { setErr(em, msg('email', 'Informe um e-mail válido.')); ok = false; } else setErr(em, '');
-      const tl = $('#telefone');
-      if (tl.value.replace(/\D/g, '').length < 10) { setErr(tl, msg('telefone', 'Informe um WhatsApp com DDD.')); ok = false; } else setErr(tl, '');
+
+      const em = $('#email'), pe = problemaNoEmail();
+      if (pe) { setErr(em, pe); ok = false; } else setErr(em, '');
+
+      const pt = problemaNoNumero();
+      if (pt) { setErr(tel, pt); ok = false; } else setErr(tel, '');
+
+      const we = $('#waErro');
+      if (!pt && waOk && !waOk.checked) {
+        if (we) we.textContent = msg('waConf', 'Marque a confirmação do WhatsApp para enviarmos.');
+        ok = false;
+      } else if (we) we.textContent = '';
+
       const cs = $('#consent'), ce = $('#consentError');
-      if (!cs.checked) { ce.textContent = msg('consent', 'É preciso autorizar o contato para enviar.'); ok = false; } else ce.textContent = '';
+      if (!cs.checked) { ce.textContent = msg('consent', 'É preciso autorizar o contato para enviar.'); ok = false; }
+      else ce.textContent = '';
       return ok;
     };
+
+    waOk && waOk.addEventListener('change', () => {
+      const we = $('#waErro');
+      if (we && waOk.checked) we.textContent = '';
+    });
 
     f.addEventListener('submit', async e => {
       e.preventDefault();
@@ -470,8 +629,9 @@
       if (!valid()) {
         fb.textContent = msg('campos', 'Confira os campos destacados acima.');
         fb.classList.add('bad');
-        const first = f.querySelector('.err input, .err select');
-        if (first) first.focus();
+        const primeiro = f.querySelector('.err input, .err select') ||
+                         (waOk && !waOk.checked ? waOk : null);
+        if (primeiro) primeiro.focus();
         return;
       }
 
@@ -481,6 +641,9 @@
       btn.disabled = true; span.textContent = msg('enviando', 'Enviando…');
 
       const data = Object.fromEntries(new FormData(f).entries());
+      data.telefone_e164 = e164();
+      data.pais_ddi = '+' + pais().ddi;
+      data.whatsapp_confirmado = waOk && waOk.checked ? 'sim' : 'nao';
 
       try {
         /* ------------------------------------------------------------
@@ -493,11 +656,20 @@
              body: JSON.stringify(data)
            });
            if (!r.ok) throw new Error('falha no envio');
+
+           CONFIRMAÇÃO POR CÓDIGO (OTP): o passo acima é declaratório — a
+           pessoa afirma que o número é dela. Confirmar de fato exige enviar
+           um código e conferir a resposta, o que só um servidor faz (API do
+           WhatsApp Business, Twilio Verify ou equivalente). Quando esse
+           serviço existir, o lugar de chamá-lo é aqui, antes do POST.
         ------------------------------------------------------------ */
         console.info('[ACELERO COMEX] lead:', data);
         await new Promise(r => setTimeout(r, 850));
 
         f.reset();
+        if (selPais) { selPais.value = 'BR'; tel.placeholder = modelo(pais()); }
+        if (conf) conf.hidden = true;
+        if (waNumero) waNumero.textContent = '+55';
         fb.textContent = msg('ok', 'Recebido. Um especialista entra em contato em até 1 dia útil.');
         fb.classList.add('ok');
       } catch (err) {
@@ -523,12 +695,19 @@
     const extra = window.ACELERO_IDIOMAS_EXTRA || {};
     if (!raiz || !botao || !lista) return;
 
+    // O rótulo do consentimento é o <span> do label que embrulha #consent.
+    function rotuloConsentimento() {
+      const cx = $('#consent');
+      const lb = cx && cx.closest('.chk');
+      return lb ? lb.querySelector('span') : null;
+    }
+
     // Guarda o português como está no HTML.
     const original = new Map();
     $$('[data-i18n]').forEach(el => original.set(el, alvo(el).innerHTML));
     const originalExtra = {
       placeholders: {}, opcoes: {},
-      consentimento: $('.chk span') ? $('.chk span').innerHTML : ''
+      consentimento: rotuloConsentimento() ? rotuloConsentimento().innerHTML : ''
     };
     ['nome','empresa','email','telefone','mensagem'].forEach(id => {
       const el = $('#' + id);
@@ -566,13 +745,14 @@
         const textos = x && x.opcoes[id] ? x.opcoes[id] : originalExtra.opcoes[id];
         $$('option', el).forEach((o, i) => { if (textos[i]) o.textContent = textos[i]; });
       });
-      const consent = $('.chk span');
+      const consent = rotuloConsentimento();
       if (consent) consent.innerHTML = x && x.consentimento ? x.consentimento : originalExtra.consentimento;
 
       idiomaAtual = idioma;
       document.documentElement.lang = idioma === 'pt' ? 'pt-BR' : idioma;
       if (rotulo) rotulo.textContent = idioma.toUpperCase();
       reformatarNumeros();
+      document.dispatchEvent(new CustomEvent('acelero:idioma'));
       $$('button[data-idioma]', lista).forEach(b =>
         b.setAttribute('aria-selected', String(b.dataset.idioma === idioma)));
       try { localStorage.setItem('acelero.idioma', idioma); } catch (e) { /* sem armazenamento: segue */ }
