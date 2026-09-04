@@ -119,10 +119,19 @@
     // nesse tamanho o movimento do herói seria imperceptível.
     createGlobe($('#cursorGlobo'), { scale: .46, speed: .000715, inclinacao: INCLINACAO_TERRA, rotas: false, nos: false });
 
+    // Sobre campo de texto a bola grande atrapalha: ela cobre justamente a
+    // linha que a pessoa está lendo ou escrevendo. Ali o cursor continua
+    // sendo o globo do tamanho normal. Caixa de marcação e botão mantêm a
+    // bola, porque lá ela não tapa texto nenhum.
+    const campoDeTexto = el =>
+      el.tagName === 'TEXTAREA' || el.tagName === 'SELECT' ||
+      (el.tagName === 'INPUT' && el.type !== 'checkbox' && el.type !== 'radio');
+
     const sel = 'a, button, summary, input, select, textarea, [data-cursor]';
     document.addEventListener('mouseover', e => {
       const t = e.target.closest(sel);
       if (!t) return;
+      if (campoDeTexto(t)) { c.classList.remove('hov'); lab.textContent = ''; return; }
       c.classList.add('hov');
       lab.textContent = traduzir(t.getAttribute('data-cursor') || deduzir(t));
     });
@@ -431,7 +440,14 @@
     if (!f) return;
     const fb = $('#formFeedback');
     const tel = $('#telefone'), selPais = $('#pais');
-    const conf = $('#waConf'), waOk = $('#waOk'), waNumero = $('#waNumero'), waTeste = $('#waTeste');
+    const conf = $('#waConf'), waOk = $('#waOk'), waNumero = $('#waNumero');
+    const waEnviar = $('#waEnviar'), waCodigo = $('#waCodigo');
+    const WHATS_ACELERO = '5527992744587';
+
+    /* Código curto que viaja na mensagem e no lead: é o que permite à ACELERO
+       casar a mensagem recebida com este formulário. Sem servidor a página não
+       consegue ler a resposta — quem confere é a pessoa do outro lado. */
+    const codigo = 'AC-' + Math.random().toString(36).slice(2, 6).toUpperCase();
     const PAISES = window.ACELERO_PAISES || [];
     const DDD_BR = window.ACELERO_DDD_BR || [];
     const PESSOAL = window.ACELERO_EMAIL_PESSOAL || [];
@@ -535,6 +551,35 @@
       return '+' + pa.ddi + ' ' + d.replace(/(\d{3})(?=\d)/g, '$1 ').trim();
     }
 
+    /* A marcação só abre depois que a mensagem sai: marcar antes seria a
+       mesma declaração vazia de antes. Trocar o número zera os dois passos. */
+    let enviado = false;
+
+    function zerarConfirmacao() {
+      enviado = false;
+      if (!waOk) return;
+      waOk.checked = false;
+      waOk.disabled = true;
+      const lb = waOk.closest('.chk');
+      if (lb) lb.classList.add('chk--travada');
+    }
+
+    function liberarConfirmacao() {
+      enviado = true;
+      if (!waOk) return;
+      waOk.disabled = false;
+      const lb = waOk.closest('.chk');
+      if (lb) lb.classList.remove('chk--travada');
+    }
+
+    waEnviar && waEnviar.addEventListener('click', () => {
+      // O clique abre o WhatsApp com a mensagem pronta; enviar é com a pessoa.
+      // A página não tem como saber se ela apertou enviar — daí a marcação.
+      liberarConfirmacao();
+      const we = $('#waErro');
+      if (we) we.textContent = '';
+    });
+
     /* ---- bloco de confirmação -------------------------------------------
        Aparece só quando o número já passa nas checagens acima: pedir
        confirmação de um campo pela metade seria ruído. Mudar o número
@@ -549,12 +594,21 @@
       const num = exibirE164();
       if (waNumero && waNumero.textContent !== num) {
         waNumero.textContent = num;
-        if (waOk) waOk.checked = false;   // número novo, confirmação zerada
+        zerarConfirmacao();               // número novo, confirmação zerada
       }
-      if (waTeste) waTeste.href = 'https://wa.me/' + digitos(e164()) +
-        '?text=' + encodeURIComponent('Ola, sou eu — confirmando meu WhatsApp para a ACELERO COMEX.');
+      if (waEnviar) {
+        // A mensagem sai do WhatsApp da própria pessoa para o número da
+        // ACELERO. É isso que prova a posse do número: quem recebe vê o
+        // remetente. O código casa a mensagem com este formulário.
+        const txt = 'Confirmacao ACELERO COMEX — codigo ' + codigo +
+                    '. Este e o meu WhatsApp: ' + num + '.';
+        waEnviar.href = 'https://wa.me/' + WHATS_ACELERO + '?text=' + encodeURIComponent(txt);
+      }
+      if (waCodigo) waCodigo.textContent = codigo;
       conf.hidden = false;
     }
+
+    zerarConfirmacao();
 
     if (selPais) {
       preencherPaises();
@@ -574,10 +628,53 @@
       tel.placeholder = modelo(pais());
     }
 
-    tel && tel.addEventListener('input', () => {
-      tel.value = mascarar(tel.value, pais());
-      atualizarConfirmacao();
-    });
+    /* ---- máscara que não briga com quem apaga ---------------------------
+       Reescrever o campo joga o cursor para o fim, então digitar ou apagar no
+       meio do número era impossível. Guardamos quantos dígitos existiam antes
+       do cursor e devolvemos o cursor à mesma posição lógica depois de
+       reformatar.
+
+       E apagar em cima de um separador — o ")" ou o "-" — tem de apagar o
+       dígito ao lado: senão a máscara devolve o traço na hora e a tecla não
+       faz nada, que é exatamente o que travava a limpeza do campo. */
+    let apagando = null, valorAntes = '', cursorAntes = 0;
+
+    function posDoDigito(txt, n) {
+      if (n <= 0) return 0;
+      let vistos = 0;
+      for (let i = 0; i < txt.length; i++) {
+        if (txt.charCodeAt(i) >= 48 && txt.charCodeAt(i) <= 57 && ++vistos === n) return i + 1;
+      }
+      return txt.length;
+    }
+
+    if (tel) {
+      tel.addEventListener('keydown', e => {
+        apagando = e.key === 'Backspace' ? 'tras' : e.key === 'Delete' ? 'frente' : null;
+        valorAntes = tel.value;
+        cursorAntes = tel.selectionStart;
+      });
+
+      tel.addEventListener('input', () => {
+        const pa = pais();
+        const cursor = tel.selectionStart;
+        let d = digitos(tel.value);
+        let nd = digitos(tel.value.slice(0, cursor)).length;
+
+        // Saiu só um separador: quem tem de sair é o dígito vizinho.
+        if (apagando && valorAntes !== tel.value && d === digitos(valorAntes)) {
+          const i = digitos(valorAntes.slice(0, cursorAntes)).length;
+          const alvo = apagando === 'tras' ? i - 1 : i;
+          if (alvo >= 0 && alvo < d.length) { d = d.slice(0, alvo) + d.slice(alvo + 1); nd = alvo; }
+        }
+        apagando = null;
+
+        tel.value = mascarar(d, pa);
+        const pos = posDoDigito(tel.value, Math.min(nd, digitos(tel.value).length));
+        try { tel.setSelectionRange(pos, pos); } catch (e) { /* campo sem seleção: segue */ }
+        atualizarConfirmacao();
+      });
+    }
 
     const setErr = (el, texto) => {
       const w = el.closest('.fd') || el.parentElement;
@@ -616,7 +713,10 @@
       if (pt) { setErr(tel, pt); ok = false; } else setErr(tel, '');
 
       const we = $('#waErro');
-      if (!pt && waOk && !waOk.checked) {
+      if (!pt && !enviado) {
+        if (we) we.textContent = msg('waEnvio', 'Envie a mensagem de confirmação pelo WhatsApp — é assim que sabemos que o número é seu.');
+        ok = false;
+      } else if (!pt && waOk && !waOk.checked) {
         if (we) we.textContent = msg('waConf', 'Marque a confirmação do WhatsApp para enviarmos.');
         ok = false;
       } else if (we) we.textContent = '';
@@ -673,7 +773,7 @@
         fb.textContent = msg('campos', 'Confira os campos destacados acima.');
         fb.classList.add('bad');
         const primeiro = f.querySelector('.err input, .err select') ||
-                         (waOk && !waOk.checked ? waOk : null);
+                         (!enviado ? waEnviar : (waOk && !waOk.checked ? waOk : null));
         if (primeiro) primeiro.focus();
         return;
       }
@@ -687,6 +787,7 @@
       data.telefone_e164 = e164();
       data.pais_ddi = '+' + pais().ddi;
       data.whatsapp_confirmado = waOk && waOk.checked ? 'sim' : 'nao';
+      data.codigo_confirmacao = codigo;
 
       try {
         /* ------------------------------------------------------------
@@ -713,6 +814,7 @@
         if (selPais) { selPais.value = 'BR'; tel.placeholder = modelo(pais()); }
         if (conf) conf.hidden = true;
         if (waNumero) waNumero.textContent = '+55';
+        zerarConfirmacao();
         fb.textContent = msg('ok', 'Recebido. Um especialista entra em contato em até 1 dia útil.');
         fb.classList.add('ok');
       } catch (err) {

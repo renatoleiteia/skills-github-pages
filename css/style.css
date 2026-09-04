@@ -688,13 +688,22 @@ h1, h2, h3, h4 {
   margin: 0; font-family: var(--f-mono); font-size: 1.18rem;
   letter-spacing: .08em; color: var(--paper);
 }
-.conf__l {
-  font-size: .68rem; color: var(--fog); text-decoration: none;
-  border-bottom: 1px solid rgba(169,186,200,.3); justify-self: start;
-  padding-bottom: 2px; transition: color .25s, border-color .25s;
+/* O botão que abre o WhatsApp é o passo que destrava a marcação: tem de
+   parecer uma ação, não um link de rodapé. */
+.conf__b {
+  display: inline-flex; align-items: center; gap: .55rem; justify-self: start;
+  padding: .58rem .95rem; text-decoration: none;
+  font-family: var(--f-mono); font-size: .7rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--abyss); background: var(--signal);
+  transition: background .25s, transform .25s;
 }
-.conf__l:hover { color: var(--signal); border-color: var(--signal); }
+.conf__b:hover { background: #62C6EE; transform: translateX(2px); }
+.conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: var(--metal); }
+.conf__k b { color: var(--signal); font-weight: 500; letter-spacing: .16em; }
 .chk--conf span { color: var(--mist); }
+/* Enquanto a mensagem não sai, a marcação fica visivelmente fora de alcance. */
+.chk--travada { opacity: .45; cursor: not-allowed; }
+.chk--travada input { cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) { .conf { animation: none; } }
 
 .fe { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .06em; color: #FF8A73; }

@@ -211,8 +211,9 @@ window.ACELERO_IDIOMAS = {
     'form.lbl.4': 'WhatsApp *', 'form.lbl.5': 'What do you need? *',
     'form.lbl.6': 'Estimated volume', 'form.lbl.7': 'Tell us briefly about the operation',
     'form.conf.t': 'Confirm the number — this is how we will reach you',
-    'form.conf.c': 'Yes, this is my WhatsApp and I can receive messages there.',
-    'form.conf.l': 'Test it: open this chat on WhatsApp',
+    'form.conf.c': 'I have already sent the confirmation message from my WhatsApp.',
+    'form.conf.l': 'Send the confirmation from my WhatsApp',
+    'form.conf.k': 'Reference code',
     'form.cta.1': 'Request my free review',
     'form.n.1': 'Answered within 1 business day. No spam.',
 
@@ -429,8 +430,9 @@ window.ACELERO_IDIOMAS = {
     'form.lbl.4': 'WhatsApp *', 'form.lbl.5': '¿Qué necesita? *',
     'form.lbl.6': 'Volumen estimado', 'form.lbl.7': 'Cuéntenos brevemente sobre la operación',
     'form.conf.t': 'Confirme el número — por ahí lo vamos a contactar',
-    'form.conf.c': 'Sí, este es mi WhatsApp y puedo recibir mensajes allí.',
-    'form.conf.l': 'Probar: abrir esta conversación en WhatsApp',
+    'form.conf.c': 'Ya envié el mensaje de confirmación desde mi WhatsApp.',
+    'form.conf.l': 'Enviar la confirmación desde mi WhatsApp',
+    'form.conf.k': 'Código de esta solicitud',
     'form.cta.1': 'Solicitar mi análisis gratuito',
     'form.n.1': 'Respuesta en hasta 1 día hábil. Sin spam.',
 
@@ -490,6 +492,7 @@ window.ACELERO_IDIOMAS_EXTRA = {
       telDDD: 'That Brazilian area code does not exist. Check the first two digits.',
       telCel: 'WhatsApp in Brazil is a mobile line: 11 digits, with a 9 after the area code.',
       emailCorp: 'Please use your company email. We do not take enquiries from personal email.',
+      waEnvio: 'Send the confirmation message on WhatsApp — that is how we know the number is yours.',
       waConf: 'Tick the WhatsApp confirmation so we can reach you.'
     }
   },
@@ -531,6 +534,7 @@ window.ACELERO_IDIOMAS_EXTRA = {
       telDDD: 'Ese código de área brasileño no existe. Revise los dos primeros dígitos.',
       telCel: 'En Brasil WhatsApp es celular: 11 dígitos, con el 9 después del código de área.',
       emailCorp: 'Use el correo de la empresa. No atendemos por correo personal.',
+      waEnvio: 'Envíe el mensaje de confirmación por WhatsApp — así sabemos que el número es suyo.',
       waConf: 'Marque la confirmación de WhatsApp para que podamos contactarlo.'
     }
   }

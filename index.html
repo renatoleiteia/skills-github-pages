@@ -783,8 +783,12 @@
           <div class="conf" id="waConf" hidden>
             <p class="conf__t mono"><span data-i18n="form.conf.t">Confirme o número — é por ele que vamos falar com você</span></p>
             <p class="conf__n" id="waNumero">+55</p>
-            <label class="chk chk--conf"><input type="checkbox" id="waOk" /><span data-i18n="form.conf.c">Sim, este é o meu WhatsApp e posso receber mensagem nele.</span></label>
-            <a class="conf__l mono" id="waTeste" href="https://wa.me/" target="_blank" rel="noopener" data-cursor="Testar"><span data-i18n="form.conf.l">Testar: abrir esta conversa no WhatsApp</span> <span aria-hidden="true">↗</span></a>
+            <a class="conf__b" id="waEnviar" href="https://wa.me/" target="_blank" rel="noopener" data-cursor="WhatsApp">
+              <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.05L2 22l5.1-1.33A10 10 0 1012 2m0 1.8a8.2 8.2 0 11-4.2 15.24l-.3-.18-3 .78.8-2.92-.2-.31A8.2 8.2 0 0112 3.8m-3.2 4c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02s.87 2.34.99 2.5c.12.16 1.7 2.7 4.2 3.68 2.08.82 2.5.66 2.95.62.45-.04 1.45-.59 1.66-1.17.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.96-1.21-.72-.64-1.21-1.44-1.35-1.68-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.33-.75-1.82-.19-.46-.39-.4-.53-.41z"/></svg>
+              <span data-i18n="form.conf.l">Enviar a confirmação pelo meu WhatsApp</span>
+            </a>
+            <p class="conf__k mono"><span data-i18n="form.conf.k">Código desta solicitação</span> <b id="waCodigo">—</b></p>
+            <label class="chk chk--conf"><input type="checkbox" id="waOk" /><span data-i18n="form.conf.c">Já enviei a mensagem de confirmação pelo meu WhatsApp.</span></label>
             <span class="fe" data-error id="waErro"></span>
           </div>
           <div class="fr">
