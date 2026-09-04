@@ -201,7 +201,7 @@
     onScroll();
 
     // O clique fica com navegacaoFluida(), que usa a mesma curva das âncoras.
-    const y = $('#year'); if (y) y.textContent = new Date().getFullYear();
+    // O ano do rodapé é fixo (2019) e vive no HTML — nada a preencher aqui.
   }
 
   /* ---------- 07. ANIMAÇÕES ---------- */
