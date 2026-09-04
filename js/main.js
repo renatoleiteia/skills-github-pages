@@ -444,6 +444,25 @@
     const waEnviar = $('#waEnviar'), waCodigo = $('#waCodigo');
     const WHATS_ACELERO = '5527992744587';
 
+    /* ---------- para onde vai o formulário --------------------------------
+       O site é estático: não existe servidor nosso para receber o POST. Para
+       o e-mail chegar em contato@acelerocomex.com.br o lead passa por um
+       serviço de entrega.
+
+       Hoje: FormSubmit (formsubmit.co), que não pede conta nem chave. Na
+       PRIMEIRA vez que alguém enviar, ele manda um e-mail de ativação para a
+       caixa abaixo — é preciso clicar no link uma única vez, e só a partir
+       daí os envios seguintes chegam.
+
+       Para trocar de serviço (n8n, Make, Zapier, rota própria), basta mudar
+       ENVIO_URL: o corpo vai como JSON simples, com as chaves em português.
+
+       E se o envio falhar, o lead não se perde: a mensagem de erro passa a
+       oferecer o mesmo conteúdo por e-mail direto.
+       ------------------------------------------------------------------- */
+    const EMAIL_DESTINO = 'contato@acelerocomex.com.br';
+    const ENVIO_URL = 'https://formsubmit.co/ajax/' + EMAIL_DESTINO;
+
     /* Código curto que viaja na mensagem e no lead: é o que permite à ACELERO
        casar a mensagem recebida com este formulário. Sem servidor a página não
        consegue ler a resposta — quem confere é a pessoa do outro lado. */
@@ -778,6 +797,16 @@
         return;
       }
 
+      // Isca preenchida: só robô chega aqui. Nada é enviado, e ele vê sucesso
+      // para não voltar tentando outro caminho.
+      const isca = f.querySelector('[name="_honey"]');
+      if (isca && isca.value) {
+        f.reset();
+        fb.textContent = msg('ok', 'Recebido. Um especialista entra em contato em até 1 dia útil.');
+        fb.classList.add('ok');
+        return;
+      }
+
       const btn = f.querySelector('button[type="submit"]');
       const span = btn.querySelector('span');
       const label = span.textContent;
@@ -789,26 +818,37 @@
       data.whatsapp_confirmado = waOk && waOk.checked ? 'sim' : 'nao';
       data.codigo_confirmacao = codigo;
 
+      // Chaves em português: é isto que a pessoa da ACELERO lê no e-mail.
+      const corpo = {
+        _subject: 'Site — análise de operação: ' + (data.empresa || 'sem empresa'),
+        _template: 'table',
+        _captcha: 'false',
+        'Nome': data.nome,
+        'Empresa': data.empresa,
+        'E-mail': data.email,
+        'WhatsApp': data.telefone_e164,
+        'WhatsApp confirmado': data.whatsapp_confirmado === 'sim' ? 'sim' : 'não',
+        'Código da confirmação': data.codigo_confirmacao,
+        'Precisa de': data.interesse,
+        'Volume estimado': data.volume || '—',
+        'Mensagem': data.mensagem || '—',
+        'Idioma da página': idiomaAtual.toUpperCase(),
+        'Enviado em': new Date().toLocaleString('pt-BR')
+      };
+
       try {
-        /* ------------------------------------------------------------
-           ENVIO REAL — descomente e troque pela sua URL. Funciona com
-           Formspree, Basin, Getform, n8n, Make, Zapier ou rota própria.
-
-           const r = await fetch('https://SEU-ENDPOINT-AQUI', {
-             method: 'POST',
-             headers: { 'Content-Type': 'application/json' },
-             body: JSON.stringify(data)
-           });
-           if (!r.ok) throw new Error('falha no envio');
-
-           CONFIRMAÇÃO POR CÓDIGO (OTP): o passo acima é declaratório — a
-           pessoa afirma que o número é dela. Confirmar de fato exige enviar
-           um código e conferir a resposta, o que só um servidor faz (API do
-           WhatsApp Business, Twilio Verify ou equivalente). Quando esse
-           serviço existir, o lugar de chamá-lo é aqui, antes do POST.
-        ------------------------------------------------------------ */
-        console.info('[ACELERO COMEX] lead:', data);
-        await new Promise(r => setTimeout(r, 850));
+        /* CONFIRMAÇÃO POR CÓDIGO (OTP): o passo do WhatsApp acima é
+           declaratório — a pessoa afirma ter enviado a mensagem. Confirmar
+           automaticamente exige enviar um código e ler a resposta, o que só
+           um servidor faz (API do WhatsApp Business, Twilio Verify ou
+           equivalente). Quando esse serviço existir, o lugar de chamá-lo é
+           aqui, antes do POST. */
+        const r = await fetch(ENVIO_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(corpo)
+        });
+        if (!r.ok) throw new Error('envio recusado: ' + r.status);
 
         f.reset();
         if (selPais) { selPais.value = 'BR'; tel.placeholder = modelo(pais()); }
@@ -818,7 +858,19 @@
         fb.textContent = msg('ok', 'Recebido. Um especialista entra em contato em até 1 dia útil.');
         fb.classList.add('ok');
       } catch (err) {
-        fb.textContent = msg('erro', 'Não conseguimos enviar agora. Chame no WhatsApp que resolvemos na hora.');
+        // O lead não se perde: o mesmo conteúdo vira um e-mail pronto para a
+        // pessoa disparar do próprio programa de e-mail.
+        const linhas = Object.keys(corpo)
+          .filter(k => k.charAt(0) !== '_')
+          .map(k => k + ': ' + (corpo[k] == null ? '' : corpo[k]))
+          .join('\n');
+        fb.textContent = msg('erro', 'Não conseguimos enviar agora.') + ' ';
+        const a = document.createElement('a');
+        a.href = 'mailto:' + EMAIL_DESTINO +
+                 '?subject=' + encodeURIComponent(corpo._subject) +
+                 '&body=' + encodeURIComponent(linhas.slice(0, 1400));
+        a.textContent = msg('erroLink', 'Enviar por e-mail');
+        fb.appendChild(a);
         fb.classList.add('bad');
       } finally {
         btn.disabled = false; span.textContent = label;

@@ -711,6 +711,8 @@ h1, h2, h3, h4 {
 .chk { display: flex; gap: .65rem; align-items: flex-start; font-size: .83rem; color: var(--metal); cursor: pointer; }
 .chk input { flex: 0 0 auto; width: 17px; height: 17px; margin-top: .22rem; accent-color: var(--signal); cursor: pointer; }
 .chk a { color: var(--signal); text-decoration: underline; text-underline-offset: 3px; }
+.mel { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form__fb a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .form__n { color: var(--metal); text-align: center; margin: 0; text-transform: none; letter-spacing: .05em; font-size: .72rem; }
 .form__fb { margin: 0; font-size: .89rem; text-align: center; }
 .form__fb.ok { color: #5FD6A4; }

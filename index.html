@@ -822,6 +822,8 @@
                 <option>Somente carga aérea / courier</option>
               </select></div>
           </div>
+          <!-- Isca para robô: pessoa não vê, robô preenche e o envio é descartado. -->
+          <div class="mel" aria-hidden="true"><label for="_honey">Não preencha este campo</label><input type="text" id="_honey" name="_honey" tabindex="-1" autocomplete="off" /></div>
           <div class="fd"><label for="mensagem" data-i18n="form.lbl.7">Conte rapidamente sobre a operação</label><textarea id="mensagem" name="mensagem" rows="3" placeholder="Produto, país de origem/destino, prazo desejado, principal dificuldade hoje…"></textarea></div>
           <label class="chk"><input type="checkbox" id="consent" name="consent" required /><span>Autorizo o contato da ACELERO COMEX e concordo com a <a href="politica-privacidade.html">Política de Privacidade</a>. *</span></label>
           <span class="fe" data-error id="consentError"></span>

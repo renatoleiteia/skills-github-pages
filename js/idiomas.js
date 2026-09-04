@@ -480,7 +480,8 @@ window.ACELERO_IDIOMAS_EXTRA = {
     msg: {
       enviando: 'Sending…',
       ok: 'Received. A specialist will be in touch within 1 business day.',
-      erro: 'We could not send it right now. Message us on WhatsApp and we will sort it out.',
+      erro: 'We could not send it right now.',
+      erroLink: 'Send it by email instead',
       campos: 'Check the highlighted fields above.',
       nome: 'Please enter your name.', empresa: 'Please enter the company name.',
       interesse: 'Please select what you need.', email: 'Please enter a valid email.',
@@ -522,7 +523,8 @@ window.ACELERO_IDIOMAS_EXTRA = {
     msg: {
       enviando: 'Enviando…',
       ok: 'Recibido. Un especialista lo contactará en hasta 1 día hábil.',
-      erro: 'No pudimos enviarlo ahora. Escríbanos por WhatsApp y lo resolvemos.',
+      erro: 'No pudimos enviarlo ahora.',
+      erroLink: 'Enviar por correo',
       campos: 'Revise los campos destacados arriba.',
       nome: 'Informe su nombre.', empresa: 'Informe el nombre de la empresa.',
       interesse: 'Seleccione lo que necesita.', email: 'Informe un correo válido.',
