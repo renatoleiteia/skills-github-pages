@@ -154,6 +154,7 @@ window.ACELERO_IDIOMAS = {
     'purp.h.l1': 'Every Brazilian company',
     'purp.h.l2': 'should be able to compete',
     'purp.h.l3': 'with the <em>whole world.</em>',
+    'purp.man.1': '<ul class="man"><li>Foreign trade cannot be <em>slow</em>.</li><li>Foreign trade cannot be <em>manual</em>.</li><li>Foreign trade cannot be <em>unsafe</em>.</li><li>Foreign trade cannot be <em>a maze</em>.</li></ul><p class="man__f">Foreign trade needs to be <b>ACELERO</b>.</p>',
     'purp.txt.1': '<p> Foreign trade in Brazil was built to be hard. A language of its own, a bureaucracy that shifts without notice, and a chain of intermediaries in which almost nobody has an incentive to tell you the truth about cost and lead time. </p> <p> The result is that excellent companies give up on importing better, or never try selling abroad at all. They lose margin to competitors who are not better — only better organised internationally. </p> <p> <strong>We exist to erase that disadvantage.</strong> Every operation we simplify is a company that grows without trading predictability for opportunity. In the long run, we want importing and exporting to be as unremarkable as issuing an invoice. </p>',
 
     /* garantias */
@@ -372,6 +373,7 @@ window.ACELERO_IDIOMAS = {
     'purp.h.l1': 'Toda empresa brasileña',
     'purp.h.l2': 'debería poder competir',
     'purp.h.l3': 'con el <em>mundo entero.</em>',
+    'purp.man.1': '<ul class="man"><li>El COMEX no puede ser <em>lento</em>.</li><li>El COMEX no puede ser <em>manual</em>.</li><li>El COMEX no puede ser <em>inseguro</em>.</li><li>El COMEX no puede ser <em>un laberinto</em>.</li></ul><p class="man__f">El COMEX necesita ser <b>ACELERO</b>.</p>',
     'purp.txt.1': '<p> El comercio exterior en Brasil fue construido para ser difícil. Un lenguaje propio, una burocracia que cambia sin aviso y una cadena de intermediarios en la que casi nadie tiene incentivo para decir la verdad sobre costo y plazo. </p> <p> El resultado es que empresas excelentes desisten de importar mejor, o nunca prueban vender afuera. Pierden margen frente a competidores que no son mejores — solo tienen una operación internacional más organizada. </p> <p> <strong>Existimos para borrar esa desventaja.</strong> Cada operación que simplificamos es una empresa que crece sin cambiar previsibilidad por oportunidad. A largo plazo, queremos que importar y exportar sea tan corriente como emitir una factura. </p>',
 
     /* garantías */

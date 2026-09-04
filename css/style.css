@@ -131,7 +131,22 @@ h1, h2, h3, h4 {
 }
 
 .sec { position: relative; padding-block: var(--secy); }
-.sec + .sec { border-top: 1px solid var(--line-soft); }
+/* Costura entre seções: em vez do filete fixo, uma linha que é traçada da
+   esquerda para a direita quando a seção entra — é ela que dá a sensação de
+   passagem de uma para a outra. */
+.sec + .sec::before {
+  content: ''; position: absolute; inset: 0 auto auto 0; z-index: 3;
+  height: 1px; width: 100%; transform: scaleX(0); transform-origin: left;
+  background: linear-gradient(90deg, var(--signal-dim), var(--line-soft) 38%, transparent);
+  transition: transform 1.5s var(--ease);
+}
+.sec + .sec.vis::before { transform: scaleX(1); }
+
+/* O conteúdo assenta em opacidade, nunca em transform: transform em um
+   ancestral quebraria qualquer sticky e o cálculo do ScrollTrigger. O piso
+   é .5 e não 0 — se o JavaScript falhar, a página continua legível. */
+[data-sec] { opacity: .5; transition: opacity 1.2s var(--ease); }
+[data-sec].vis { opacity: 1; }
 
 /* Cabeçalho de seção */
 .hd { margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
@@ -566,10 +581,53 @@ h1, h2, h3, h4 {
 /* ---------- PROPÓSITO ---------- */
 .purp { position: relative; overflow: hidden; background: var(--hull); min-height: 86svh; display: grid; align-items: center; }
 .purp__c { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .62; }
-.purp::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,15,26,.96) 30%, rgba(8,15,26,.45)); pointer-events: none; }
-.purp__in { position: relative; z-index: 2; padding-block: clamp(3rem, 7vw, 5.5rem); }
+/* O véu escurece as duas bordas e deixa o globo respirar no meio: agora há
+   texto dos dois lados, e um degradê de mão única apagaria a coluna direita. */
+.purp::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,15,26,.96) 20%, rgba(8,15,26,.55) 52%, rgba(8,15,26,.93)); pointer-events: none; }
+.purp__in {
+  position: relative; z-index: 2; padding-block: clamp(3rem, 7vw, 5.5rem);
+  display: grid; grid-template-columns: 1.06fr .94fr;
+  gap: clamp(2.2rem, 5vw, 5rem); align-items: center;
+}
 .purp__txt { margin-top: 2.2rem; max-width: 64ch; color: var(--fog); }
 .purp__txt strong { color: var(--paper); font-weight: 500; }
+
+/* ---- manifesto -------------------------------------------------------
+   Quatro negativas e uma afirmação. A hierarquia faz o trabalho: as
+   negativas em cinza, a palavra que interessa em claro, e o fecho maior,
+   separado por um filete, com a marca em azul. */
+.man { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.man li {
+  position: relative; padding-left: 1.3rem;
+  font-family: var(--f-disp); font-weight: 700; font-stretch: 108%;
+  font-size: clamp(1.05rem, 1.95vw, 1.6rem); line-height: 1.2;
+  letter-spacing: -.015em; color: var(--metal);
+}
+.man li::before {
+  content: ''; position: absolute; left: 0; top: .62em;
+  width: .62rem; height: 1px; background: var(--signal-dim);
+}
+.man li em { font-style: normal; color: var(--mist); }
+.man__f {
+  margin: clamp(1.3rem, 2.6vw, 2rem) 0 0; padding-top: clamp(1.1rem, 2.2vw, 1.7rem);
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--f-disp); font-weight: 800; font-stretch: 116%;
+  font-size: clamp(1.45rem, 2.9vw, 2.4rem); line-height: 1.1;
+  letter-spacing: -.025em; color: var(--paper);
+}
+.man__f b { color: var(--signal); font-weight: 800; }
+
+/* A entrada é de cada linha, não do bloco: elas se acumulam até o fecho.
+   Como as linhas são recriadas ao trocar de idioma, a animação mora no CSS
+   e reaparece sozinha — não há estado inline para restaurar. */
+[data-man] .man li, [data-man] .man__f { opacity: 0; }
+[data-man].in .man li { animation: manEntra .9s var(--ease) both; }
+[data-man].in .man li:nth-child(1) { animation-delay: .06s; }
+[data-man].in .man li:nth-child(2) { animation-delay: .20s; }
+[data-man].in .man li:nth-child(3) { animation-delay: .34s; }
+[data-man].in .man li:nth-child(4) { animation-delay: .48s; }
+[data-man].in .man__f { animation: manEntra 1.15s var(--ease) .74s both; }
+@keyframes manEntra { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
 
 /* ---------- OFERTA / GARANTIAS ---------- */
 .offer__g { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
@@ -791,7 +849,7 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 720px) {
-  .nums, .cases__list, .fr, .foot__g { grid-template-columns: 1fr; }
+  .nums, .cases__list, .fr, .foot__g, .purp__in { grid-template-columns: 1fr; }
   .q { flex: 0 0 86%; }
   .quotes__hd { flex-direction: column; align-items: flex-start; }
   .foot__cta { flex-direction: column; align-items: flex-start; }
@@ -810,6 +868,9 @@ h1, h2, h3, h4 {
   html { scroll-behavior: auto; }   /* quem pede menos movimento recebe salto instantâneo */
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   [data-rv] { opacity: 1 !important; transform: none !important; }
+  [data-sec] { opacity: 1 !important; transition: none; }
+  .sec + .sec::before { transform: none; transition: none; }
+  [data-man] .man li, [data-man] .man__f { opacity: 1; animation: none; }
   .ticker__t { transform: none !important; }
   .hero__video { display: none; }
 }

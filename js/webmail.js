@@ -35,7 +35,7 @@
   /* ---------- globo de fundo ---------- */
   if (window.ACELERO_GLOBO) {
     window.ACELERO_GLOBO.criar($('#acessoGlobo'), {
-      scale: .40, speed: .000223, cx: .68, cy: .5
+      scale: .40, speed: .0001784, cx: .68, cy: .5
     });
   }
 

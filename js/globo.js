@@ -118,7 +118,7 @@ const GEO = (() => {
 
 function createGlobe(canvas, opt) {
   if (!canvas) return null;
-  const o = Object.assign({ scale: .42, speed: .0007, inclinacao: INCLINACAO_TERRA, elevacao: -0.30, rotas: true, nos: true, cx: .5, cy: .5 }, opt);
+  const o = Object.assign({ scale: .42, speed: .00056, inclinacao: INCLINACAO_TERRA, elevacao: -0.30, rotas: true, nos: true, cx: .5, cy: .5 }, opt);
   const ctx = canvas.getContext('2d');
   let W = 0, H = 0, R = 0, cx = 0, cy = 0;
   let ang = 0, raf = null;

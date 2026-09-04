@@ -117,7 +117,7 @@
     // Globo em miniatura: mesma matemática do herói, sem rotas nem pontos de
     // porto, que a 34px virariam sujeira. Gira um pouco mais rápido porque
     // nesse tamanho o movimento do herói seria imperceptível.
-    createGlobe($('#cursorGlobo'), { scale: .46, speed: .000715, inclinacao: INCLINACAO_TERRA, rotas: false, nos: false });
+    createGlobe($('#cursorGlobo'), { scale: .46, speed: .000572, inclinacao: INCLINACAO_TERRA, rotas: false, nos: false });
 
     // Sobre campo de texto a bola grande atrapalha: ela cobre justamente a
     // linha que a pessoa está lendo ou escrevendo. Ali o cursor continua
@@ -146,13 +146,13 @@
   function header() {
     const h = $('#head'), b = $('#burger'), m = $('#menu');
     if (!h) return;
-    let last = scrollY;
 
+    // O cabeçalho não se esconde mais ao rolar para baixo. Ele continua fixo e
+    // só ganha o fundo com desfoque depois dos primeiros pixels — a folga que
+    // impede de cobrir o conteúdo vem do padding das seções e do
+    // scroll-padding-top, ambos amarrados a --head-h.
     addEventListener('scroll', () => {
-      const y = scrollY;
-      h.classList.toggle('stuck', y > 40);
-      h.classList.toggle('hide', y > last && y > 340 && !document.body.classList.contains('menu-on'));
-      last = y;
+      h.classList.toggle('stuck', scrollY > 40);
     }, { passive: true });
 
     if (!b || !m) return;
@@ -241,10 +241,16 @@
   function scrollAnims() {
     const splits = $$('[data-split]').filter(e => !e.closest('.hero'));
     const rvs    = $$('[data-rv]').filter(e => !e.closest('.hero'));
+    // Seções e manifesto: a animação em si é CSS; aqui só dizemos quando ela
+    // começa. Assim ela sobrevive à troca de idioma, que recria os elementos.
+    const secs   = $$('[data-sec]');
+    const mans   = $$('[data-man]');
 
     if (reduced) {
       $$('[data-split] .ln > span').forEach(s => { s.style.transform = 'none'; s.style.opacity = '1'; });
       rvs.forEach(e => e.classList.add('in'));
+      secs.forEach(e => e.classList.add('vis'));
+      mans.forEach(e => e.classList.add('in'));
       return;
     }
 
@@ -257,6 +263,12 @@
         y: 0, opacity: 1, duration: 1, ease: 'expo.out',
         delay: parseFloat(e.dataset.d || 0),
         scrollTrigger: { trigger: e, start: 'top 90%', once: true }
+      }));
+      secs.forEach(e => ScrollTrigger.create({
+        trigger: e, start: 'top 88%', once: true, onEnter: () => e.classList.add('vis')
+      }));
+      mans.forEach(e => ScrollTrigger.create({
+        trigger: e, start: 'top 82%', once: true, onEnter: () => e.classList.add('in')
       }));
       $$('[data-parallax]').forEach(e => {
         const amt = parseFloat(e.dataset.parallax) || .1;
@@ -273,7 +285,11 @@
       es.forEach(en => {
         if (!en.isIntersecting) return;
         const e = en.target;
-        if (e.hasAttribute('data-split')) {
+        if (e.hasAttribute('data-sec')) {
+          e.classList.add('vis');
+        } else if (e.hasAttribute('data-man')) {
+          e.classList.add('in');
+        } else if (e.hasAttribute('data-split')) {
           $$('.ln > span', e).forEach((s, i) => {
             s.style.transition = `transform 1s cubic-bezier(.19,1,.22,1) ${i * .08}s, opacity 1s ease ${i * .08}s`;
             s.style.transform = 'translateY(0)'; s.style.opacity = '1';
@@ -288,6 +304,8 @@
 
     splits.forEach(e => io.observe(e));
     rvs.forEach(e => io.observe(e));
+    secs.forEach(e => io.observe(e));
+    mans.forEach(e => io.observe(e));
   }
 
   /* ---------- 08. TICKER ---------- */
@@ -1131,9 +1149,9 @@
 
   function init() {
     prepSplit();
-    createGlobe($('#globe'),         { scale: .40, speed: .000223, inclinacao: INCLINACAO_TERRA, cx: .68, cy: .48 });
-    createGlobe($('#purposeCanvas'), { scale: .44, speed: .000127, inclinacao: INCLINACAO_TERRA, cx: .82, cy: .48 });
-    createGlobe($('#contactCanvas'), { scale: .48, speed: .000159, inclinacao: INCLINACAO_TERRA, cx: .30, cy: .45, rotas: false });
+    createGlobe($('#globe'),         { scale: .40, speed: .0001784, inclinacao: INCLINACAO_TERRA, cx: .68, cy: .48 });
+    createGlobe($('#purposeCanvas'), { scale: .44, speed: .0001016, inclinacao: INCLINACAO_TERRA, cx: .82, cy: .48 });
+    createGlobe($('#contactCanvas'), { scale: .48, speed: .0001272, inclinacao: INCLINACAO_TERRA, cx: .30, cy: .45, rotas: false });
     loader();
     cursor();
     header();

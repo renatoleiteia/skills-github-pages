@@ -17,7 +17,7 @@
   /* ---------- globo da capa ---------- */
   if (window.ACELERO_GLOBO) {
     window.ACELERO_GLOBO.criar($('#docGlobo'), {
-      scale: .38, speed: .000159, cx: .78, cy: .52, rotas: false
+      scale: .38, speed: .0001272, cx: .78, cy: .52, rotas: false
     });
   }
 
