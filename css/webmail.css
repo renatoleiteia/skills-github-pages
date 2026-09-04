@@ -1,0 +1,100 @@
+/* ============================================================================
+   ACELERO COMEX — webmail.css
+   Entrada do e-mail corporativo. Herda tokens, tipografia, botões e campos de
+   style.css; aqui fica só o que é próprio desta página.
+   ========================================================================== */
+
+.acesso {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--abyss);
+  overflow-x: hidden;
+}
+
+/* Fundo: o mesmo globo do site, grande e recuado atrás do cartão. */
+.acesso__globo { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: .55; }
+.acesso__veu {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(70% 60% at 26% 48%, rgba(4,7,12,.94), rgba(4,7,12,.5) 70%, transparent),
+    linear-gradient(180deg, rgba(4,7,12,.85), transparent 24%, transparent 74%, rgba(4,7,12,.9));
+}
+
+.acesso__topo,
+.acesso__palco,
+.acesso__rodape { position: relative; z-index: 2; }
+
+/* ---------- topo ---------- */
+.acesso__topo {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  padding: clamp(1.1rem, 2.4vw, 1.8rem) var(--pad);
+}
+.acesso__voltar { color: var(--metal); transition: color .35s ease; }
+.acesso__voltar:hover { color: var(--signal); }
+
+/* ---------- palco ---------- */
+.acesso__palco {
+  display: grid; grid-template-columns: minmax(0, 460px) minmax(0, 300px);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-content: center; align-items: start;
+  padding: clamp(1.2rem, 3vw, 2.4rem) var(--pad) clamp(1.5rem, 4vw, 3rem);
+  max-width: var(--maxw); width: 100%; margin-inline: auto;
+}
+
+.acesso__num { color: var(--signal); margin-bottom: .9rem; }
+.acesso__titulo {
+  font-family: var(--f-disp); font-weight: 800; font-stretch: 116%;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.02; letter-spacing: -.03em;
+  color: var(--paper); margin: 0 0 .9rem;
+}
+.acesso__titulo em { font-style: normal; color: var(--signal); }
+.acesso__lead { color: var(--fog); max-width: 42ch; margin-bottom: 1.5rem; font-size: .96rem; }
+.acesso__lead strong { color: var(--paper); font-weight: 500; }
+
+.acesso__form { gap: .95rem; }
+
+/* campo de senha com o botão de revelar embutido */
+.acesso__senha { position: relative; display: block; }
+.acesso__senha input { padding-right: 3rem; }
+.acesso__olho {
+  position: absolute; top: 50%; right: .5rem; transform: translateY(-50%);
+  width: 36px; height: 36px; display: grid; place-items: center;
+  color: var(--metal); transition: color .3s ease, background .3s ease;
+}
+.acesso__olho:hover { color: var(--signal); background: rgba(63,178,224,.1); }
+.acesso__olho[aria-pressed="true"] { color: var(--signal); }
+
+.acesso__lembrar { font-size: .85rem; }
+
+.acesso__pes {
+  display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: space-between;
+  padding-top: .3rem; font-size: .85rem;
+}
+.acesso__pes a { color: var(--metal); transition: color .3s ease; }
+.acesso__pes a:hover { color: var(--signal); }
+
+/* ---------- nota lateral ---------- */
+.acesso__nota {
+  margin-top: clamp(3.5rem, 9vw, 7rem);
+  padding: clamp(1.2rem, 2.2vw, 1.6rem);
+  box-shadow: inset 0 0 0 1px var(--line);
+  background: rgba(8,15,26,.62); backdrop-filter: blur(4px);
+  color: var(--metal); font-size: .89rem;
+}
+.acesso__nota .mono { color: var(--signal); margin-bottom: .8rem; }
+
+/* ---------- rodapé ---------- */
+.acesso__rodape {
+  display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;
+  padding: 1.4rem var(--pad);
+  border-top: 1px solid var(--line-soft);
+  color: var(--metal); text-transform: none; letter-spacing: .05em; font-size: .72rem;
+}
+.acesso__rodape a:hover { color: var(--signal); }
+
+@media (max-width: 900px) {
+  .acesso__palco { grid-template-columns: 1fr; align-content: start; }
+  .acesso__nota { order: 2; }
+  .acesso__globo { opacity: .35; }
+}
