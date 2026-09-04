@@ -70,7 +70,7 @@ const ROTAS = [
 
 // Inclinação do eixo de rotação da Terra: 23,5°. Todos os globos do site
 // usam este mesmo valor, para que sejam o mesmo planeta.
-const INCLINACAO_TERRA = -23.5 * Math.PI / 180;
+const INCLINACAO_TERRA = 23.5 * Math.PI / 180;   // eixo de rotação da Terra
 
 const rad = d => d * Math.PI / 180;
 const toVec = ([la, lo]) => {
@@ -118,11 +118,11 @@ const GEO = (() => {
 
 function createGlobe(canvas, opt) {
   if (!canvas) return null;
-  const o = Object.assign({ scale: .42, speed: .0007, tilt: INCLINACAO_TERRA, rotas: true, nos: true, cx: .5, cy: .5 }, opt);
+  const o = Object.assign({ scale: .42, speed: .0007, inclinacao: INCLINACAO_TERRA, elevacao: -0.30, rotas: true, nos: true, cx: .5, cy: .5 }, opt);
   const ctx = canvas.getContext('2d');
   let W = 0, H = 0, R = 0, cx = 0, cy = 0;
   let ang = 0, raf = null;
-  let ca = 1, sa = 0, ct = 1, st = 0;   // senos e cossenos do quadro atual
+  let ca = 1, sa = 0, ce = 1, se = 0, ci = 1, si = 0;   // senos e cossenos do quadro
 
   function resize() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
@@ -134,11 +134,33 @@ function createGlobe(canvas, opt) {
     cx = W * o.cx; cy = H * o.cy;
   }
 
-  // Rotação em Y (longitude) seguida de inclinação fixa em X, projetada
-  // em ortográfica. Os cossenos vêm prontos do quadro — ver frame().
-  const px = v => cx + (v[0] * ca - v[2] * sa) * R;
-  const pz = v => (v[1] * st + (v[0] * sa + v[2] * ca) * ct);
-  const py = v => cy - (v[1] * ct - (v[0] * sa + v[2] * ca) * st) * R;
+  // Projeção ortográfica em três estágios, nesta ordem:
+  //
+  //   1. Ry(ang)           o planeta gira em torno do PRÓPRIO eixo
+  //   2. Rx(elevacao)      a câmera sobe um pouco acima do plano do equador,
+  //                        o que dá aos paralelos a curva de elipse
+  //   3. Rz(inclinacao)    os 23,5° do eixo terrestre, no PLANO DA TELA
+  //
+  // O estágio 3 vem por último de propósito: sendo uma rotação no próprio
+  // plano da tela, nada depois dele altera o ângulo, e a inclinação desenhada
+  // é exatamente a pedida.
+  //
+  // Inclinar em X — como estava antes — não produzia inclinação nenhuma: o
+  // eixo Y é invariante ao giro em Y, e o giro em X preserva x = 0, então os
+  // dois polos caíam na mesma vertical e o eixo saía reto na tela.
+  //
+  // Os senos e cossenos vêm prontos do quadro — ver frame().
+  function proj(v) {
+    const x1 = v[0] * ca - v[2] * sa;           // giro do planeta
+    const z1 = v[0] * sa + v[2] * ca;
+    const y2 = v[1] * ce - z1 * se;             // elevação da câmera
+    const z2 = v[1] * se + z1 * ce;
+    return {
+      x: cx + (x1 * ci - y2 * si) * R,          // inclinação do eixo
+      y: cy - (x1 * si + y2 * ci) * R,
+      z: z2
+    };
+  }
 
   function traco(linhas, cor) {
     ctx.strokeStyle = cor;
@@ -146,10 +168,9 @@ function createGlobe(canvas, opt) {
       ctx.beginPath();
       let caneta = false;
       for (let i = 0; i < pts.length; i++) {
-        const v = pts[i];
-        if (pz(v) <= 0) { caneta = false; continue; }
-        const x = px(v), y = py(v);
-        caneta ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), caneta = true);
+        const q = proj(pts[i]);
+        if (q.z <= 0) { caneta = false; continue; }
+        caneta ? ctx.lineTo(q.x, q.y) : (ctx.moveTo(q.x, q.y), caneta = true);
       }
       ctx.stroke();
     });
@@ -162,10 +183,9 @@ function createGlobe(canvas, opt) {
       ctx.beginPath();
       let caneta = false;
       for (let i = 0; i < pts.length; i++) {
-        const v = pts[i];
-        if (pz(v) < -0.2) { caneta = false; continue; }
-        const x = px(v), y = py(v);
-        caneta ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), caneta = true);
+        const q = proj(pts[i]);
+        if (q.z < -0.2) { caneta = false; continue; }
+        caneta ? ctx.lineTo(q.x, q.y) : (ctx.moveTo(q.x, q.y), caneta = true);
       }
       ctx.stroke();
     });
@@ -174,8 +194,10 @@ function createGlobe(canvas, opt) {
       const pts = GEO.rotas[i];
       const k = (t * 0.00013 + i * 0.11) % 1;
       const v = pts[Math.floor(k * (pts.length - 1))];
-      if (!v || pz(v) < -0.05) continue;
-      const x = px(v), y = py(v);
+      if (!v) continue;
+      const q = proj(v);
+      if (q.z < -0.05) continue;
+      const x = q.x, y = q.y;
       ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(63,178,224,.95)'; ctx.fill();
       ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2);
@@ -185,8 +207,9 @@ function createGlobe(canvas, opt) {
 
   function desenharNos(t) {
     GEO.nos.forEach((v, i) => {
-      if (pz(v) <= 0) return;
-      const x = px(v), y = py(v);
+      const q = proj(v);
+      if (q.z <= 0) return;
+      const x = q.x, y = q.y;
       const pulso = .5 + .5 * Math.sin(t * .0012 + i * .7);
       ctx.beginPath(); ctx.arc(x, y, 1.8, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(237,242,246,.9)'; ctx.fill();
@@ -197,8 +220,9 @@ function createGlobe(canvas, opt) {
   }
 
   function frame(t) {
-    ca = Math.cos(ang); sa = Math.sin(ang);
-    ct = Math.cos(o.tilt); st = Math.sin(o.tilt);
+    ca = Math.cos(ang);          sa = Math.sin(ang);
+    ce = Math.cos(o.elevacao);   se = Math.sin(o.elevacao);
+    ci = Math.cos(o.inclinacao); si = Math.sin(o.inclinacao);
 
     ctx.clearRect(0, 0, W, H);
     ctx.lineWidth = 1;

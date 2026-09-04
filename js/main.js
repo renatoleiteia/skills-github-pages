@@ -117,7 +117,7 @@
     // Globo em miniatura: mesma matemática do herói, sem rotas nem pontos de
     // porto, que a 34px virariam sujeira. Gira um pouco mais rápido porque
     // nesse tamanho o movimento do herói seria imperceptível.
-    createGlobe($('#cursorGlobo'), { scale: .46, speed: .000715, tilt: INCLINACAO_TERRA, rotas: false, nos: false });
+    createGlobe($('#cursorGlobo'), { scale: .46, speed: .000715, inclinacao: INCLINACAO_TERRA, rotas: false, nos: false });
 
     const sel = 'a, button, summary, input, select, textarea, [data-cursor]';
     document.addEventListener('mouseover', e => {
@@ -750,13 +750,13 @@
   // O globo vem de js/globo.js, compartilhado com a página do webmail.
   const GLOBO = window.ACELERO_GLOBO || null;
   const createGlobe = (c, o) => GLOBO && GLOBO.criar(c, o);
-  const INCLINACAO_TERRA = GLOBO ? GLOBO.INCLINACAO_TERRA : -23.5 * Math.PI / 180;
+  const INCLINACAO_TERRA = GLOBO ? GLOBO.INCLINACAO_TERRA : 23.5 * Math.PI / 180;
 
   function init() {
     prepSplit();
-    createGlobe($('#globe'),         { scale: .40, speed: .000223, tilt: INCLINACAO_TERRA, cx: .68, cy: .48 });
-    createGlobe($('#purposeCanvas'), { scale: .44, speed: .000127, tilt: INCLINACAO_TERRA, cx: .82, cy: .48 });
-    createGlobe($('#contactCanvas'), { scale: .48, speed: .000159, tilt: INCLINACAO_TERRA, cx: .30, cy: .45, rotas: false });
+    createGlobe($('#globe'),         { scale: .40, speed: .000223, inclinacao: INCLINACAO_TERRA, cx: .68, cy: .48 });
+    createGlobe($('#purposeCanvas'), { scale: .44, speed: .000127, inclinacao: INCLINACAO_TERRA, cx: .82, cy: .48 });
+    createGlobe($('#contactCanvas'), { scale: .48, speed: .000159, inclinacao: INCLINACAO_TERRA, cx: .30, cy: .45, rotas: false });
     loader();
     cursor();
     header();
