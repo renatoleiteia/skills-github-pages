@@ -23,7 +23,7 @@ window.ACELERO_IDIOMAS = {
     'menu.1': 'About Acelero', 'menu.2': 'Services', 'menu.3': 'Process',
     'menu.4': 'Results', 'menu.5': 'Cases', 'menu.6': 'Why we do it',
     'menu.7': 'Guarantees', 'menu.8': 'Frequently asked questions',
-    'menu.9': 'Talk to a specialist',
+    'menu.9': 'Talk to the specialist',
 
     /* hero */
     'hero.tag.1': 'End-to-end foreign trade management',
@@ -218,10 +218,9 @@ window.ACELERO_IDIOMAS = {
     'form.n.1': 'Answered within 1 business day. No spam.',
 
     /* rodapé */
-    'foot.h.l1': 'Your next import',
-    'foot.h.l2': 'could be the <em>calmest</em>',
-    'foot.h.l3': '<em>one</em> yet.',
-    'foot.cta.1': 'Talk to a specialist',
+    'foot.h.l1': 'Accelerate your <em>foreign trade.</em>',
+    'foot.p.1': 'We take care of the processes, costs, logistics and compliance of your company\u2019s imports and exports.',
+    'foot.cta.1': 'Talk to the specialist',
     'foot.desc.1': 'Complete foreign trade management for manufacturers, e-commerce operations and importers who cannot afford to rely on luck.',
     'foot.serv.1': 'Import and Export', 'foot.serv.2': 'International Logistics',
     'foot.serv.3': 'Customs Clearance', 'foot.serv.4': 'Strategic Consulting',
@@ -242,7 +241,7 @@ window.ACELERO_IDIOMAS = {
     'menu.1': 'Sobre Acelero', 'menu.2': 'Servicios', 'menu.3': 'Proceso',
     'menu.4': 'Resultados', 'menu.5': 'Casos', 'menu.6': 'Por qué lo hacemos',
     'menu.7': 'Garantías', 'menu.8': 'Preguntas frecuentes',
-    'menu.9': 'Hablar con un especialista',
+    'menu.9': 'Hable con el especialista',
 
     /* hero */
     'hero.tag.1': 'Gestión integral de comercio exterior',
@@ -437,10 +436,9 @@ window.ACELERO_IDIOMAS = {
     'form.n.1': 'Respuesta en hasta 1 día hábil. Sin spam.',
 
     /* pie */
-    'foot.h.l1': 'Su próxima importación',
-    'foot.h.l2': 'puede ser la <em>más</em>',
-    'foot.h.l3': '<em>tranquila</em> de todas.',
-    'foot.cta.1': 'Hablar con un especialista',
+    'foot.h.l1': 'Acelere su <em>comercio exterior.</em>',
+    'foot.p.1': 'Cuidamos de los procesos, costos, logística y compliance de la importación y exportación de su empresa.',
+    'foot.cta.1': 'Hable con el especialista',
     'foot.desc.1': 'Gestión integral de comercio exterior para industrias, e-commerces e importadores que no pueden depender de la suerte.',
     'foot.serv.1': 'Importación y Exportación', 'foot.serv.2': 'Logística Internacional',
     'foot.serv.3': 'Despacho Aduanero', 'foot.serv.4': 'Consultoría Estratégica',

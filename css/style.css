@@ -24,6 +24,8 @@
   /* Sinal */
   --signal:     #3FB2E0;
   --signal-dim: #1C6B90;
+  /* Fundo do botão sólido: o --signal escurecido 20% (cada canal × 0,8). */
+  --signal-fundo: #328EB3;
   --signal-glow: rgba(63, 178, 224, .16);
 
   --line:      rgba(169, 186, 200, .14);
@@ -168,7 +170,10 @@ h1, h2, h3, h4 {
 .btn:hover svg { transform: translateX(5px); }
 .btn:active { transform: scale(.98); }
 
-.btn--solid { color: var(--abyss); background: var(--signal); }
+/* Fonte branca sobre o azul escurecido. O preenchimento que sobe no hover
+   continua claro, então ali o texto volta a ser escuro: os dois estados
+   ficam legíveis. */
+.btn--solid { color: #FFFFFF; background: var(--signal-fundo); }
 .btn--solid::before { background: var(--paper); transform: translateY(101%); }
 .btn--solid:hover { color: var(--abyss); }
 .btn--solid:hover::before { transform: translateY(0); }
@@ -721,7 +726,12 @@ h1, h2, h3, h4 {
 /* ---------- FOOTER ---------- */
 .foot { background: var(--abyss); border-top: 1px solid var(--line); padding-top: clamp(3.5rem, 7vw, 6.5rem); }
 .foot__cta { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 2rem; padding-bottom: clamp(2.5rem, 5vw, 4.5rem); border-bottom: 1px solid var(--line); }
+.foot__t { display: grid; gap: 1.15rem; max-width: 34rem; }
 .foot__big { font-size: clamp(1.8rem, 4.2vw, 3.9rem); max-width: 15ch; font-weight: 800; font-stretch: 116%; }
+.foot__lead {
+  margin: 0; max-width: 48ch; color: var(--fog);
+  font-size: clamp(.95rem, 1.35vw, 1.08rem); line-height: 1.65;
+}
 .foot__g { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: clamp(1.5rem, 3vw, 3rem); padding-block: clamp(2.5rem, 5vw, 4rem); }
 .foot__c { display: grid; align-content: start; gap: .55rem; }
 .foot__c--b p { color: var(--metal); font-size: .9rem; max-width: 36ch; margin-top: .4rem; }
