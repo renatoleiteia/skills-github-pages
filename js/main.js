@@ -475,9 +475,10 @@
        Só mascaramos onde o formato é conhecido de verdade (Brasil e o plano
        norte-americano). Para o resto, agrupar em blocos inventados atrapalha
        mais do que ajuda: fica só o limite de dígitos do país. */
-    function mascarar(v, pa) {
+    function mascarar(v, pa, cortar) {
       const max = pa.dig[1];
-      let d = digitos(v).slice(0, max);
+      let d = digitos(v);
+      if (cortar !== false) d = d.slice(0, max);
       if (pa.iso === 'BR') {
         if (d.length > 6)      return d.replace(/^(\d{2})(\d{4,5})(\d{0,4}).*/, '($1) $2-$3');
         if (d.length > 2)      return d.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
@@ -505,9 +506,15 @@
       const pa = pais();
       const d = digitos(tel.value);
       if (!d) return msg('telefone', 'Informe o seu WhatsApp com DDD.');
-      if (d.length < pa.dig[0] || d.length > pa.dig[1])
-        return msg('telDig', 'Número incompleto para o país escolhido.');
-      if (/^(\d)\1+$/.test(d)) return msg('telFalso', 'Este número não parece real. Confira e digite de novo.');
+      if (d.length < pa.dig[0]) return msg('telDig', 'Número incompleto para o país escolhido.');
+      if (d.length > pa.dig[1]) return msg('telLongo', 'Número com dígitos demais para o país escolhido.');
+      // Dígito repetido e sequência valem para o número inteiro e também para
+      // os últimos 8 dígitos: "31 99999-9999" tem DDD válido e mesmo assim
+      // não é telefone de ninguém. Sequência só no número inteiro — no
+      // trecho final ela recusaria assinantes reais.
+      const fim = d.slice(-8);
+      if (/^(\d)\1+$/.test(d) || (fim.length === 8 && /^(\d)\1+$/.test(fim)))
+        return msg('telFalso', 'Este número não parece real. Confira e digite de novo.');
       if ('01234567890123456789'.indexOf(d) !== -1 || '98765432109876543210'.indexOf(d) !== -1)
         return msg('telFalso', 'Este número não parece real. Confira e digite de novo.');
       if (pa.iso === 'BR') {
@@ -552,9 +559,12 @@
     if (selPais) {
       preencherPaises();
       selPais.addEventListener('change', () => {
-        tel.value = mascarar(tel.value, pais());
+        // Sem cortar: um número de 11 dígitos trocado para um país de 9 não
+        // pode virar outro número silenciosamente — e muito menos ser dado
+        // como confirmado. Fica inteiro, e o aviso diz que não serve ali.
+        tel.value = mascarar(tel.value, pais(), false);
         tel.placeholder = modelo(pais());
-        setErr(tel, '');
+        setErr(tel, problemaNoNumero());
         atualizarConfirmacao();
       });
       document.addEventListener('acelero:idioma', () => {
@@ -616,6 +626,39 @@
       else ce.textContent = '';
       return ok;
     };
+
+    /* ---- o aviso some quando a pessoa conserta ---------------------------
+       Um erro já mostrado tem de sumir assim que o campo fica certo. Sem isto
+       a mensagem vermelha permanece contradizendo o que está escrito ali —
+       foi o que aconteceu com o WhatsApp: o número já era válido, o bloco de
+       confirmação já tinha aparecido, e o aviso antigo continuava na tela.
+
+       Só reavaliamos campo que já recebeu aviso. Quem ainda está digitando
+       pela primeira vez não é interrompido a cada tecla. */
+    function mostrando(el) {
+      const w = el.closest('.fd');
+      return !!(w && w.classList.contains('err'));
+    }
+
+    function vigiar(el, problema) {
+      if (!el) return;
+      const evento = el.tagName === 'SELECT' ? 'change' : 'input';
+      el.addEventListener(evento, () => { if (mostrando(el)) setErr(el, problema()); });
+      el.addEventListener('blur', () => { if (mostrando(el)) setErr(el, problema()); });
+    }
+
+    const vazio = (el, m) => () => el.value.trim() ? '' : m();
+    vigiar($('#nome'),      vazio($('#nome'),      () => msg('nome', 'Informe o seu nome.')));
+    vigiar($('#empresa'),   vazio($('#empresa'),   () => msg('empresa', 'Informe o nome da empresa.')));
+    vigiar($('#interesse'), vazio($('#interesse'), () => msg('interesse', 'Selecione o que você precisa.')));
+    vigiar($('#email'), problemaNoEmail);
+    vigiar(tel, problemaNoNumero);
+
+    const cs = $('#consent');
+    cs && cs.addEventListener('change', () => {
+      const ce = $('#consentError');
+      if (ce && cs.checked) ce.textContent = '';
+    });
 
     waOk && waOk.addEventListener('change', () => {
       const we = $('#waErro');
