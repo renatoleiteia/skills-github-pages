@@ -328,7 +328,18 @@
   </div>
 </section>
 
-<section class="bloco" id="proposito">
+<section class="bloco bloco--foto bloco--azul" id="proposito">
+  <!-- Navio sobre o mapa-múndi atrás do manifesto: é a única seção que fala de
+       propósito, e a imagem carrega o argumento sem precisar de legenda. Aqui o
+       degradê é azul, não preto — o azul já é o da própria foto. Enquanto o
+       arquivo definitivo não sobe, o slot cai para o mapa-múndi. -->
+  <div class="placa" aria-hidden="true" data-opcional
+       data-alternativa="assets/img/mapa-mundi.jpg">
+    <!-- Sem <picture> enquanto o slot tem alternativa: o <source> webp vence a
+         escolha do navegador e a troca de src no <img> não teria efeito. O webp
+         entra junto com a foto definitiva. -->
+    <img src="assets/img/navio-mapa-mundi.jpg" alt="" loading="lazy" />
+  </div>
   <div class="wrap">
     <div class="cab">
       <p class="mono cab__n" data-i18n="hdnum.6">06 — Por que fazemos</p>

@@ -16,3 +16,23 @@
   font-size: clamp(1.4rem, 2.7vw, 2.2rem); line-height: 1.1; letter-spacing: -.03em; color: var(--claro);
 }
 .manifesto .man__f b { color: var(--azul); font-weight: 800; }
+
+/* ---------- fundo azul da seção 06 -------------------------------------
+   As outras placas dissolvem a foto em preto. Aqui não: o navio sobre o
+   mapa-múndi já é azul, e apagá-lo em cinza jogaria fora justamente a cor que
+   liga a imagem ao resto do site. O degradê tem duas camadas — uma vertical,
+   que abre e fecha na tinta para a seção emendar com as vizinhas, e uma leve de
+   azul por cima, que unifica o que sobra da foto. */
+.bloco--azul .placa img { filter: saturate(1.15) contrast(1.02); opacity: .34; }
+.bloco--azul .placa::after {
+  background:
+    linear-gradient(180deg, var(--tinta) 0%, rgba(7,10,14,.42) 34%,
+                    rgba(7,10,14,.66) 74%, var(--tinta) 100%),
+    linear-gradient(100deg, rgba(23,57,74,.42) 0%, rgba(39,110,139,.20) 55%,
+                    rgba(23,57,74,.38) 100%);
+}
+/* Dois cinzas ficam um tom mais claros só aqui: sobre a foto eles encostavam no
+   limite de leitura. Medido contra o pixel de fundo mais claro de cada faixa. */
+.bloco--azul .manifesto li { color: #8C99A7; }
+.bloco--azul .cab__n { color: #798899; }
+@media (max-width: 880px) { .bloco--azul .placa img { opacity: .26; } }

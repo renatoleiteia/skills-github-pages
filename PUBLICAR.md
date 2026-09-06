@@ -57,6 +57,23 @@ Quase sempre é uma destas três, nesta ordem de probabilidade:
 Enquanto o envio falhar, o site não perde o contato: a mensagem de erro passa
 a oferecer o mesmo conteúdo como e-mail pronto para a pessoa disparar.
 
+## Imagem que falta subir
+
+A seção 06 (Por que fazemos) espera:
+
+```
+assets/img/navio-mapa-mundi.jpg
+```
+
+Enquanto o arquivo não existir, o JavaScript cai para `mapa-mundi.jpg` — a
+mesma arte do rodapé, com outro tratamento. Basta subir o arquivo com esse nome
+exato para o navio assumir; não há nada a fazer no código. O 404 no console do
+navegador é a sondagem que descobre se a foto já subiu, e some junto com ela.
+
+Depois de subir, gere o `.webp` com `scripts/preparar_imagens.py` e troque o
+`<img>` por `<picture>` — enquanto o slot tem alternativa, o `<source>` webp
+venceria a escolha do navegador e a troca de imagem não funcionaria.
+
 ## Imagens
 
 Todas as imagens do site estão em `assets/img/`, cada uma com versão `.webp`
