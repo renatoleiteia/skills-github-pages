@@ -32,13 +32,6 @@
 
   const $ = s => document.querySelector(s);
 
-  /* ---------- globo de fundo ---------- */
-  if (window.ACELERO_GLOBO) {
-    window.ACELERO_GLOBO.criar($('#acessoGlobo'), {
-      scale: .40, speed: .0001784, cx: .68, cy: .5
-    });
-  }
-
   /* ---------- mostrar / esconder a senha ---------- */
   const senha = $('#senha');
   const olho = $('#verSenha');
@@ -117,6 +110,4 @@
     mostrar('bad', 'A redefinição de senha é feita pelo provedor de e-mail. Fale com o responsável técnico ou use o canal de suporte.');
   });
 
-  const ano = $('#ano');
-  if (ano) ano.textContent = new Date().getFullYear();
 })();

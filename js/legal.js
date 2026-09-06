@@ -3,7 +3,7 @@
 
    Página de documento (Política de Privacidade / Termos de uso). Não carrega
    o main.js: aqui não há cursor customizado, preloader nem ScrollTrigger — só
-   o que uma leitura longa precisa. Globo do topo, ano do rodapé, sumário que
+   o que uma leitura longa precisa: ano do rodapé, sumário que
    acompanha a leitura e âncora com a mesma inércia do site.
    ========================================================================== */
 
@@ -13,13 +13,6 @@
   const $  = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.prototype.slice.call(c.querySelectorAll(s));
   const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ---------- globo da capa ---------- */
-  if (window.ACELERO_GLOBO) {
-    window.ACELERO_GLOBO.criar($('#docGlobo'), {
-      scale: .38, speed: .0001272, cx: .78, cy: .52, rotas: false
-    });
-  }
 
   /* ---------- ano ---------- */
   const ano = $('#ano');

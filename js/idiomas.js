@@ -151,7 +151,7 @@ window.ACELERO_IDIOMAS = {
     'quote.c.4': 'CFO · medical equipment',
 
     /* propósito */
-    'purp.h.l1': 'Every Brazilian company',
+    'purp.h.l1': 'Every company has the power to compete with the <em>entire world.</em>',
     'purp.h.l2': 'should be able to compete',
     'purp.h.l3': 'with the <em>whole world.</em>',
     'purp.man.1': '<ul class="man"><li>Foreign trade cannot be <em>slow</em>.</li><li>Foreign trade cannot be <em>manual</em>.</li><li>Foreign trade cannot be <em>unsafe</em>.</li><li>Foreign trade cannot be <em>a maze</em>.</li></ul><p class="man__f">Foreign trade needs to be <b>ACELERO</b>.</p>',
@@ -370,7 +370,7 @@ window.ACELERO_IDIOMAS = {
     'quote.c.4': 'CFO · equipos médicos',
 
     /* propósito */
-    'purp.h.l1': 'Toda empresa brasileña',
+    'purp.h.l1': 'Toda empresa tiene el poder de competir con el <em>mundo entero.</em>',
     'purp.h.l2': 'debería poder competir',
     'purp.h.l3': 'con el <em>mundo entero.</em>',
     'purp.man.1': '<ul class="man"><li>El COMEX no puede ser <em>lento</em>.</li><li>El COMEX no puede ser <em>manual</em>.</li><li>El COMEX no puede ser <em>inseguro</em>.</li><li>El COMEX no puede ser <em>un laberinto</em>.</li></ul><p class="man__f">El COMEX necesita ser <b>ACELERO</b>.</p>',
