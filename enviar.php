@@ -43,7 +43,7 @@ if (!empty($dados['_honey'])) {
 /* Campos obrigatórios. A validação boa já aconteceu no navegador; esta é a
    que vale, porque o navegador pode ser contornado. */
 foreach (['Nome', 'Empresa', 'E-mail', 'WhatsApp'] as $campo) {
-    if (empty(trim($dados[$campo] ?? ''))) {
+    if (!isset($dados[$campo]) || trim($dados[$campo]) === '') {
         http_response_code(422);
         exit(json_encode(['ok' => false, 'erro' => 'campos']));
     }
@@ -57,17 +57,21 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 /* Monta o corpo. Quebra de linha e dois-pontos são removidos das chaves e o
    assunto é limpo: é assim que se evita injeção de cabeçalho de e-mail. */
-$limpo = fn($v) => trim(str_replace(["\r", "\n"], ' ', (string) $v));
+/* Função anônima clássica e substr() em vez de arrow function e
+   str_starts_with(): as duas versões curtas exigem PHP 7.4 e 8.0, e o plano
+   da hospedagem pode estar em 7.x. Assim roda de PHP 5.6 em diante. */
+$limpo = function ($v) { return trim(str_replace(array("\r", "\n"), ' ', (string) $v)); };
 
 $linhas = [];
 foreach ($dados as $chave => $valor) {
-    if ($chave === '_honey' || str_starts_with($chave, '_')) continue;
+    if (substr($chave, 0, 1) === '_') continue;   // _honey, _assunto e afins
     $linhas[] = $limpo($chave) . ': ' . $limpo($valor);
 }
-$linhas[] = 'IP: ' . ($_SERVER['REMOTE_ADDR'] ?? '-');
+$linhas[] = 'IP: ' . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '-');
 $corpo = implode("\n", $linhas);
 
-$assunto = $limpo('Site — analise de operacao: ' . ($dados['Empresa'] ?? ''));
+$empresa = isset($dados['Empresa']) ? $dados['Empresa'] : '';
+$assunto = $limpo('Site - analise de operacao: ' . $empresa);
 
 $cabecalhos = implode("\r\n", [
     'From: ACELERO COMEX <' . $DE . '>',
