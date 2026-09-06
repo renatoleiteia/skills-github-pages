@@ -48,6 +48,11 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--topo-h) + 12px);
+  /* As entradas laterais ([data-ap="esq"]) começam 22px fora da margem. O
+     overflow-x do body não segurava isso: o celular ganhava 3px de arrasto
+     lateral durante a animação. `clip` corta sem virar caixa de rolagem —
+     `hidden` viraria, e levaria junto o scroll-behavior suave. */
+  overflow-x: clip;
 }
 
 body {

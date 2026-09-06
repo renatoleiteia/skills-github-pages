@@ -40,10 +40,10 @@ window.ACELERO_IDIOMAS = {
 
     /* hero */
     'hero.tag.1': 'End-to-end foreign trade management',
-    'hero.h.l1': 'Connecting',
-    'hero.h.l2': 'the world through',
-    'hero.h.l3': '<em>foreign trade.</em>',
-    'hero.sub.1': 'Complete import and export management, run with precision and accountability — <strong>from the purchase order to the cargo on your dock</strong>, with the cost locked before you approve the purchase.',
+    'hero.h.l1': 'Import and export',
+    'hero.h.l2': 'with end-to-end',
+    'hero.h.l3': '<em>management.</em>',
+    'hero.sub.1': 'From negotiating with the supplier to delivering the cargo, get <strong>clarity on costs, timelines and next steps</strong> — with ACELERO COMEX running the operation.',
     'hero.cta1.1': 'Book a consultation',
     'hero.cta2.1': 'What we do',
     'hero.kpi.1': 'shipments managed',
@@ -246,10 +246,10 @@ window.ACELERO_IDIOMAS = {
 
     /* hero */
     'hero.tag.1': 'Gestión integral de comercio exterior',
-    'hero.h.l1': 'Conectando',
-    'hero.h.l2': 'el mundo a través',
-    'hero.h.l3': 'del <em>comercio exterior.</em>',
-    'hero.sub.1': 'Gestión integral de importación y exportación con eficiencia y confianza — <strong>del pedido al proveedor hasta la carga en su muelle</strong>, con el costo cerrado antes de que usted apruebe la compra.',
+    'hero.h.l1': 'Importación y exportación',
+    'hero.h.l2': 'con gestión de',
+    'hero.h.l3': '<em>punta&nbsp;a&nbsp;punta.</em>',
+    'hero.sub.1': 'De la negociación con el proveedor a la entrega de la carga, tenga <strong>claridad de costos, plazos y próximos pasos</strong> — con ACELERO COMEX coordinando la operación.',
     'hero.cta1.1': 'Agendar consultoría',
     'hero.cta2.1': 'Qué hacemos',
     'hero.kpi.1': 'embarques gestionados',

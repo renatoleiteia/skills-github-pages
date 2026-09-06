@@ -18,7 +18,9 @@
 }
 .capa h1 {
   font-size: clamp(2.5rem, 7.4vw, 6.6rem);
-  max-width: 17ch; margin-bottom: clamp(1.3rem, 2.6vw, 2rem);
+  /* 20ch, e não 17ch: o título de agora tem 52 caracteres e a régua antiga o
+     quebrava em quatro linhas, jogando a última palavra sozinha. */
+  max-width: 20ch; margin-bottom: clamp(1.3rem, 2.6vw, 2rem);
 }
 .capa__sub { max-width: 54ch; font-size: clamp(1rem, 1.35vw, 1.15rem); color: var(--leitura); }
 .capa__bts { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: clamp(1.6rem, 3vw, 2.4rem); }

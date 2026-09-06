@@ -172,6 +172,11 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--topo-h) + 12px);
+  /* As entradas laterais ([data-ap="esq"]) começam 22px fora da margem. O
+     overflow-x do body não segurava isso: o celular ganhava 3px de arrasto
+     lateral durante a animação. `clip` corta sem virar caixa de rolagem —
+     `hidden` viraria, e levaria junto o scroll-behavior suave. */
+  overflow-x: clip;
 }
 
 body {
@@ -317,7 +322,9 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 }
 .capa h1 {
   font-size: clamp(2.5rem, 7.4vw, 6.6rem);
-  max-width: 17ch; margin-bottom: clamp(1.3rem, 2.6vw, 2rem);
+  /* 20ch, e não 17ch: o título de agora tem 52 caracteres e a régua antiga o
+     quebrava em quatro linhas, jogando a última palavra sozinha. */
+  max-width: 20ch; margin-bottom: clamp(1.3rem, 2.6vw, 2rem);
 }
 .capa__sub { max-width: 54ch; font-size: clamp(1rem, 1.35vw, 1.15rem); color: var(--leitura); }
 .capa__bts { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
