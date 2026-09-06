@@ -35,8 +35,20 @@
 .manif li { padding: 1.1rem 1.2rem 1.3rem 0; border-right: 1px solid var(--filete); }
 .manif li:last-child { border-right: 0; }
 .manif b {
-  display: block; font-family: var(--f-mono); font-size: clamp(1.25rem, 2.3vw, 1.9rem);
+  /* --corpo guarda o tamanho do número mesmo quando a célula é texto: é ele que
+     define a altura mínima, e é assim que todos os rótulos da régua ficam na
+     mesma linha, com número grande ou com trajeto pequeno ao lado. */
+  --corpo: clamp(1.25rem, 2.3vw, 1.9rem);
+  display: flex; align-items: flex-end; min-height: calc(var(--corpo) * 1.2);
+  font-family: var(--f-mono); font-size: var(--corpo);
   font-weight: 500; color: var(--claro); letter-spacing: -.02em; font-variant-numeric: tabular-nums;
   margin-bottom: .3rem;
+}
+/* Uma célula da régua traz um trajeto, não um número. No corpo de número ela
+   estouraria a coluna, então cai para tamanho de leitura e ganha permissão de
+   quebrar — o resto da régua continua alinhado pela linha de base do rótulo. */
+.manif b.rota {
+  font-size: clamp(.95rem, 1.35vw, 1.12rem); letter-spacing: 0;
+  line-height: 1.35; text-wrap: balance;
 }
 .manif span { font-size: .78rem; color: var(--grafite); line-height: 1.4; display: block; }

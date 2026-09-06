@@ -339,9 +339,21 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 .manif li { padding: 1.1rem 1.2rem 1.3rem 0; border-right: 1px solid var(--filete); }
 .manif li:last-child { border-right: 0; }
 .manif b {
-  display: block; font-family: var(--f-mono); font-size: clamp(1.25rem, 2.3vw, 1.9rem);
+  /* --corpo guarda o tamanho do número mesmo quando a célula é texto: é ele que
+     define a altura mínima, e é assim que todos os rótulos da régua ficam na
+     mesma linha, com número grande ou com trajeto pequeno ao lado. */
+  --corpo: clamp(1.25rem, 2.3vw, 1.9rem);
+  display: flex; align-items: flex-end; min-height: calc(var(--corpo) * 1.2);
+  font-family: var(--f-mono); font-size: var(--corpo);
   font-weight: 500; color: var(--claro); letter-spacing: -.02em; font-variant-numeric: tabular-nums;
   margin-bottom: .3rem;
+}
+/* Uma célula da régua traz um trajeto, não um número. No corpo de número ela
+   estouraria a coluna, então cai para tamanho de leitura e ganha permissão de
+   quebrar — o resto da régua continua alinhado pela linha de base do rótulo. */
+.manif b.rota {
+  font-size: clamp(.95rem, 1.35vw, 1.12rem); letter-spacing: 0;
+  line-height: 1.35; text-wrap: balance;
 }
 .manif span { font-size: .78rem; color: var(--grafite); line-height: 1.4; display: block; }
 
@@ -404,9 +416,18 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 .grade-num li { padding: clamp(1.4rem, 2.6vw, 2.2rem) 1.5rem clamp(1.4rem, 2.6vw, 2.2rem) 0; border-bottom: 1px solid var(--filete); border-right: 1px solid var(--filete); }
 .grade-num li:nth-child(3n) { border-right: 0; }
 .grade-num b {
-  display: block; font-family: var(--f-mono); font-weight: 500;
-  font-size: clamp(1.9rem, 4vw, 3.1rem); letter-spacing: -.035em;
+  /* mesma régua de altura da capa: --corpo é o tamanho do número, e a célula de
+     texto se apoia no rodapé dessa caixa para não desalinhar os rótulos. */
+  --corpo: clamp(1.9rem, 4vw, 3.1rem);
+  display: flex; align-items: flex-end; min-height: calc(var(--corpo) * 1.15);
+  font-family: var(--f-mono); font-weight: 500;
+  font-size: var(--corpo); letter-spacing: -.035em;
   color: var(--claro); font-variant-numeric: tabular-nums; margin-bottom: .5rem;
+}
+/* mesma exceção da régua da capa: a célula do corredor é texto, não número */
+.grade-num b.rota {
+  font-size: clamp(1.05rem, 1.85vw, 1.4rem); letter-spacing: -.01em;
+  line-height: 1.3; text-wrap: balance;
 }
 .grade-num span { font-size: .88rem; color: var(--grafite); }
 .nota { margin-top: 1.6rem; font-size: .85rem; color: var(--grafite); max-width: 68ch; }
