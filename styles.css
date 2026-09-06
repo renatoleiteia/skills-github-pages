@@ -321,7 +321,8 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
   border: 1px solid var(--filete-2); color: var(--leitura);
 }
 .capa h1 {
-  font-size: clamp(2.5rem, 7.4vw, 6.6rem);
+  /* 20% menor que o corpo original (2.5/7.4vw/6.6) a pedido do cliente. */
+  font-size: clamp(2rem, 5.92vw, 5.28rem);
   /* 20ch, e não 17ch: o título de agora tem 52 caracteres e a régua antiga o
      quebrava em quatro linhas, jogando a última palavra sozinha. */
   max-width: 20ch; margin-bottom: clamp(1.3rem, 2.6vw, 2rem);
