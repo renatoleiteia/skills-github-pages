@@ -65,23 +65,43 @@
     if (slot) slot.textContent = texto || '';
   }
 
+  /* ---------- o aviso some quando o campo fica certo ---------------------
+     Um erro já mostrado tem de sumir assim que a pessoa conserta, senão a
+     mensagem vermelha fica na tela contradizendo o que está escrito ali.
+     Só reavaliamos campo que já recebeu aviso: quem ainda está digitando pela
+     primeira vez não é interrompido a cada tecla. */
+  function vigiar(campo, problema) {
+    if (!campo) return;
+    const avisado = () => {
+      const c = campo.closest('.fd');
+      return !!(c && c.classList.contains('err'));
+    };
+    ['input', 'blur'].forEach(ev =>
+      campo.addEventListener(ev, () => { if (avisado()) erroDoCampo(campo, problema()); }));
+  }
+
   /* ---------- envio ---------- */
   const form = $('#entrar');
   const usuario = $('#usuario');
 
+  const problemaEmail = () =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(usuario.value.trim()) ? '' : 'Informe o seu endereço de e-mail completo.';
+  const problemaSenha = () => senha.value.length ? '' : 'Informe a sua senha.';
+
+  vigiar(usuario, problemaEmail);
+  vigiar(senha, problemaSenha);
+
   form && form.addEventListener('submit', e => {
     let ok = true;
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(usuario.value.trim())) {
-      erroDoCampo(usuario, 'Informe o seu endereço de e-mail completo.');
-      ok = false;
-    } else erroDoCampo(usuario, '');
+    const pe = problemaEmail();
+    erroDoCampo(usuario, pe);
+    if (pe) ok = false;
 
     // Só o comprimento: o conteúdo do campo não é lido em lugar nenhum.
-    if (!senha.value.length) {
-      erroDoCampo(senha, 'Informe a sua senha.');
-      ok = false;
-    } else erroDoCampo(senha, '');
+    const ps = problemaSenha();
+    erroDoCampo(senha, ps);
+    if (ps) ok = false;
 
     if (!ok) {
       e.preventDefault();
@@ -93,7 +113,7 @@
 
     if (!DESTINO_WEBMAIL) {
       e.preventDefault();
-      mostrar('bad', 'Acesso ainda não conectado ao provedor de e-mail. Avise o responsável técnico — falta preencher o destino em js/webmail.js.');
+      mostrar('bad', 'Acesso ainda não conectado ao provedor de e-mail. Avise o responsável técnico — falta preencher o destino em components/scripts/webmail.js.');
       return;
     }
 
