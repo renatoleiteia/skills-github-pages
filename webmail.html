@@ -33,8 +33,8 @@
     <p class="mono acesso__num">Acesso restrito</p>
     <h1 class="acesso__titulo">Webmail<br /><em>corporativo</em></h1>
     <p class="acesso__lead">
-      Entre com o seu endereço <strong>@acelerocomex.com.br</strong> para acessar
-      a caixa de entrada.
+      Informe o seu endereço <strong>@acelerocomex.com.br</strong>. A senha é
+      pedida na página do provedor, não aqui.
     </p>
 
     <form class="form acesso__form" id="entrar" method="post" autocomplete="on" novalidate>
@@ -45,26 +45,13 @@
         <span class="fe" data-error></span>
       </div>
 
-      <div class="fd">
-        <label for="senha">Senha</label>
-        <div class="acesso__senha">
-          <input type="password" id="senha" name="password" required autocomplete="current-password" placeholder="••••••••" />
-          <button type="button" class="acesso__olho" id="verSenha" aria-label="Mostrar senha" aria-pressed="false">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-              <path d="M2 12s3.8-6.5 10-6.5S22 12 22 12s-3.8 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/>
-            </svg>
-          </button>
-        </div>
-        <span class="fe" data-error></span>
-      </div>
-
       <label class="chk acesso__lembrar">
         <input type="checkbox" id="lembrar" name="lembrar" />
-        <span>Manter conectado neste computador</span>
+        <span>Lembrar o meu endereço neste computador</span>
       </label>
 
       <button type="submit" class="bt bt--cheio bt--largo">
-        <span>Entrar</span>
+        <span>Abrir o webmail</span>
         <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
 
@@ -80,9 +67,11 @@
   <aside class="acesso__nota">
     <p class="mono">Segurança</p>
     <p>
-      Este acesso é exclusivo da equipe ACELERO COMEX. Nunca informe a sua senha
-      em resposta a e-mails ou mensagens — nós não a solicitamos por nenhum
-      canal. Ao terminar, encerre a sessão em computadores compartilhados.
+      <strong>Esta página nunca pede a sua senha.</strong> Ela leva você ao
+      endereço do provedor, e é lá — com o cadeado e o domínio corretos na
+      barra — que a senha é digitada. Qualquer página que peça a sua senha do
+      e-mail fora do provedor deve ser tratada como tentativa de golpe. Ao
+      terminar, encerre a sessão em computadores compartilhados.
     </p>
   </aside>
 </main>

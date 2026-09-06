@@ -1,56 +1,54 @@
 /* ============================================================================
    ACELERO COMEX — webmail.js
 
-   Entrada do e-mail corporativo.
+   Página de acesso ao e-mail corporativo (cPanel / Roundcube).
 
-   COMO LIGAR NO PROVEDOR
-   ----------------------
-   Preencha DESTINO_WEBMAIL abaixo com o endereço de login do provedor de
-   e-mail da empresa. Exemplos conforme o serviço contratado:
+   POR QUE ESTA PÁGINA NÃO PEDE A SENHA
+   ------------------------------------
+   A versão anterior tinha campo de senha e enviava o formulário para o
+   provedor. Com cPanel isso não funciona e não deveria funcionar:
 
-     cPanel / Roundcube   'https://mail.acelerocomex.com.br:2096/login/'
-     Zimbra               'https://mail.acelerocomex.com.br/service/preauth'
-     Google Workspace     'https://accounts.google.com/AccountChooser?hd=acelerocomex.com.br'
-     Microsoft 365        'https://outlook.office.com/mail/'
+   1. O cPanel protege o próprio login contra envio vindo de outra origem
+      (token de segurança / CSRF). Um POST partindo daqui é recusado — a
+      pessoa veria uma tela de erro do servidor, não a caixa de entrada.
 
-   Enquanto estiver vazio, a página avisa que falta configurar em vez de
-   fingir que autenticou.
+   2. Mesmo onde funcionasse, seria treinar a equipe a digitar a senha do
+      e-mail numa página que NÃO é a do provedor. É exatamente o hábito que
+      o phishing explora: quem se acostuma a isso digita a senha em qualquer
+      página parecida. O lugar da senha é a página do provedor, com o cadeado
+      e o domínio certos na barra do navegador.
 
-   POR QUE O FORMULÁRIO É NATIVO
-   -----------------------------
-   Quando o destino está definido, apenas apontamos o action e deixamos o
-   navegador enviar. A senha vai direto do campo para o provedor: ela não é
-   lida, guardada, registrada em log nem trafega por nenhuma linha deste
-   arquivo. Uma página estática não tem como autenticar ninguém — quem
-   autentica é o provedor, e é lá que a senha deve chegar.
+   Então esta página faz o que uma porta de entrada deve fazer: leva ao
+   provedor. O endereço é lembrado no navegador de quem marca a opção — é
+   comodidade que não custa segurança nenhuma.
+
+   COMO APONTAR PARA O SERVIDOR CERTO
+   ----------------------------------
+   Troque DESTINO_WEBMAIL pelo endereço que a sua hospedagem serve. Em cPanel
+   costumam existir três, e vale testar qual responde:
+
+     https://webmail.acelerocomex.com.br/          (subdomínio, precisa de DNS)
+     https://acelerocomex.com.br:2096/             (porta padrão do webmail)
+     https://<servidor-da-hospedagem>:2096/        (sempre funciona, feio no link)
+
+   Enquanto o endereço não responder, a página avisa em vez de fingir.
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  const DESTINO_WEBMAIL = '';   // <- preencha aqui
+  // <- confirme com a hospedagem qual destes responde e deixe só um
+  const DESTINO_WEBMAIL = 'https://webmail.acelerocomex.com.br/';
+
+  const DOMINIO = 'acelerocomex.com.br';
+  const CHAVE = 'acelero.webmail.usuario';
 
   const $ = s => document.querySelector(s);
 
-  /* ---------- mostrar / esconder a senha ---------- */
-  const senha = $('#senha');
-  const olho = $('#verSenha');
-  if (olho && senha) {
-    olho.addEventListener('click', () => {
-      const revelada = senha.type === 'text';
-      senha.type = revelada ? 'password' : 'text';
-      olho.setAttribute('aria-pressed', String(!revelada));
-      olho.setAttribute('aria-label', revelada ? 'Mostrar senha' : 'Esconder senha');
-      senha.focus();
-    });
-  }
-
-  /* ---------- aviso de conexão insegura ---------- */
+  const form = $('#entrar');
+  const usuario = $('#usuario');
+  const lembrar = $('#lembrar');
   const aviso = $('#aviso');
-  const local = ['localhost', '127.0.0.1', ''].indexOf(location.hostname) !== -1;
-  if (location.protocol === 'http:' && !local) {
-    mostrar('bad', 'Esta página não está numa conexão segura. Não informe a sua senha até que o endereço comece com https.');
-  }
 
   function mostrar(tipo, texto) {
     if (!aviso) return;
@@ -65,69 +63,62 @@
     if (slot) slot.textContent = texto || '';
   }
 
-  /* ---------- o aviso some quando o campo fica certo ---------------------
-     Um erro já mostrado tem de sumir assim que a pessoa conserta, senão a
-     mensagem vermelha fica na tela contradizendo o que está escrito ali.
-     Só reavaliamos campo que já recebeu aviso: quem ainda está digitando pela
-     primeira vez não é interrompido a cada tecla. */
-  function vigiar(campo, problema) {
-    if (!campo) return;
-    const avisado = () => {
-      const c = campo.closest('.fd');
-      return !!(c && c.classList.contains('err'));
-    };
-    ['input', 'blur'].forEach(ev =>
-      campo.addEventListener(ev, () => { if (avisado()) erroDoCampo(campo, problema()); }));
+  /* ---------- endereço lembrado ------------------------------------------
+     Só o endereço, nunca senha. Fica no navegador de quem marcou e não sai
+     dali — nem para o servidor, nem para lugar nenhum. */
+  try {
+    const guardado = localStorage.getItem(CHAVE);
+    if (guardado && usuario) { usuario.value = guardado; if (lembrar) lembrar.checked = true; }
+  } catch (e) { /* navegador sem armazenamento: segue sem lembrar */ }
+
+  /* ---------- validação --------------------------------------------------
+     Um aviso já mostrado tem de sumir quando a pessoa conserta o campo,
+     senão a mensagem vermelha fica contradizendo o que está escrito ali. */
+  function problema() {
+    const v = usuario.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return 'Informe o seu endereço de e-mail completo.';
+    if (v.split('@').pop().toLowerCase() !== DOMINIO)
+      return 'Este acesso é para endereços @' + DOMINIO + '.';
+    return '';
   }
 
-  /* ---------- envio ---------- */
-  const form = $('#entrar');
-  const usuario = $('#usuario');
+  const avisado = () => {
+    const c = usuario.closest('.fd');
+    return !!(c && c.classList.contains('err'));
+  };
+  ['input', 'blur'].forEach(ev =>
+    usuario.addEventListener(ev, () => { if (avisado()) erroDoCampo(usuario, problema()); }));
 
-  const problemaEmail = () =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(usuario.value.trim()) ? '' : 'Informe o seu endereço de e-mail completo.';
-  const problemaSenha = () => senha.value.length ? '' : 'Informe a sua senha.';
-
-  vigiar(usuario, problemaEmail);
-  vigiar(senha, problemaSenha);
-
+  /* ---------- ida para o provedor ---------------------------------------- */
   form && form.addEventListener('submit', e => {
-    let ok = true;
+    e.preventDefault();   // esta página nunca envia nada: ela encaminha
 
-    const pe = problemaEmail();
-    erroDoCampo(usuario, pe);
-    if (pe) ok = false;
-
-    // Só o comprimento: o conteúdo do campo não é lido em lugar nenhum.
-    const ps = problemaSenha();
-    erroDoCampo(senha, ps);
-    if (ps) ok = false;
-
-    if (!ok) {
-      e.preventDefault();
-      mostrar('bad', 'Confira os campos destacados.');
-      const primeiro = form.querySelector('.err input');
-      if (primeiro) primeiro.focus();
+    const p = problema();
+    erroDoCampo(usuario, p);
+    if (p) {
+      mostrar('bad', 'Confira o endereço informado.');
+      usuario.focus();
       return;
     }
+
+    try {
+      if (lembrar && lembrar.checked) localStorage.setItem(CHAVE, usuario.value.trim());
+      else localStorage.removeItem(CHAVE);
+    } catch (err) { /* sem armazenamento: apenas não lembra */ }
 
     if (!DESTINO_WEBMAIL) {
-      e.preventDefault();
-      mostrar('bad', 'Acesso ainda não conectado ao provedor de e-mail. Avise o responsável técnico — falta preencher o destino em components/scripts/webmail.js.');
+      mostrar('bad', 'Endereço do webmail ainda não configurado. Avise o responsável técnico — falta preencher DESTINO_WEBMAIL em components/scripts/webmail.js.');
       return;
     }
 
-    // Destino configurado: o navegador envia nativamente e a senha vai do
-    // campo direto para o provedor, sem passar por aqui.
-    form.action = DESTINO_WEBMAIL;
-    mostrar('ok', 'Entrando…');
+    mostrar('ok', 'Abrindo o webmail. A senha é pedida na página do provedor.');
+    location.href = DESTINO_WEBMAIL;
   });
 
-  /* ---------- recuperação de senha ---------- */
+  /* ---------- recuperação de senha ---------------------------------------- */
   const esqueci = $('#esqueci');
   esqueci && esqueci.addEventListener('click', e => {
     e.preventDefault();
     mostrar('bad', 'A redefinição de senha é feita pelo provedor de e-mail. Fale com o responsável técnico ou use o canal de suporte.');
   });
-
 })();
