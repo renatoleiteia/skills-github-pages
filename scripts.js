@@ -151,7 +151,7 @@ window.ACELERO_IDIOMAS = {
     'menu.9': 'Talk to the specialist',
 
     /* hero */
-    'hero.tag.1': 'End-to-end foreign trade management',
+    'hero.tag.1': 'Imports · Exports · Compliance',
     'hero.h.l1': 'Import and export',
     'hero.h.l2': 'with end-to-end',
     'hero.h.l3': '<em>management.</em>',
@@ -359,7 +359,7 @@ window.ACELERO_IDIOMAS = {
     'menu.9': 'Hable con el especialista',
 
     /* hero */
-    'hero.tag.1': 'Gestión integral de comercio exterior',
+    'hero.tag.1': 'Importación · Exportación · Compliance',
     'hero.h.l1': 'Importación y exportación',
     'hero.h.l2': 'con gestión de',
     'hero.h.l3': '<em>punta&nbsp;a&nbsp;punta.</em>',
@@ -728,13 +728,25 @@ function menuAtivo() {
   marcar();
 }
 
-/* ---------- 06. SLOTS DE FOTO OPCIONAIS --------------------------------- */
+/* ---------- 06. SLOTS DE FOTO OPCIONAIS ---------------------------------
+   O slot aponta para a foto definitiva. Se o arquivo ainda não estiver no
+   servidor, cai para o que houver em data-alternativa; sem alternativa, a
+   figura sai do DOM — em nenhum caso sobra ícone de imagem quebrada. No dia
+   em que a foto definitiva subir, ela assume sozinha, sem mexer no código. */
 function slotsOpcionais() {
   $$('[data-opcional]').forEach(fig => {
     const img = $('img', fig);
     if (!img) return;
+    const alternativa = fig.getAttribute('data-alternativa');
     const sonda = new Image();
-    sonda.onerror = () => fig.remove();
+    sonda.onerror = () => {
+      if (alternativa && img.getAttribute('src') !== alternativa) {
+        img.setAttribute('src', alternativa);
+        fig.setAttribute('data-provisoria', '');
+      } else {
+        fig.remove();
+      }
+    };
     sonda.src = img.getAttribute('src');
   });
 }

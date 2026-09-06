@@ -94,7 +94,7 @@
     </picture>
   </div>
   <div class="capa__in wrap">
-    <p class="mono capa__tag" data-i18n="hero.tag.1">Gestão completa de comércio exterior</p>
+    <p class="mono capa__tag" data-i18n="hero.tag.1">Importação · Exportação · Compliance</p>
     <h1><span data-i18n="hero.h.l1">Importação e exportação</span> <span data-i18n="hero.h.l2">com gestão de</span> <span data-i18n="hero.h.l3"><em>ponta&nbsp;a&nbsp;ponta.</em></span></h1>
     <p class="capa__sub" data-i18n="hero.sub.1">Da negociação com o fornecedor à entrega da carga, tenha <strong>clareza de custos, prazos e próximos passos</strong> — com a ACELERO COMEX coordenando a operação.</p>
     <div class="capa__bts">
@@ -480,11 +480,13 @@
 </main>
 
 <footer class="rodape">
-  <!-- Placa de fundo, o mesmo tratamento das seções 04 e 07: foto
-       dessaturada sob um degradê que garante a leitura. Marcada como opcional
-       — se o arquivo não existir, o JavaScript remove a figura e o rodapé
-       volta ao fundo chapado, sem ícone de imagem quebrada. -->
-  <figure class="placa placa--rodape" data-opcional aria-hidden="true">
+  <!-- Placa de fundo, o mesmo tratamento das seções 04 e 07: foto dessaturada
+       sob um degradê que garante a leitura. A foto definitiva é o polo
+       industrial; enquanto o arquivo não estiver no servidor, o JavaScript cai
+       para a alternativa e o rodapé fecha com o mesmo contêiner que abre a
+       capa. Nenhum ícone de imagem quebrada em nenhum dos dois casos. -->
+  <figure class="placa placa--rodape" data-opcional aria-hidden="true"
+          data-alternativa="assets/img/conteiner-acelero.jpg">
     <img src="assets/img/polo-industrial-china.jpg" alt="" loading="lazy" />
   </figure>
   <div class="wrap">

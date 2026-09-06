@@ -39,7 +39,7 @@ window.ACELERO_IDIOMAS = {
     'menu.9': 'Talk to the specialist',
 
     /* hero */
-    'hero.tag.1': 'End-to-end foreign trade management',
+    'hero.tag.1': 'Imports · Exports · Compliance',
     'hero.h.l1': 'Import and export',
     'hero.h.l2': 'with end-to-end',
     'hero.h.l3': '<em>management.</em>',
@@ -247,7 +247,7 @@ window.ACELERO_IDIOMAS = {
     'menu.9': 'Hable con el especialista',
 
     /* hero */
-    'hero.tag.1': 'Gestión integral de comercio exterior',
+    'hero.tag.1': 'Importación · Exportación · Compliance',
     'hero.h.l1': 'Importación y exportación',
     'hero.h.l2': 'con gestión de',
     'hero.h.l3': '<em>punta&nbsp;a&nbsp;punta.</em>',

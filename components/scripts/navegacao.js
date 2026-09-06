@@ -94,13 +94,25 @@ function menuAtivo() {
   marcar();
 }
 
-/* ---------- 06. SLOTS DE FOTO OPCIONAIS --------------------------------- */
+/* ---------- 06. SLOTS DE FOTO OPCIONAIS ---------------------------------
+   O slot aponta para a foto definitiva. Se o arquivo ainda não estiver no
+   servidor, cai para o que houver em data-alternativa; sem alternativa, a
+   figura sai do DOM — em nenhum caso sobra ícone de imagem quebrada. No dia
+   em que a foto definitiva subir, ela assume sozinha, sem mexer no código. */
 function slotsOpcionais() {
   $$('[data-opcional]').forEach(fig => {
     const img = $('img', fig);
     if (!img) return;
+    const alternativa = fig.getAttribute('data-alternativa');
     const sonda = new Image();
-    sonda.onerror = () => fig.remove();
+    sonda.onerror = () => {
+      if (alternativa && img.getAttribute('src') !== alternativa) {
+        img.setAttribute('src', alternativa);
+        fig.setAttribute('data-provisoria', '');
+      } else {
+        fig.remove();
+      }
+    };
     sonda.src = img.getAttribute('src');
   });
 }
