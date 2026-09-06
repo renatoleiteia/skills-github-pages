@@ -57,6 +57,22 @@ Quase sempre é uma destas três, nesta ordem de probabilidade:
 Enquanto o envio falhar, o site não perde o contato: a mensagem de erro passa
 a oferecer o mesmo conteúdo como e-mail pronto para a pessoa disparar.
 
+## Imagem pendente
+
+O rodapé espera a foto do polo industrial em:
+
+```
+assets/img/polo-industrial-china.jpg
+```
+
+Enquanto o arquivo não existir, o JavaScript remove a figura e o rodapé fica
+com fundo chapado — sem ícone de imagem quebrada. Basta subir o arquivo com
+esse nome exato para o fundo aparecer; não há mais nada a fazer no código.
+
+Recomendado: no mínimo 1600 px de largura e abaixo de 300 KB. A foto entra
+dessaturada e a 17% de opacidade, então detalhe fino se perde — o que importa
+é a silhueta.
+
 ## Quando mexer no código
 
 `styles.css` e `scripts.js` são **gerados**. Edite em `components/` e rode:
