@@ -400,7 +400,13 @@
   </div>
 </section>
 
-<section class="bloco claro" id="contato">
+<section class="bloco claro bloco--foto" id="contato">
+  <!-- Polo industrial atrás do formulário: é de onde sai a carga que a gente
+       traz. Aqui o degradê é claro, não escuro — a seção é a única de fundo
+       papel do site, e o tratamento das seções 04 e 07 apagaria o texto. -->
+  <div class="placa" aria-hidden="true">
+    <picture><source srcset="assets/img/polo-industrial-china.webp" type="image/webp" /><img src="assets/img/polo-industrial-china.jpg" alt="" loading="lazy" /></picture>
+  </div>
   <div class="wrap">
     <div class="cab">
       <p class="mono cab__n" data-ap data-i18n="hdnum.9">09 — Contato</p>
@@ -480,14 +486,11 @@
 </main>
 
 <footer class="rodape">
-  <!-- Placa de fundo, o mesmo tratamento das seções 04 e 07: foto dessaturada
-       sob um degradê que garante a leitura. A foto definitiva é o polo
-       industrial; enquanto o arquivo não estiver no servidor, o JavaScript cai
-       para a alternativa e o rodapé fecha com o mesmo contêiner que abre a
-       capa. Nenhum ícone de imagem quebrada em nenhum dos dois casos. -->
-  <figure class="placa placa--rodape" data-opcional aria-hidden="true"
-          data-alternativa="assets/img/conteiner-acelero.jpg">
-    <img src="assets/img/polo-industrial-china.jpg" alt="" loading="lazy" />
+  <!-- O site fecha com o mapa-múndi: é um desenho, não uma foto, então entra
+       inteiro (contain) e em modo screen — o fundo escuro da arte some e só os
+       pontos acendem sobre a tinta do rodapé. -->
+  <figure class="placa placa--rodape" data-opcional aria-hidden="true">
+    <picture><source srcset="assets/img/mapa-mundi.webp" type="image/webp" /><img src="assets/img/mapa-mundi.jpg" alt="" loading="lazy" /></picture>
   </figure>
   <div class="wrap">
     <div class="chamada">

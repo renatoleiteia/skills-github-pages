@@ -57,27 +57,16 @@ Quase sempre é uma destas três, nesta ordem de probabilidade:
 Enquanto o envio falhar, o site não perde o contato: a mensagem de erro passa
 a oferecer o mesmo conteúdo como e-mail pronto para a pessoa disparar.
 
-## Imagem pendente
+## Imagens
 
-O rodapé espera a foto do polo industrial em:
+Todas as imagens do site estão em `assets/img/`, cada uma com versão `.webp`
+servida por `<picture>` e o `.jpg` como reserva. Os arquivos que o cliente
+manda ficam em `assets/img/originais/` — nada é apagado de lá.
 
-```
-assets/img/polo-industrial-china.jpg
-```
-
-Enquanto o arquivo não existir, o JavaScript cai para a foto do contêiner
-(`assets/img/conteiner-acelero.jpg`, a mesma da capa) e o rodapé fecha com a
-imagem que abre o site — sem ícone de imagem quebrada. Basta subir o arquivo
-com esse nome exato para o polo industrial assumir; não há nada a fazer no
-código, nem para trocar, nem para voltar atrás.
-
-O único vestígio de espera é um 404 no console do navegador: é a sondagem que
-descobre se a foto definitiva já subiu. Ele some assim que o arquivo estiver
-no lugar.
-
-Recomendado: no mínimo 1600 px de largura e abaixo de 300 KB. A foto entra
-dessaturada e a 17% de opacidade, então detalhe fino se perde — o que importa
-é a silhueta.
+Para preparar uma imagem nova a partir de um original, use
+`scripts/preparar_imagens.py`: ele redimensiona sem ampliar, comprime e gera o
+`.webp`. Nomes sempre em minúsculas e com hífen — espaço no nome de arquivo
+vira `%20` na URL e quebra em servidor mal configurado.
 
 ## Quando mexer no código
 

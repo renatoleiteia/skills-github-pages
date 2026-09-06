@@ -63,3 +63,20 @@
 .conf__b:hover { background: var(--azul); color: var(--tinta); }
 .conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: #6B7787; }
 .conf__k b { color: var(--azul-fundo); letter-spacing: .14em; }
+
+/* ---------- placa de fundo na seção clara ------------------------------
+   .bloco--foto padrão dissolve a foto em tinta preta. Na seção 09, de fundo
+   papel, isso viraria um borrão escuro sob texto escuro: aqui o degradê é o
+   próprio papel, e a foto entra ainda mais apagada porque o contraste que ela
+   disputa é com preto sobre claro, não branco sobre escuro. */
+/* A placa cobre só a faixa de cima. Esticada na seção inteira, uma foto de
+   1390x572 subia para mais de 1200px de altura e virava borrão; nesta altura
+   ela fica perto do tamanho natural e o polo industrial se reconhece. */
+.claro.bloco--foto .placa { inset: 0 0 auto 0; height: 46%; }
+.claro.bloco--foto .placa img { filter: grayscale(1) contrast(.92); opacity: .16; }
+.claro.bloco--foto .placa::after {
+  background: linear-gradient(180deg,
+    rgba(244,246,248,.45) 0%, rgba(244,246,248,.58) 45%,
+    rgba(244,246,248,.9) 82%, var(--papel) 100%);
+}
+@media (max-width: 880px) { .claro.bloco--foto .placa { height: 30%; } }

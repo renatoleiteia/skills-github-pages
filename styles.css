@@ -724,6 +724,23 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 .conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: #6B7787; }
 .conf__k b { color: var(--azul-fundo); letter-spacing: .14em; }
 
+/* ---------- placa de fundo na seção clara ------------------------------
+   .bloco--foto padrão dissolve a foto em tinta preta. Na seção 09, de fundo
+   papel, isso viraria um borrão escuro sob texto escuro: aqui o degradê é o
+   próprio papel, e a foto entra ainda mais apagada porque o contraste que ela
+   disputa é com preto sobre claro, não branco sobre escuro. */
+/* A placa cobre só a faixa de cima. Esticada na seção inteira, uma foto de
+   1390x572 subia para mais de 1200px de altura e virava borrão; nesta altura
+   ela fica perto do tamanho natural e o polo industrial se reconhece. */
+.claro.bloco--foto .placa { inset: 0 0 auto 0; height: 46%; }
+.claro.bloco--foto .placa img { filter: grayscale(1) contrast(.92); opacity: .16; }
+.claro.bloco--foto .placa::after {
+  background: linear-gradient(180deg,
+    rgba(244,246,248,.45) 0%, rgba(244,246,248,.58) 45%,
+    rgba(244,246,248,.9) 82%, var(--papel) 100%);
+}
+@media (max-width: 880px) { .claro.bloco--foto .placa { height: 30%; } }
+
 /* ---------------------------------------------------------------- rodapé */
 .rodape {
   position: relative; overflow: hidden;
@@ -737,7 +754,18 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 .placa--rodape {
   position: absolute; inset: 0 0 auto 0; height: 62%; z-index: 0; margin: 0;
 }
-.placa--rodape img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); opacity: .17; }
+.placa--rodape picture, .placa--rodape img { width: 100%; height: 100%; display: block; }
+/* contain, não cover: cortar um mapa-múndi pelas bordas é perder o assunto.
+   screen descarta o fundo escuro da arte e deixa só os pontos sobre a tinta. */
+.placa--rodape img {
+  object-fit: contain; object-position: center top;
+  mix-blend-mode: screen; opacity: .55;
+  filter: brightness(1.1) contrast(1.05);
+  /* A arte tem fundo próprio: sem máscara, a borda do arquivo aparece como um
+     retângulo mais claro no meio da tinta. A elipse dissolve os quatro lados. */
+  -webkit-mask-image: radial-gradient(ellipse 72% 62% at 50% 42%, #000 42%, transparent 85%);
+          mask-image: radial-gradient(ellipse 72% 62% at 50% 42%, #000 42%, transparent 85%);
+}
 .placa--rodape::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(7,10,14,.72) 0%, rgba(7,10,14,.42) 30%,

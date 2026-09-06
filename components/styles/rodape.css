@@ -11,7 +11,18 @@
 .placa--rodape {
   position: absolute; inset: 0 0 auto 0; height: 62%; z-index: 0; margin: 0;
 }
-.placa--rodape img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); opacity: .17; }
+.placa--rodape picture, .placa--rodape img { width: 100%; height: 100%; display: block; }
+/* contain, não cover: cortar um mapa-múndi pelas bordas é perder o assunto.
+   screen descarta o fundo escuro da arte e deixa só os pontos sobre a tinta. */
+.placa--rodape img {
+  object-fit: contain; object-position: center top;
+  mix-blend-mode: screen; opacity: .55;
+  filter: brightness(1.1) contrast(1.05);
+  /* A arte tem fundo próprio: sem máscara, a borda do arquivo aparece como um
+     retângulo mais claro no meio da tinta. A elipse dissolve os quatro lados. */
+  -webkit-mask-image: radial-gradient(ellipse 72% 62% at 50% 42%, #000 42%, transparent 85%);
+          mask-image: radial-gradient(ellipse 72% 62% at 50% 42%, #000 42%, transparent 85%);
+}
 .placa--rodape::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(7,10,14,.72) 0%, rgba(7,10,14,.42) 30%,

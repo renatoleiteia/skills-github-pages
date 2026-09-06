@@ -24,6 +24,8 @@ Cada imagem tem versão `.webp` (30–45% menor) servida via `<picture>`, com o
 | `entrega` (474px) | Processo, etapa **05 Entrega** |
 | `prateleiras-estoque` (1488px) | Fundo da seção **04 Resultados**, duotone azul |
 | `risco-operacao` (1052px) | Fundo da seção **07 Garantias**, duotone azul |
+| `polo-industrial-china` (1390px) | Fundo da faixa de cima da seção **09 Contato** — degradê claro, não escuro |
+| `mapa-mundi` (761px) | Fundo do fecho **Acelere o COMEX**, em `mix-blend-mode: screen` |
 
 Cada uma tem versão `.webp` servida por `<picture>`, com o `.jpg` de reserva.
 A foto do corredor de prateleiras entra **com a logo ACELERO COMEX** gravada,
