@@ -73,10 +73,15 @@
    1390x572 subia para mais de 1200px de altura e virava borrão; nesta altura
    ela fica perto do tamanho natural e o polo industrial se reconhece. */
 .claro.bloco--foto .placa { inset: 0 0 auto 0; height: 46%; }
-.claro.bloco--foto .placa img { filter: grayscale(1) contrast(.92); opacity: .16; }
+.claro.bloco--foto .placa img { filter: grayscale(1) contrast(.95); opacity: .28; }
 .claro.bloco--foto .placa::after {
   background: linear-gradient(180deg,
-    rgba(244,246,248,.45) 0%, rgba(244,246,248,.58) 45%,
-    rgba(244,246,248,.9) 82%, var(--papel) 100%);
+    rgba(244,246,248,.34) 0%, rgba(244,246,248,.46) 45%,
+    rgba(244,246,248,.86) 82%, var(--papel) 100%);
 }
+/* Com a foto mais presente, o cinza que bastava sobre papel liso perde contraste
+   sobre a textura. Estes dois blocos ficam um tom mais escuros só nesta seção,
+   para o texto continuar tão legível quanto era no fundo chapado. */
+.claro.bloco--foto .cab__n { color: #4E5765; }
+.claro.bloco--foto .cab__lead { color: #3C4854; }
 @media (max-width: 880px) { .claro.bloco--foto .placa { height: 30%; } }
