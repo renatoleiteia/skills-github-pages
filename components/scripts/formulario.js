@@ -22,23 +22,20 @@ function form() {
   const WHATS_ACELERO = '5527992744587';
 
   /* ---------- para onde vai o formulário --------------------------------
-     O site é estático: não existe servidor nosso para receber o POST. Para
-     o e-mail chegar em contato@acelerocomex.com.br o lead passa por um
-     serviço de entrega.
+     A hospedagem é HostGator, com PHP. O lead vai para enviar.php, no mesmo
+     domínio, e de lá sai como e-mail pelo próprio servidor: nenhum serviço
+     de terceiro no meio, nada para ativar, e o dado de quem preenche não
+     passa por fora da empresa.
 
-     Hoje: FormSubmit (formsubmit.co), que não pede conta nem chave. Na
-     PRIMEIRA vez que alguém enviar, ele manda um e-mail de ativação para a
-     caixa abaixo — é preciso clicar no link uma única vez, e só a partir
-     daí os envios seguintes chegam.
+     Trocar a caixa de destino é mexer em enviar.php, não aqui.
 
-     Para trocar de serviço (n8n, Make, Zapier, rota própria), basta mudar
-     ENVIO_URL: o corpo vai como JSON simples, com as chaves em português.
-
-     E se o envio falhar, o lead não se perde: a mensagem de erro passa a
-     oferecer o mesmo conteúdo por e-mail direto.
+     Se o envio falhar — servidor fora do ar, PHP desligado, ou a página
+     aberta por duplo clique, onde servidor não existe —, o lead não se
+     perde: a mensagem de erro passa a oferecer o mesmo conteúdo como e-mail
+     pronto para disparar.
      ------------------------------------------------------------------- */
   const EMAIL_DESTINO = 'contato@acelerocomex.com.br';
-  const ENVIO_URL = 'https://formsubmit.co/ajax/' + EMAIL_DESTINO;
+  const ENVIO_URL = 'enviar.php';
 
   /* Código curto que viaja na mensagem e no lead: é o que permite à ACELERO
      casar a mensagem recebida com este formulário. Sem servidor a página não
@@ -397,9 +394,9 @@ function form() {
 
     // Chaves em português: é isto que a pessoa da ACELERO lê no e-mail.
     const corpo = {
-      _subject: 'Site — análise de operação: ' + (data.empresa || 'sem empresa'),
-      _template: 'table',
-      _captcha: 'false',
+      // _assunto serve ao plano B por e-mail direto; o enviar.php compõe o
+      // assunto dele por conta própria e ignora tudo que começa com "_".
+      _assunto: 'Site — análise de operação: ' + (data.empresa || 'sem empresa'),
       'Nome': data.nome,
       'Empresa': data.empresa,
       'E-mail': data.email,
@@ -410,7 +407,10 @@ function form() {
       'Volume estimado': data.volume || '—',
       'Mensagem': data.mensagem || '—',
       'Idioma da página': idioma().toUpperCase(),
-      'Enviado em': new Date().toLocaleString('pt-BR')
+      'Enviado em': new Date().toLocaleString('pt-BR'),
+      // A isca viaja junto: o servidor confere de novo, porque o navegador
+      // pode ser contornado e o PHP não.
+      '_honey': data._honey || ''
     };
 
     try {
@@ -426,6 +426,10 @@ function form() {
         body: JSON.stringify(corpo)
       });
       if (!r.ok) throw new Error('envio recusado: ' + r.status);
+      // O PHP responde {ok:false, erro:'...'} quando recusa na validação
+      // dele — que é a que vale, porque o navegador pode ser contornado.
+      const resposta = await r.json().catch(() => ({ ok: true }));
+      if (resposta.ok === false) throw new Error('servidor recusou: ' + (resposta.erro || '?'));
 
       f.reset();
       if (selPais) { selPais.value = 'BR'; tel.placeholder = modelo(pais()); }
@@ -444,7 +448,7 @@ function form() {
       fb.textContent = msg('erro', 'Não conseguimos enviar agora.') + ' ';
       const a = document.createElement('a');
       a.href = 'mailto:' + EMAIL_DESTINO +
-               '?subject=' + encodeURIComponent(corpo._subject) +
+               '?subject=' + encodeURIComponent(corpo._assunto) +
                '&body=' + encodeURIComponent(linhas.slice(0, 1400));
       a.textContent = msg('erroLink', 'Enviar por e-mail');
       fb.appendChild(a);

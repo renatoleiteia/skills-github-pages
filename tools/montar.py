@@ -19,7 +19,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # A ordem importa: tokens antes de quem os usa; movimento e microinterações
 # depois da base, porque ajustam o que já foi declarado.
 ESTILOS = ['fontes', 'base', 'tipografia', 'cabecalho', 'botoes', 'capa', 'secoes',
-           'cases', 'carrossel', 'proposito', 'oferta', 'faq', 'contato',
+           'cases', 'frentes', 'carrossel', 'proposito', 'oferta', 'faq', 'contato',
            'rodape', 'movimento', 'microinteracoes', 'responsivo']
 
 # navegacao primeiro (posiciona), inicio por último (chama todo mundo).

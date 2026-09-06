@@ -125,15 +125,28 @@ window.ACELERO_EMAIL_PESSOAL = [
 window.ACELERO_IDIOMAS = {
 
   en: {
+    'hdnum.5': '05 — Operations',
+    'cases.h.l1': 'What runs',
+    'cases.h.l2': 'through <em>our operation.</em>',
+    'lead.3': 'Instead of client figures you have no way of checking, the map of what we handle today: sectors, markets, modes and regimes. If your case is on this list, we have already run an operation like yours.',
+    'op.h.1': 'Sectors we serve',
+    'op.l.1': '<li>Auto parts and industrial components</li><li>Electronics and home appliances</li><li>Food and beverages</li><li>Machinery and equipment</li><li>Construction and finishing materials</li><li>Chemical inputs and plastics</li>',
+    'op.h.2': 'Origins and destinations',
+    'op.l.2': '<li>China, Vietnam, India and Turkey</li><li>European Union and United Kingdom</li><li>United States and Mexico</li><li>Mercosur: Argentina, Uruguay, Paraguay and Chile</li><li>Exports to Latin America, the United States and Europe</li>',
+    'op.h.3': 'Modes and regimes',
+    'op.l.3': '<li>Ocean FCL and LCL</li><li>Air and courier for urgent shipments and samples</li><li>Road within Mercosur</li><li>Direct import, import on behalf of a third party and import to order</li><li>Tariff exemptions, drawback and other special regimes</li>',
+    'op.h.4': 'Where we clear customs',
+    'op.l.4': '<li>Santos <span class="mono">SP</span></li><li>Itajaí and Navegantes <span class="mono">SC</span></li><li>Paranaguá <span class="mono">PR</span></li><li>Vitória and Vila Velha <span class="mono">ES</span></li><li>Viracopos and Guarulhos <span class="mono">SP · air</span></li><li>Bonded warehouses and dry ports</li>',
+    'op.nota.1': 'We do not publish a client name or a third party\u2019s figures without written consent. In the review meeting we show a case equivalent to yours, with the calculation open.',
     /* navegação */
     'nav.sobre': '<span class="mono">01</span>About',
     'nav.servicos': '<span class="mono">02</span>Services',
     'nav.processo': '<span class="mono">03</span>Process',
-    'nav.cases': '<span class="mono">05</span>Cases',
+    'nav.cases': '<span class="mono">05</span>Operations',
     'nav.contato': '<span class="mono">09</span>Contact',
     'nav.cta': 'Book a consultation',
     'menu.1': 'About Acelero', 'menu.2': 'Services', 'menu.3': 'Process',
-    'menu.4': 'Results', 'menu.5': 'Cases', 'menu.6': 'Why we do it',
+    'menu.4': 'Results', 'menu.5': 'Operations', 'menu.6': 'Why we do it',
     'menu.7': 'Guarantees', 'menu.8': 'Frequently asked questions',
     'menu.9': 'Talk to the specialist',
 
@@ -153,7 +166,7 @@ window.ACELERO_IDIOMAS = {
 
     /* seções — numeração */
     'hdnum.1': '01 — About', 'hdnum.2': '02 — Services', 'hdnum.3': '03 — Process',
-    'hdnum.4': '04 — Results', 'hdnum.5': '05 — Cases', 'hdnum.6': '06 — Why we do it',
+    'hdnum.4': '04 — Results', 'hdnum.6': '06 — Why we do it',
     'hdnum.7': '07 — Guarantees', 'hdnum.8': '08 — Questions', 'hdnum.9': '09 — Contact',
 
     /* sobre */
@@ -236,33 +249,7 @@ window.ACELERO_IDIOMAS = {
     'num.6': 'Of clients still with us after 24 months',
     'res.nota.1': 'Consolidated indicators from the active portfolio. At the review meeting we show the calculation behind them — a number without a source is worth nothing.',
 
-    /* cases */
-    'cases.h.l1': 'Proof',
-    'cases.h.l2': 'from the <em>field.</em>',
-    'lead.3': 'Real companies, names withheld under confidentiality. The figures were audited together with each client’s finance team.',
-    'case.tag.1': 'Auto parts manufacturer · São Paulo',
-    'case.h.1': 'From 61 to 38 days in the replenishment cycle',
-    'case.p.1': 'They were losing sales to stockouts and paying for emergency air freight almost every month. We restructured the mode mix, built a consolidated shipping calendar and moved customs filing forward.',
-    'case.k.1': 'days off the cycle', 'case.k.2': 'logistics cost', 'case.k.3': 'emergency air shipments',
-    'case.tag.2': 'Electronics e-commerce · Santa Catarina',
-    'case.h.2': 'R$ 1.4 million recovered in a tax review',
-    'case.p.2': 'Three tariff codes had been classified conservatively for four years. We reworked the classification with a technical opinion, applied a tariff exemption to one line and reopened the operation at the correct cost.',
-    'case.k.4': 'accumulated savings', 'case.k.5': 'effective tax burden', 'case.k.6': 'to full payback',
-    'case.tag.3': 'Food &amp; agribusiness · Paraná',
-    'case.h.3': 'First export in 74 days, to 3 countries',
-    'case.p.3': 'The client had never exported. We handled registration, sanitary certificates, label compliance, the international contract and the first shipment — with the buyer paying by letter of credit.',
-    'case.k.7': 'in the first half', 'case.k.8': 'margin vs. domestic', 'case.k.9': 'shipments on time',
-    'quotes.h.1': 'What the people already running with us say',
-    'quote.p.1': 'The difference was not cheaper freight. It was no longer finding out about a problem after it had already become a cost. Today I know on Monday what the whole month will look like.',
-    'quote.c.1': 'Industrial director · auto parts',
-    'quote.p.2': 'We had worked with three brokers before. What changed here was having someone who understands my product and answers for it. I have never again been stuck in the middle of an argument between the agent and the terminal.',
-    'quote.c.2': 'Partner · electronics e-commerce',
-    'quote.p.3': 'We thought exporting was something only big companies did. In a little over two months we were shipping. The paperwork that used to block me simply stopped being my problem.',
-    'quote.c.3': 'CEO · food manufacturer',
-    'quote.p.4': 'The review found a tariff misclassification we had been carrying for years. That alone paid for a full year of the contract. The rest became profit.',
-    'quote.c.4': 'CFO · medical equipment',
-
-    /* propósito */
+    /* cases */ /* propósito */
     'purp.h.l1': 'Every company has the power to compete with the <em>entire world.</em>',
     'purp.h.l2': 'should be able to compete',
     'purp.h.l3': 'with the <em>whole world.</em>',
@@ -337,22 +324,35 @@ window.ACELERO_IDIOMAS = {
     'foot.desc.1': 'Complete foreign trade management for manufacturers, e-commerce operations and importers who cannot afford to rely on luck.',
     'foot.serv.1': 'Import and Export', 'foot.serv.2': 'International Logistics',
     'foot.serv.3': 'Customs Clearance', 'foot.serv.4': 'Strategic Consulting',
-    'foot.emp.1': 'About Acelero', 'foot.emp.2': 'Process', 'foot.emp.3': 'Cases',
+    'foot.emp.1': 'About Acelero', 'foot.emp.2': 'Process', 'foot.emp.3': 'Operations',
     'foot.emp.4': 'Why we do it', 'foot.emp.5': 'Frequently asked questions',
     'foot.hora': 'Mon to Fri, 8:30 to 18:30',
     'foot.lbl.1': 'Services', 'foot.lbl.2': 'Company', 'foot.lbl.3': 'Contact'
   },
 
   es: {
+    'hdnum.5': '05 — Operación',
+    'cases.h.l1': 'Lo que pasa',
+    'cases.h.l2': 'por <em>nuestra operación.</em>',
+    'lead.3': 'En lugar de cifras de clientes que usted no puede verificar, el mapa de lo que atendemos hoy: sectores, plazas, modales y regímenes. Si su caso está aquí, ya operamos algo como el suyo.',
+    'op.h.1': 'Sectores atendidos',
+    'op.l.1': '<li>Autopartes y componentes industriales</li><li>Electrónicos y línea blanca</li><li>Alimentos y bebidas</li><li>Máquinas y equipos</li><li>Materiales de construcción y acabado</li><li>Insumos químicos y plásticos</li>',
+    'op.h.2': 'Orígenes y destinos',
+    'op.l.2': '<li>China, Vietnam, India y Turquía</li><li>Unión Europea y Reino Unido</li><li>Estados Unidos y México</li><li>Mercosur: Argentina, Uruguay, Paraguay y Chile</li><li>Exportación a América Latina, Estados Unidos y Europa</li>',
+    'op.h.3': 'Modales y regímenes',
+    'op.l.3': '<li>Marítimo FCL y LCL</li><li>Aéreo y courier para urgencias y muestras</li><li>Terrestre en el Mercosur</li><li>Importación propia, por cuenta y orden y por encargo</li><li>Ex-tarifario, drawback y demás regímenes especiales</li>',
+    'op.h.4': 'Dónde despachamos',
+    'op.l.4': '<li>Santos <span class="mono">SP</span></li><li>Itajaí y Navegantes <span class="mono">SC</span></li><li>Paranaguá <span class="mono">PR</span></li><li>Vitória y Vila Velha <span class="mono">ES</span></li><li>Viracopos y Guarulhos <span class="mono">SP · aéreo</span></li><li>Recintos aduaneros y puertos secos</li>',
+    'op.nota.1': 'No publicamos nombre de cliente ni cifras de terceros sin autorización por escrito. En la reunión de diagnóstico mostramos un caso equivalente al suyo, con el cálculo abierto.',
     /* navegación */
     'nav.sobre': '<span class="mono">01</span>Nosotros',
     'nav.servicos': '<span class="mono">02</span>Servicios',
     'nav.processo': '<span class="mono">03</span>Proceso',
-    'nav.cases': '<span class="mono">05</span>Casos',
+    'nav.cases': '<span class="mono">05</span>Operación',
     'nav.contato': '<span class="mono">09</span>Contacto',
     'nav.cta': 'Agendar consultoría',
     'menu.1': 'Sobre Acelero', 'menu.2': 'Servicios', 'menu.3': 'Proceso',
-    'menu.4': 'Resultados', 'menu.5': 'Casos', 'menu.6': 'Por qué lo hacemos',
+    'menu.4': 'Resultados', 'menu.5': 'Operación', 'menu.6': 'Por qué lo hacemos',
     'menu.7': 'Garantías', 'menu.8': 'Preguntas frecuentes',
     'menu.9': 'Hable con el especialista',
 
@@ -372,7 +372,7 @@ window.ACELERO_IDIOMAS = {
 
     /* secciones — numeración */
     'hdnum.1': '01 — Nosotros', 'hdnum.2': '02 — Servicios', 'hdnum.3': '03 — Proceso',
-    'hdnum.4': '04 — Resultados', 'hdnum.5': '05 — Casos', 'hdnum.6': '06 — Por qué lo hacemos',
+    'hdnum.4': '04 — Resultados', 'hdnum.6': '06 — Por qué lo hacemos',
     'hdnum.7': '07 — Garantías', 'hdnum.8': '08 — Dudas', 'hdnum.9': '09 — Contacto',
 
     /* nosotros */
@@ -455,33 +455,7 @@ window.ACELERO_IDIOMAS = {
     'num.6': 'De los clientes siguen con nosotros tras 24 meses',
     'res.nota.1': 'Indicadores consolidados de la cartera activa. En la reunión de diagnóstico mostramos la memoria de cálculo — un número sin origen no vale nada.',
 
-    /* casos */
-    'cases.h.l1': 'Pruebas',
-    'cases.h.l2': 'de <em>campo.</em>',
-    'lead.3': 'Empresas reales, con nombres reservados por acuerdo de confidencialidad. Las cifras fueron auditadas junto con el equipo financiero de cada cliente.',
-    'case.tag.1': 'Industria de autopartes · São Paulo',
-    'case.h.1': 'De 61 a 38 días en el ciclo de reposición',
-    'case.p.1': 'Perdía ventas por quiebre de stock y pagaba aéreo de emergencia casi todos los meses. Reestructuramos la mezcla de modales, creamos un calendario de embarques consolidados y adelantamos el registro aduanero.',
-    'case.k.1': 'días menos de ciclo', 'case.k.2': 'costo logístico', 'case.k.3': 'aéreos de emergencia',
-    'case.tag.2': 'E-commerce de electrónicos · Santa Catarina',
-    'case.h.2': 'R$ 1,4 millones recuperados en revisión tributaria',
-    'case.p.2': 'Tres clasificaciones arancelarias estaban definidas de forma conservadora desde hacía cuatro años. Rehicimos el encuadre con dictamen técnico, aplicamos una exención arancelaria en una línea y reabrimos la operación con el costo correcto.',
-    'case.k.4': 'ahorro acumulado', 'case.k.5': 'carga tributaria', 'case.k.6': 'para el retorno',
-    'case.tag.3': 'Alimentos &amp; agro · Paraná',
-    'case.h.3': 'Primera exportación en 74 días, a 3 países',
-    'case.p.3': 'El cliente nunca había exportado. Nos encargamos de la habilitación, los certificados sanitarios, la adecuación de etiqueta, el contrato internacional y el primer embarque — con el comprador pagando por carta de crédito.',
-    'case.k.7': 'en el 1er semestre', 'case.k.8': 'margen vs. interno', 'case.k.9': 'embarques en plazo',
-    'quotes.h.1': 'Lo que dicen quienes ya operan con nosotros',
-    'quote.p.1': 'La diferencia no fue el flete más barato. Fue dejar de descubrir el problema cuando ya se había convertido en costo. Hoy sé el lunes lo que va a pasar el mes entero.',
-    'quote.c.1': 'Director industrial · autopartes',
-    'quote.p.2': 'Ya habíamos trabajado con tres despachantes. Lo que cambió aquí fue tener a alguien que entiende mi producto y responde por él. Nunca más quedé en medio de una discusión entre el agente y la terminal.',
-    'quote.c.2': 'Socia · e-commerce de electrónicos',
-    'quote.p.3': 'Pensábamos que exportar era cosa de empresas grandes. En poco más de dos meses estábamos embarcando. La burocracia, que me trababa, simplemente dejó de ser un problema mío.',
-    'quote.c.3': 'CEO · industria de alimentos',
-    'quote.p.4': 'El diagnóstico detectó una clasificación fiscal equivocada que arrastrábamos hacía años. Solo eso ya pagó el contrato de un año entero. El resto se volvió utilidad.',
-    'quote.c.4': 'CFO · equipos médicos',
-
-    /* propósito */
+    /* casos */ /* propósito */
     'purp.h.l1': 'Toda empresa tiene el poder de competir con el <em>mundo entero.</em>',
     'purp.h.l2': 'debería poder competir',
     'purp.h.l3': 'con el <em>mundo entero.</em>',
@@ -556,7 +530,7 @@ window.ACELERO_IDIOMAS = {
     'foot.desc.1': 'Gestión integral de comercio exterior para industrias, e-commerces e importadores que no pueden depender de la suerte.',
     'foot.serv.1': 'Importación y Exportación', 'foot.serv.2': 'Logística Internacional',
     'foot.serv.3': 'Despacho Aduanero', 'foot.serv.4': 'Consultoría Estratégica',
-    'foot.emp.1': 'Sobre Acelero', 'foot.emp.2': 'Proceso', 'foot.emp.3': 'Casos',
+    'foot.emp.1': 'Sobre Acelero', 'foot.emp.2': 'Proceso', 'foot.emp.3': 'Operación',
     'foot.emp.4': 'Por qué lo hacemos', 'foot.emp.5': 'Preguntas frecuentes',
     'foot.hora': 'Lun a vie, 8:30 a 18:30',
     'foot.lbl.1': 'Servicios', 'foot.lbl.2': 'Empresa', 'foot.lbl.3': 'Contacto'
@@ -957,23 +931,20 @@ function form() {
   const WHATS_ACELERO = '5527992744587';
 
   /* ---------- para onde vai o formulário --------------------------------
-     O site é estático: não existe servidor nosso para receber o POST. Para
-     o e-mail chegar em contato@acelerocomex.com.br o lead passa por um
-     serviço de entrega.
+     A hospedagem é HostGator, com PHP. O lead vai para enviar.php, no mesmo
+     domínio, e de lá sai como e-mail pelo próprio servidor: nenhum serviço
+     de terceiro no meio, nada para ativar, e o dado de quem preenche não
+     passa por fora da empresa.
 
-     Hoje: FormSubmit (formsubmit.co), que não pede conta nem chave. Na
-     PRIMEIRA vez que alguém enviar, ele manda um e-mail de ativação para a
-     caixa abaixo — é preciso clicar no link uma única vez, e só a partir
-     daí os envios seguintes chegam.
+     Trocar a caixa de destino é mexer em enviar.php, não aqui.
 
-     Para trocar de serviço (n8n, Make, Zapier, rota própria), basta mudar
-     ENVIO_URL: o corpo vai como JSON simples, com as chaves em português.
-
-     E se o envio falhar, o lead não se perde: a mensagem de erro passa a
-     oferecer o mesmo conteúdo por e-mail direto.
+     Se o envio falhar — servidor fora do ar, PHP desligado, ou a página
+     aberta por duplo clique, onde servidor não existe —, o lead não se
+     perde: a mensagem de erro passa a oferecer o mesmo conteúdo como e-mail
+     pronto para disparar.
      ------------------------------------------------------------------- */
   const EMAIL_DESTINO = 'contato@acelerocomex.com.br';
-  const ENVIO_URL = 'https://formsubmit.co/ajax/' + EMAIL_DESTINO;
+  const ENVIO_URL = 'enviar.php';
 
   /* Código curto que viaja na mensagem e no lead: é o que permite à ACELERO
      casar a mensagem recebida com este formulário. Sem servidor a página não
@@ -1332,9 +1303,9 @@ function form() {
 
     // Chaves em português: é isto que a pessoa da ACELERO lê no e-mail.
     const corpo = {
-      _subject: 'Site — análise de operação: ' + (data.empresa || 'sem empresa'),
-      _template: 'table',
-      _captcha: 'false',
+      // _assunto serve ao plano B por e-mail direto; o enviar.php compõe o
+      // assunto dele por conta própria e ignora tudo que começa com "_".
+      _assunto: 'Site — análise de operação: ' + (data.empresa || 'sem empresa'),
       'Nome': data.nome,
       'Empresa': data.empresa,
       'E-mail': data.email,
@@ -1345,7 +1316,10 @@ function form() {
       'Volume estimado': data.volume || '—',
       'Mensagem': data.mensagem || '—',
       'Idioma da página': idioma().toUpperCase(),
-      'Enviado em': new Date().toLocaleString('pt-BR')
+      'Enviado em': new Date().toLocaleString('pt-BR'),
+      // A isca viaja junto: o servidor confere de novo, porque o navegador
+      // pode ser contornado e o PHP não.
+      '_honey': data._honey || ''
     };
 
     try {
@@ -1361,6 +1335,10 @@ function form() {
         body: JSON.stringify(corpo)
       });
       if (!r.ok) throw new Error('envio recusado: ' + r.status);
+      // O PHP responde {ok:false, erro:'...'} quando recusa na validação
+      // dele — que é a que vale, porque o navegador pode ser contornado.
+      const resposta = await r.json().catch(() => ({ ok: true }));
+      if (resposta.ok === false) throw new Error('servidor recusou: ' + (resposta.erro || '?'));
 
       f.reset();
       if (selPais) { selPais.value = 'BR'; tel.placeholder = modelo(pais()); }
@@ -1379,7 +1357,7 @@ function form() {
       fb.textContent = msg('erro', 'Não conseguimos enviar agora.') + ' ';
       const a = document.createElement('a');
       a.href = 'mailto:' + EMAIL_DESTINO +
-               '?subject=' + encodeURIComponent(corpo._subject) +
+               '?subject=' + encodeURIComponent(corpo._assunto) +
                '&body=' + encodeURIComponent(linhas.slice(0, 1400));
       a.textContent = msg('erroLink', 'Enviar por e-mail');
       fb.appendChild(a);

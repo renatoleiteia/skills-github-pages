@@ -1,0 +1,38 @@
+/* ============================================================================
+   FRENTES DA OPERAÇÃO — seção 05
+   ============================================================================
+   Substitui os antigos cartões de case. A diferença não é só visual: aqui não
+   há número de cliente, há cobertura — o que a operação atende. Capacidade é
+   conferível numa conversa; resultado de terceiro sem autorização, não.
+   ========================================================================== */
+
+.frente {
+  border: 1px solid var(--filete);
+  border-top: 1px solid var(--filete-2);
+  padding: clamp(1.3rem, 2.6vw, 2rem);
+  height: 100%;
+  display: flex; flex-direction: column;
+  transition: border-color .3s ease, background .3s ease;
+}
+.frente:hover { border-color: var(--filete-2); background: rgba(63, 178, 224, .022); }
+
+.frente__n { color: var(--azul); margin: 0 0 1rem; }
+
+.frente h3 {
+  font-size: clamp(1.05rem, 1.7vw, 1.32rem);
+  letter-spacing: -.015em; line-height: 1.25;
+  margin: 0 0 1.1rem; padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--filete);
+}
+
+.frente__l { list-style: none; margin: 0; padding: 0; display: grid; gap: .62rem; }
+.frente__l li {
+  position: relative; padding-left: 1.1rem;
+  font-size: .92rem; line-height: 1.45; color: var(--leitura);
+}
+/* Filete curto no lugar do marcador: o mesmo vocabulário do resto da página. */
+.frente__l li::before {
+  content: ''; position: absolute; left: 0; top: .68em;
+  width: .55rem; height: 1px; background: var(--azul-fraco);
+}
+.frente__l .mono { color: var(--grafite); margin-left: .35rem; }
