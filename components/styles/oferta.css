@@ -1,0 +1,20 @@
+/* ---------------------------------------------------------------- oferta */
+.oferta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+.oferta__k { color: var(--azul); margin-bottom: 1.1rem; }
+.oferta h3 { font-size: clamp(1.1rem, 1.7vw, 1.35rem); font-weight: 600; line-height: 1.4; letter-spacing: -.01em; margin-bottom: 1.4rem; }
+.lista { list-style: none; margin: 0 0 1.6rem; padding: 0; display: grid; gap: .7rem; }
+.lista li { position: relative; padding-left: 1.7rem; font-size: .95rem; }
+.lista li::before {
+  content: ''; position: absolute; left: 0; top: .52em; width: .75rem; height: .42rem;
+  border-left: 1.5px solid var(--azul); border-bottom: 1.5px solid var(--azul);
+  transform: rotate(-45deg);
+}
+.caixa { border: 1px solid var(--filete-2); padding: clamp(1.2rem, 2.4vw, 1.8rem); }
+.caixa + .caixa { margin-top: 1rem; }
+.caixa .mono { display: block; color: var(--azul); margin-bottom: .8rem; }
+.escassez { margin-top: 1.2rem; font-size: .85rem; color: var(--grafite); }
+.escassez b { color: var(--azul); }
+.garantias { display: grid; gap: 0; margin-top: clamp(2.4rem, 5vw, 4rem); border-top: 1px solid var(--filete-2); }
+.garantias > div { display: grid; grid-template-columns: 3rem minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(1rem, 3vw, 2.5rem); padding-block: 1.5rem; border-bottom: 1px solid var(--filete); }
+.garantias h3 { font-size: 1.05rem; letter-spacing: -.01em; }
+.garantias p { font-size: .92rem; }

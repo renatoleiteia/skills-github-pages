@@ -20,8 +20,10 @@
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23070A0E'/%3E%3Cpath d='M6 22L16 7l10 15' fill='none' stroke='%233FB2E0' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M11 22h10' stroke='%23DCE3EA' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
 
-  <link rel="stylesheet" href="css/fontes.css" />
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- Um arquivo só, montado a partir de components/styles/ por
+       tools/montar.py: cada <link> extra é uma requisição que bloqueia a
+       pintura da página. -->
+  <link rel="stylesheet" href="styles.css" />
 
   <script type="application/ld+json">
   {
@@ -111,17 +113,17 @@
 <section class="bloco" id="sobre">
   <div class="wrap">
     <div class="cab">
-      <p class="mono cab__n" data-i18n="hdnum.1">01 — Sobre</p>
+      <p class="mono cab__n" data-ap data-i18n="hdnum.1">01 — Sobre</p>
       <div class="cab__g">
-        <h2 data-ap><span data-i18n="sobre.h.l1">Não somos mais um</span> <span data-i18n="sobre.h.l2">intermediário. Somos o</span> <span data-i18n="sobre.h.l3">seu <em>departamento</em></span> <span data-i18n="sobre.h.l4"><em>de comex.</em></span></h2>
+        <h2 data-ap="esq"><span data-i18n="sobre.h.l1">Não somos mais um</span> <span data-i18n="sobre.h.l2">intermediário. Somos o</span> <span data-i18n="sobre.h.l3">seu <em>departamento</em></span> <span data-i18n="sobre.h.l4"><em>de comex.</em></span></h2>
         
       </div>
     </div>
     <div class="corpo" data-ap data-i18n="sobre.txt.1"><p> A ACELERO COMEX nasceu de uma inconformidade simples: empresas brasileiras perdem margem, tempo e noites de sono porque a operação internacional é tratada como um quebra-cabeça de fornecedores desconectados — um faz a cotação, outro o frete, outro a aduana, e ninguém responde pelo resultado. </p> <p> Nós reunimos tudo sob um único time, um único processo e um único responsável. Você fala com uma pessoa; nós coordenamos o resto do planeta. </p></div>
-    <div class="tres">
-        <div data-ap><p class="mono" data-i18n="tri.lbl.1">Missão</p><h3 data-i18n="tri.h.1">Tornar o mundo acessível para quem produz e vende no Brasil.</h3><p data-i18n="tri.p.1">Reduzir a distância entre a sua empresa e qualquer fornecedor ou cliente do planeta, com clareza total de custo, prazo e risco.</p></div>
-        <div data-ap><p class="mono" data-i18n="tri.lbl.2">Visão</p><h3 data-i18n="tri.h.2">Ser a operação de comex mais previsível da América Latina.</h3><p data-i18n="tri.p.2">Não a maior. A mais confiável — aquela em que a diretoria planeja o trimestre inteiro sem medo do que vem do outro lado do oceano.</p></div>
-        <div data-ap><p class="mono" data-i18n="tri.lbl.3">Valores</p><h3 data-i18n="tri.h.3">Transparência radical, dado antes de opinião, dono de ponta a ponta.</h3><p data-i18n="tri.p.3">Se der problema, você fica sabendo por nós — antes de virar prejuízo. Sem taxa escondida, sem “isso não é com a gente”.</p></div>
+    <div class="tres" data-ap-fila>
+        <div><p class="mono" data-i18n="tri.lbl.1">Missão</p><h3 data-i18n="tri.h.1">Tornar o mundo acessível para quem produz e vende no Brasil.</h3><p data-i18n="tri.p.1">Reduzir a distância entre a sua empresa e qualquer fornecedor ou cliente do planeta, com clareza total de custo, prazo e risco.</p></div>
+        <div><p class="mono" data-i18n="tri.lbl.2">Visão</p><h3 data-i18n="tri.h.2">Ser a operação de comex mais previsível da América Latina.</h3><p data-i18n="tri.p.2">Não a maior. A mais confiável — aquela em que a diretoria planeja o trimestre inteiro sem medo do que vem do outro lado do oceano.</p></div>
+        <div><p class="mono" data-i18n="tri.lbl.3">Valores</p><h3 data-i18n="tri.h.3">Transparência radical, dado antes de opinião, dono de ponta a ponta.</h3><p data-i18n="tri.p.3">Se der problema, você fica sabendo por nós — antes de virar prejuízo. Sem taxa escondida, sem “isso não é com a gente”.</p></div>
     </div>
   </div>
 </section>
@@ -129,10 +131,10 @@
 <section class="bloco bloco--alt" id="servicos">
   <div class="wrap">
     <div class="cab">
-      <p class="mono cab__n" data-i18n="hdnum.2">02 — Serviços</p>
+      <p class="mono cab__n" data-ap data-i18n="hdnum.2">02 — Serviços</p>
       <div class="cab__g">
-        <h2 data-ap><span data-i18n="serv.h.l1">Quatro frentes.</span> <span data-i18n="serv.h.l2">Uma <em>única</em> operação.</span></h2>
-        <div class="cab__lead" data-ap data-i18n="lead.1">Você pode contratar uma frente isolada ou entregar toda a operação ao nosso time. Na prática, quem começa por uma acaba migrando tudo — porque o ganho está justamente em ninguém poder empurrar a responsabilidade para o vizinho.</div>
+        <h2 data-ap="esq"><span data-i18n="serv.h.l1">Quatro frentes.</span> <span data-i18n="serv.h.l2">Uma <em>única</em> operação.</span></h2>
+        <div class="cab__lead" data-ap="dir" data-i18n="lead.1">Você pode contratar uma frente isolada ou entregar toda a operação ao nosso time. Na prática, quem começa por uma acaba migrando tudo — porque o ganho está justamente em ninguém poder empurrar a responsabilidade para o vizinho.</div>
       </div>
     </div>
     <div class="linhas">
@@ -187,10 +189,10 @@
 <section class="bloco" id="processo">
   <div class="wrap">
     <div class="cab">
-      <p class="mono cab__n" data-i18n="hdnum.3">03 — Processo</p>
+      <p class="mono cab__n" data-ap data-i18n="hdnum.3">03 — Processo</p>
       <div class="cab__g">
-        <h2 data-ap><span data-i18n="proc.h.l1">Cinco etapas.</span> <span data-i18n="proc.h.l2">Nenhuma <em>surpresa.</em></span></h2>
-        <div class="cab__lead" data-ap data-i18n="lead.2">Cada etapa tem entregável, prazo e responsável definidos. Você sempre sabe em que ponto está a sua operação e o que acontece a seguir — é essa clareza que elimina o medo de importar.</div>
+        <h2 data-ap="esq"><span data-i18n="proc.h.l1">Cinco etapas.</span> <span data-i18n="proc.h.l2">Nenhuma <em>surpresa.</em></span></h2>
+        <div class="cab__lead" data-ap="dir" data-i18n="lead.2">Cada etapa tem entregável, prazo e responsável definidos. Você sempre sabe em que ponto está a sua operação e o que acontece a seguir — é essa clareza que elimina o medo de importar.</div>
       </div>
     </div>
     <div class="linhas">
@@ -263,19 +265,19 @@
   </div>
   <div class="wrap">
     <div class="cab">
-      <p class="mono cab__n" data-i18n="hdnum.4">04 — Resultados</p>
+      <p class="mono cab__n" data-ap data-i18n="hdnum.4">04 — Resultados</p>
       <div class="cab__g">
-        <h2 data-ap><span data-i18n="res.h.l1">Resultado não é</span> <span data-i18n="res.h.l2">promessa. É <em>número</em></span> <span data-i18n="res.h.l3"><em>auditado.</em></span></h2>
+        <h2 data-ap="esq"><span data-i18n="res.h.l1">Resultado não é</span> <span data-i18n="res.h.l2">promessa. É <em>número</em></span> <span data-i18n="res.h.l3"><em>auditado.</em></span></h2>
         
       </div>
     </div>
-    <ul class="grade-num">
-      <li data-ap><b>+1.900</b><span data-i18n="num.1">Embarques gerenciados desde 2016</span></li>
-      <li data-ap><b>27%</b><span data-i18n="num.2">Redução média de custo logístico no primeiro ano</span></li>
-      <li data-ap><b>98,4%</b><span data-i18n="num.3">Cargas liberadas em canal verde</span></li>
-      <li data-ap><b>11 dias</b><span data-i18n="num.4">A menos, em média, no ciclo pedido → doca</span></li>
-      <li data-ap><b>32</b><span data-i18n="num.5">Países de origem e destino operados</span></li>
-      <li data-ap><b>94%</b><span data-i18n="num.6">Dos clientes seguem conosco após 24 meses</span></li>
+    <ul class="grade-num" data-ap-fila>
+      <li><b>+1.900</b><span data-i18n="num.1">Embarques gerenciados desde 2016</span></li>
+      <li><b>27%</b><span data-i18n="num.2">Redução média de custo logístico no primeiro ano</span></li>
+      <li><b>98,4%</b><span data-i18n="num.3">Cargas liberadas em canal verde</span></li>
+      <li><b>11 dias</b><span data-i18n="num.4">A menos, em média, no ciclo pedido → doca</span></li>
+      <li><b>32</b><span data-i18n="num.5">Países de origem e destino operados</span></li>
+      <li><b>94%</b><span data-i18n="num.6">Dos clientes seguem conosco após 24 meses</span></li>
     </ul>
     <p class="nota" data-ap data-i18n="res.nota.1">Indicadores consolidados da carteira ativa. Na reunião de diagnóstico mostramos a memória de cálculo — número sem origem não vale nada.</p>
   </div>
@@ -284,13 +286,22 @@
 <section class="bloco bloco--alt" id="cases">
   <div class="wrap">
     <div class="cab">
-      <p class="mono cab__n" data-i18n="hdnum.5">05 — Cases</p>
+      <p class="mono cab__n" data-ap data-i18n="hdnum.5">05 — Cases</p>
       <div class="cab__g">
-        <h2 data-ap><span data-i18n="cases.h.l1">Provas</span> <span data-i18n="cases.h.l2">de <em>campo.</em></span></h2>
-        <div class="cab__lead" data-ap data-i18n="lead.3">Empresas reais, com nomes preservados por acordo de confidencialidade. Os números foram auditados em conjunto com o time financeiro de cada cliente.</div>
+        <h2 data-ap="esq"><span data-i18n="cases.h.l1">Provas</span> <span data-i18n="cases.h.l2">de <em>campo.</em></span></h2>
+        <div class="cab__lead" data-ap="dir" data-i18n="lead.3">Empresas reais, com nomes preservados por acordo de confidencialidade. Os números foram auditados em conjunto com o time financeiro de cada cliente.</div>
       </div>
     </div>
-      <article class="caso" data-ap>
+    <div class="carrossel" data-carrossel data-ap>
+      <div class="carrossel__topo">
+        
+        <div class="carrossel__nav">
+          <button type="button" data-ant aria-label="Anterior" aria-controls="carrosselCases"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" data-prox aria-label="Próximo" aria-controls="carrosselCases"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+      <div class="carrossel__vp" data-vp id="carrosselCases" aria-label="Cases">
+          <article class="caso">
         <div>
           <p class="mono" data-i18n="case.tag.1">Indústria de autopeças · SP</p>
           <h3 data-i18n="case.h.1">De 61 para 38 dias no ciclo de reposição</h3>
@@ -302,7 +313,7 @@
           <li><b>0</b><span data-i18n="case.k.3">aéreos emergenciais</span></li>
         </ul>
       </article>
-      <article class="caso" data-ap>
+          <article class="caso">
         <div>
           <p class="mono" data-i18n="case.tag.2">E-commerce de eletrônicos · SC</p>
           <h3 data-i18n="case.h.2">R$ 1,4 milhão recuperados em revisão tributária</h3>
@@ -314,7 +325,7 @@
           <li><b>4 meses</b><span data-i18n="case.k.6">para o retorno</span></li>
         </ul>
       </article>
-      <article class="caso" data-ap>
+          <article class="caso">
         <div>
           <p class="mono" data-i18n="case.tag.3">Alimentos &amp; agro · PR</p>
           <h3 data-i18n="case.h.3">Primeira exportação em 74 dias, para 3 países</h3>
@@ -326,12 +337,27 @@
           <li><b>100%</b><span data-i18n="case.k.9">embarques no prazo</span></li>
         </ul>
       </article>
-    <h3 class="vozes__t" data-ap data-i18n="quotes.h.1" style="margin-top:clamp(2.6rem,5vw,4rem)">O que dizem quem já opera com a gente</h3>
-    <div class="vozes">
-        <figure class="voz" data-ap><blockquote><p data-i18n="quote.p.1">A diferença não foi o frete mais barato. Foi parar de descobrir problema depois que ele já tinha virado custo. Hoje eu sei na segunda-feira o que vai acontecer no mês inteiro.</p></blockquote><cite data-i18n="quote.c.1">Diretor industrial · autopeças</cite></figure>
-        <figure class="voz" data-ap><blockquote><p data-i18n="quote.p.2">Já tínhamos trabalhado com três despachantes. O que mudou aqui foi ter alguém que entende do meu produto e responde por ele. Nunca mais fiquei no meio de uma discussão entre agente e terminal.</p></blockquote><cite data-i18n="quote.c.2">Sócia · e-commerce de eletrônicos</cite></figure>
-        <figure class="voz" data-ap><blockquote><p data-i18n="quote.p.3">Achávamos que exportar era coisa para empresa grande. Em pouco mais de dois meses estávamos embarcando. A burocracia, que me travava, simplesmente deixou de ser um problema meu.</p></blockquote><cite data-i18n="quote.c.3">CEO · indústria de alimentos</cite></figure>
-        <figure class="voz" data-ap><blockquote><p data-i18n="quote.p.4">O diagnóstico apontou uma classificação fiscal errada que a gente carregava há anos. Só isso já pagou o contrato de um ano inteiro. O resto virou lucro.</p></blockquote><cite data-i18n="quote.c.4">CFO · equipamentos médicos</cite></figure>
+      </div>
+      <div class="carrossel__pts" data-pts role="tablist" aria-label="Ir para um item"></div>
+    </div>
+
+    <div style="margin-top:clamp(2.6rem,5vw,4rem)">
+    <div class="carrossel" data-carrossel data-ap>
+      <div class="carrossel__topo">
+        <h3 class="carrossel__t" data-ap><span data-i18n="quotes.h.1">O que dizem quem já opera com a gente</span></h3>
+        <div class="carrossel__nav">
+          <button type="button" data-ant aria-label="Anterior" aria-controls="carrosselVozes"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" data-prox aria-label="Próximo" aria-controls="carrosselVozes"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+      <div class="carrossel__vp" data-vp id="carrosselVozes" aria-label="Depoimentos">
+          <figure class="voz"><blockquote><p data-i18n="quote.p.1">A diferença não foi o frete mais barato. Foi parar de descobrir problema depois que ele já tinha virado custo. Hoje eu sei na segunda-feira o que vai acontecer no mês inteiro.</p></blockquote><cite data-i18n="quote.c.1">Diretor industrial · autopeças</cite></figure>
+          <figure class="voz"><blockquote><p data-i18n="quote.p.2">Já tínhamos trabalhado com três despachantes. O que mudou aqui foi ter alguém que entende do meu produto e responde por ele. Nunca mais fiquei no meio de uma discussão entre agente e terminal.</p></blockquote><cite data-i18n="quote.c.2">Sócia · e-commerce de eletrônicos</cite></figure>
+          <figure class="voz"><blockquote><p data-i18n="quote.p.3">Achávamos que exportar era coisa para empresa grande. Em pouco mais de dois meses estávamos embarcando. A burocracia, que me travava, simplesmente deixou de ser um problema meu.</p></blockquote><cite data-i18n="quote.c.3">CEO · indústria de alimentos</cite></figure>
+          <figure class="voz"><blockquote><p data-i18n="quote.p.4">O diagnóstico apontou uma classificação fiscal errada que a gente carregava há anos. Só isso já pagou o contrato de um ano inteiro. O resto virou lucro.</p></blockquote><cite data-i18n="quote.c.4">CFO · equipamentos médicos</cite></figure>
+      </div>
+      <div class="carrossel__pts" data-pts role="tablist" aria-label="Ir para um item"></div>
+    </div>
     </div>
   </div>
 </section>
@@ -355,9 +381,9 @@
   </div>
   <div class="wrap">
     <div class="cab">
-      <p class="mono cab__n" data-i18n="hdnum.7">07 — Garantias</p>
+      <p class="mono cab__n" data-ap data-i18n="hdnum.7">07 — Garantias</p>
       <div class="cab__g">
-        <h2 data-ap><span data-i18n="offer.h.l1">O risco de tentar</span> <span data-i18n="offer.h.l2">é <em>nosso.</em> O ganho é seu.</span></h2>
+        <h2 data-ap="esq"><span data-i18n="offer.h.l1">O risco de tentar</span> <span data-i18n="offer.h.l2">é <em>nosso.</em> O ganho é seu.</span></h2>
         
       </div>
     </div>
@@ -377,10 +403,10 @@
         </div>
       </div>
     </div>
-    <div class="garantias">
-      <div data-ap><p class="mono">G/01</p><h3 data-i18n="gtee.h.1">Garantia de prazo acordado</h3><p data-i18n="gtee.p.1">Definimos com você um SLA de ciclo por embarque. Se o atraso for causado por falha nossa, a taxa de gestão daquele embarque não é cobrada. Em contrato.</p></div>
-      <div data-ap><p class="mono">G/02</p><h3 data-i18n="gtee.h.2">Transparência de custo</h3><p data-i18n="gtee.p.2">Você recebe a fatura original de cada fornecedor da cadeia. Nossa remuneração é declarada e fixa — não ganhamos comissão embutida em frete, câmbio ou armazenagem.</p></div>
-      <div data-ap><p class="mono">G/03</p><h3 data-i18n="gtee.h.3">Resposta em até 4 horas úteis</h3><p data-i18n="gtee.p.3">Canal direto com o seu gerente de conta e com o time de aduana. Carga parada se resolve em horas, não em dias de e-mail sem resposta.</p></div>
+    <div class="garantias" data-ap-fila>
+      <div><p class="mono">G/01</p><h3 data-i18n="gtee.h.1">Garantia de prazo acordado</h3><p data-i18n="gtee.p.1">Definimos com você um SLA de ciclo por embarque. Se o atraso for causado por falha nossa, a taxa de gestão daquele embarque não é cobrada. Em contrato.</p></div>
+      <div><p class="mono">G/02</p><h3 data-i18n="gtee.h.2">Transparência de custo</h3><p data-i18n="gtee.p.2">Você recebe a fatura original de cada fornecedor da cadeia. Nossa remuneração é declarada e fixa — não ganhamos comissão embutida em frete, câmbio ou armazenagem.</p></div>
+      <div><p class="mono">G/03</p><h3 data-i18n="gtee.h.3">Resposta em até 4 horas úteis</h3><p data-i18n="gtee.p.3">Canal direto com o seu gerente de conta e com o time de aduana. Carga parada se resolve em horas, não em dias de e-mail sem resposta.</p></div>
     </div>
   </div>
 </section>
@@ -388,22 +414,22 @@
 <section class="bloco" id="faq">
   <div class="wrap">
     <div class="cab">
-      <p class="mono cab__n" data-i18n="hdnum.8">08 — Dúvidas</p>
+      <p class="mono cab__n" data-ap data-i18n="hdnum.8">08 — Dúvidas</p>
       <div class="cab__g">
-        <h2 data-ap><span data-i18n="faq.h.l1">Perguntas que</span> <span data-i18n="faq.h.l2">todo mundo faz</span> <span data-i18n="faq.h.l3"><em>antes de começar.</em></span></h2>
-        <div class="cab__lead" data-ap data-i18n="lead.4">Se a sua dúvida não estiver aqui, mande no WhatsApp. Respondemos com a resposta técnica, mesmo quando ela não favorece a venda.</div>
+        <h2 data-ap="esq"><span data-i18n="faq.h.l1">Perguntas que</span> <span data-i18n="faq.h.l2">todo mundo faz</span> <span data-i18n="faq.h.l3"><em>antes de começar.</em></span></h2>
+        <div class="cab__lead" data-ap="dir" data-i18n="lead.4">Se a sua dúvida não estiver aqui, mande no WhatsApp. Respondemos com a resposta técnica, mesmo quando ela não favorece a venda.</div>
       </div>
     </div>
-    <div class="faq">
-      <details data-ap><summary><span data-i18n="faq.q.1">Minha empresa nunca importou. Dá para começar do zero?</span></summary><div><p data-i18n="faq.a.1">Dá, e é o cenário mais comum entre os nossos clientes novos. Cuidamos da habilitação no RADAR/Siscomex, do enquadramento tributário, da escolha do fornecedor e do primeiro embarque inteiro. Você participa das decisões comerciais; a parte técnica fica com a gente.</p></div></details>
-      <details data-ap><summary><span data-i18n="faq.q.2">Qual o volume mínimo para valer a pena?</span></summary><div><p data-i18n="faq.a.2">Não trabalhamos com volume mínimo rígido, e sim com viabilidade. Operações a partir de cerca de um contêiner por trimestre, ou cargas aéreas recorrentes, já costumam ter ganho suficiente. No diagnóstico dizemos com clareza se ainda não é o seu momento — perder tempo com uma operação que não fecha a conta é ruim para os dois lados.</p></div></details>
-      <details data-ap><summary><span data-i18n="faq.q.3">Como funciona a cobrança de vocês?</span></summary><div><p data-i18n="faq.a.3">Combinamos previamente uma taxa de gestão por embarque ou um fee mensal, conforme o volume. Custos de terceiros — frete, seguro, armazenagem, tributos, taxas portuárias — são repassados com a fatura original em anexo. Sem comissão embutida: se ganhamos algo de um parceiro, isso é declarado e abatido.</p></div></details>
-      <details data-ap><summary><span data-i18n="faq.q.4">Vocês garantem o prazo de entrega?</span></summary><div><p data-i18n="faq.a.4">Garantimos o SLA das etapas sob nossa gestão, definido em contrato. Greve portuária, evento climático ou fiscalização extraordinária estão fora do controle de qualquer operador — mas nesses casos você é avisado imediatamente, com plano B na mesa. Quando o atraso decorre de falha nossa, a taxa de gestão daquele embarque não é cobrada.</p></div></details>
-      <details data-ap><summary><span data-i18n="faq.q.5">E se a minha carga cair em canal amarelo ou vermelho?</span></summary><div><p data-i18n="faq.a.5">Faz parte da operação e não é motivo para pânico. Nossa documentação é conferida antes da chegada justamente para reduzir essa chance — e, quando acontece, o time de aduana assume a interlocução com a Receita e com o terminal no mesmo dia. Hoje, 98,4% das nossas cargas são liberadas em canal verde.</p></div></details>
-      <details data-ap><summary><span data-i18n="faq.q.6">Vocês trabalham com fornecedores da China?</span></summary><div><p data-i18n="faq.a.6">Sim, e também com Índia, Vietnã, Turquia, Estados Unidos, México e União Europeia. Temos parceiros de inspeção na origem, o que significa que a conformidade do seu produto é verificada antes do embarque — não quando o contêiner já está no Brasil.</p></div></details>
-      <details data-ap><summary><span data-i18n="faq.q.7">Já tenho despachante. Preciso trocar tudo?</span></summary><div><p data-i18n="faq.a.7">Não. Muitos clientes começam apenas pela consultoria estratégica ou pela logística, mantendo o despachante atual. Se em algum momento fizer sentido consolidar, a transição é feita por nós, sem interromper embarques em curso.</p></div></details>
-      <details data-ap><summary><span data-i18n="faq.q.8">Como acompanho minhas operações no dia a dia?</span></summary><div><p data-i18n="faq.a.8">Pela torre de controle digital: status de cada embarque, documentos, custo acumulado e ETA atualizada, no computador ou no celular. Além disso, você tem canal direto com o gerente de conta, com resposta em até 4 horas úteis.</p></div></details>
-      <details data-ap><summary><span data-i18n="faq.q.9">O diagnóstico é mesmo gratuito?</span></summary><div><p data-i18n="faq.a.9">É. Investimos esses 45 minutos porque, na prática, é a nossa melhor demonstração de competência. Você sai com o material em mãos, tendo contratado ou não. O que pedimos em troca é que a pessoa na reunião tenha acesso aos números da operação — sem isso, a análise vira suposição.</p></div></details>
+    <div class="faq" data-ap-fila>
+      <details><summary><span data-i18n="faq.q.1">Minha empresa nunca importou. Dá para começar do zero?</span></summary><div><p data-i18n="faq.a.1">Dá, e é o cenário mais comum entre os nossos clientes novos. Cuidamos da habilitação no RADAR/Siscomex, do enquadramento tributário, da escolha do fornecedor e do primeiro embarque inteiro. Você participa das decisões comerciais; a parte técnica fica com a gente.</p></div></details>
+      <details><summary><span data-i18n="faq.q.2">Qual o volume mínimo para valer a pena?</span></summary><div><p data-i18n="faq.a.2">Não trabalhamos com volume mínimo rígido, e sim com viabilidade. Operações a partir de cerca de um contêiner por trimestre, ou cargas aéreas recorrentes, já costumam ter ganho suficiente. No diagnóstico dizemos com clareza se ainda não é o seu momento — perder tempo com uma operação que não fecha a conta é ruim para os dois lados.</p></div></details>
+      <details><summary><span data-i18n="faq.q.3">Como funciona a cobrança de vocês?</span></summary><div><p data-i18n="faq.a.3">Combinamos previamente uma taxa de gestão por embarque ou um fee mensal, conforme o volume. Custos de terceiros — frete, seguro, armazenagem, tributos, taxas portuárias — são repassados com a fatura original em anexo. Sem comissão embutida: se ganhamos algo de um parceiro, isso é declarado e abatido.</p></div></details>
+      <details><summary><span data-i18n="faq.q.4">Vocês garantem o prazo de entrega?</span></summary><div><p data-i18n="faq.a.4">Garantimos o SLA das etapas sob nossa gestão, definido em contrato. Greve portuária, evento climático ou fiscalização extraordinária estão fora do controle de qualquer operador — mas nesses casos você é avisado imediatamente, com plano B na mesa. Quando o atraso decorre de falha nossa, a taxa de gestão daquele embarque não é cobrada.</p></div></details>
+      <details><summary><span data-i18n="faq.q.5">E se a minha carga cair em canal amarelo ou vermelho?</span></summary><div><p data-i18n="faq.a.5">Faz parte da operação e não é motivo para pânico. Nossa documentação é conferida antes da chegada justamente para reduzir essa chance — e, quando acontece, o time de aduana assume a interlocução com a Receita e com o terminal no mesmo dia. Hoje, 98,4% das nossas cargas são liberadas em canal verde.</p></div></details>
+      <details><summary><span data-i18n="faq.q.6">Vocês trabalham com fornecedores da China?</span></summary><div><p data-i18n="faq.a.6">Sim, e também com Índia, Vietnã, Turquia, Estados Unidos, México e União Europeia. Temos parceiros de inspeção na origem, o que significa que a conformidade do seu produto é verificada antes do embarque — não quando o contêiner já está no Brasil.</p></div></details>
+      <details><summary><span data-i18n="faq.q.7">Já tenho despachante. Preciso trocar tudo?</span></summary><div><p data-i18n="faq.a.7">Não. Muitos clientes começam apenas pela consultoria estratégica ou pela logística, mantendo o despachante atual. Se em algum momento fizer sentido consolidar, a transição é feita por nós, sem interromper embarques em curso.</p></div></details>
+      <details><summary><span data-i18n="faq.q.8">Como acompanho minhas operações no dia a dia?</span></summary><div><p data-i18n="faq.a.8">Pela torre de controle digital: status de cada embarque, documentos, custo acumulado e ETA atualizada, no computador ou no celular. Além disso, você tem canal direto com o gerente de conta, com resposta em até 4 horas úteis.</p></div></details>
+      <details><summary><span data-i18n="faq.q.9">O diagnóstico é mesmo gratuito?</span></summary><div><p data-i18n="faq.a.9">É. Investimos esses 45 minutos porque, na prática, é a nossa melhor demonstração de competência. Você sai com o material em mãos, tendo contratado ou não. O que pedimos em troca é que a pessoa na reunião tenha acesso aos números da operação — sem isso, a análise vira suposição.</p></div></details>
     </div>
   </div>
 </section>
@@ -411,10 +437,10 @@
 <section class="bloco claro" id="contato">
   <div class="wrap">
     <div class="cab">
-      <p class="mono cab__n" data-i18n="hdnum.9">09 — Contato</p>
+      <p class="mono cab__n" data-ap data-i18n="hdnum.9">09 — Contato</p>
       <div class="cab__g">
-        <h2 data-ap><span data-i18n="cont.h.l1">Fale com um</span> <span data-i18n="cont.h.l2"><em>especialista</em> agora.</span></h2>
-        <div class="cab__lead" data-ap data-i18n="cont.lead.1">Preencha o formulário e um especialista sênior — não um atendente de triagem — entra em contato em até 1 dia útil para agendar o diagnóstico. Se preferir, chame direto no WhatsApp.</div>
+        <h2 data-ap="esq"><span data-i18n="cont.h.l1">Fale com um</span> <span data-i18n="cont.h.l2"><em>especialista</em> agora.</span></h2>
+        <div class="cab__lead" data-ap="dir" data-i18n="cont.lead.1">Preencha o formulário e um especialista sênior — não um atendente de triagem — entra em contato em até 1 dia útil para agendar o diagnóstico. Se preferir, chame direto no WhatsApp.</div>
       </div>
     </div>
     <div class="contato">
@@ -542,8 +568,8 @@
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.05L2 22l5.1-1.33A10 10 0 1012 2m0 1.8a8.2 8.2 0 11-4.2 15.24l-.3-.18-3 .78.8-2.92-.2-.31A8.2 8.2 0 0112 3.8"/></svg><span>Falar agora</span>
 </a>
 
-<script src="js/paises.js" defer></script>
-<script src="js/idiomas.js" defer></script>
-<script src="js/main.js" defer></script>
+<!-- Idem para o JavaScript: components/scripts/ é a fonte, scripts.js é a
+     junção. `defer` deixa o HTML terminar de montar antes de executar. -->
+<script src="scripts.js" defer></script>
 </body>
 </html>

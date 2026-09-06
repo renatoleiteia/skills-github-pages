@@ -1,0 +1,27 @@
+/* ---------------------------------------------------------------- rodapé */
+.rodape { background: var(--tinta); border-top: 1px solid var(--filete); padding-block: clamp(3rem, 6vw, 5rem) 2rem; }
+.chamada { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; padding-bottom: clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--filete); }
+.chamada h2 { font-size: clamp(1.8rem, 4vw, 3.4rem); max-width: 14ch; margin-bottom: 1rem; }
+.chamada p { max-width: 46ch; color: var(--leitura); }
+.rod__g { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 3rem); padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+.rod__c { display: grid; align-content: start; gap: .55rem; }
+.rod__c a { font-size: .89rem; color: var(--leitura); text-decoration: none; transition: color .2s; }
+.rod__c a:hover { color: var(--azul); }
+.rod__l { color: var(--grafite); margin-bottom: .35rem; }
+.rod__d { font-size: .89rem; max-width: 34ch; }
+.rod__end { font-size: .8rem; color: var(--grafite); line-height: 1.55; }
+.rod__b { display: flex; flex-wrap: wrap; gap: .8rem 2rem; justify-content: space-between; padding-top: 1.6rem; border-top: 1px solid var(--filete); }
+.rod__b p { margin: 0; }
+.rod__b a { color: var(--grafite); text-decoration: none; }
+.rod__b a:hover { color: var(--azul); }
+
+/* ---------------------------------------------------------------- WhatsApp fixo */
+.zap {
+  position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 80;
+  display: flex; align-items: center; gap: .55rem;
+  padding: .7rem 1rem; background: #1E7D50; color: #fff;
+  text-decoration: none; font-size: .85rem; font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  transition: background .2s;
+}
+.zap:hover { background: #25A163; }

@@ -1,3 +1,127 @@
+/* ATENÇÃO: arquivo montado. Não edite aqui — a fonte é
+   components/styles/, e a junção é feita por tools/montar.py. */
+
+/* Fontes servidas localmente — sem CDN, funciona offline.
+   Archivo e IBM Plex são licenciadas sob a SIL Open Font License 1.1,
+   que permite hospedagem própria. Ver assets/fonts/LICENCA.txt.
+   Gerado a partir da API do Google Fonts; subsets latin e latin-ext. */
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500 800;
+  font-stretch: 100% 125%;
+  font-display: swap;
+  src: url(assets/fonts/Archivo-latin-ext-c422bf.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500 800;
+  font-stretch: 100% 125%;
+  font-display: swap;
+  src: url(assets/fonts/Archivo-latin-b92029.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexMono-latin-ext-7f25d9.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexMono-latin-d196e8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexMono-latin-ext-b42080.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexMono-latin-a7544c.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-ext-71c30c.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-a68a20.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-ext-71c30c.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-a68a20.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-ext-71c30c.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-a68a20.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ============================================================================
    ACELERO COMEX — style.css  ·  v2
 
@@ -62,6 +186,10 @@ body {
 }
 
 img, svg, video { display: block; max-width: 100%; }
+/* O navegador dá 1em/40px de margem a figure, blockquote e listas de
+   definição. Os 40px laterais deslocavam o primeiro slide do carrossel e o
+   encaixe alinhava por eles — o trilho abria já rolado. */
+figure, blockquote, dl, dd { margin: 0; }
 a { color: inherit; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 ::selection { background: var(--azul); color: var(--tinta); }
@@ -306,6 +434,104 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 .voz cite { display: block; margin-top: .9rem; font-style: normal; font-size: .8rem; color: var(--grafite); }
 .vozes__t { font-size: clamp(1.2rem, 2vw, 1.6rem); margin-bottom: 1.6rem; }
 
+/* ============================================================================
+   CARROSSEL — cases e depoimentos
+   ============================================================================
+   Construído sobre rolagem nativa com `scroll-snap`, não sobre `transform`.
+
+   Por quê: o navegador já sabe rolar. Com scroll-snap ganhamos de graça o
+   arrasto com o dedo, o embalo do iOS, a roda horizontal do trackpad, o Tab
+   levando o foco para o slide certo e o leitor de tela lendo a ordem real.
+   Um carrossel feito com transform teria que reimplementar tudo isso — e é
+   nessa reimplementação que eles costumam ficar travados no celular.
+
+   As setas apenas mandam o container rolar. Nada anda sozinho: carrossel que
+   gira em automático rouba a leitura de quem parou para ler.
+   ========================================================================== */
+
+.carrossel { position: relative; }
+
+.carrossel__topo {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem; margin-bottom: 1.6rem;
+}
+.carrossel__t { font-size: clamp(1.2rem, 2vw, 1.6rem); }
+
+/* ---- setas --------------------------------------------------------------- */
+/* margin-left:auto empurra as setas para a direita mesmo quando o carrossel
+   não tem título ao lado — sozinhas à esquerda elas ficam desamparadas. */
+.carrossel__nav { display: flex; gap: .5rem; flex: 0 0 auto; margin-left: auto; }
+.carrossel__nav button {
+  width: 46px; height: 46px; display: grid; place-items: center;
+  color: #FFFFFF; background: var(--azul-fundo);
+  transition: background .24s var(--curva), opacity .24s, color .24s;
+}
+.carrossel__nav button:hover:not(:disabled) { background: var(--azul); color: var(--tinta); }
+.carrossel__nav button:disabled {
+  opacity: .3; cursor: default;
+  background: transparent; color: var(--grafite);
+  box-shadow: inset 0 0 0 1px var(--filete-2);
+}
+.claro .carrossel__nav button:disabled { box-shadow: inset 0 0 0 1px #D3DAE1; color: #9AA5B1; }
+
+/* ---- trilho ---------------------------------------------------------------
+   `scroll-padding-inline` alinha o slide encaixado com a margem do texto.
+   A barra some por estética, mas a rolagem continua existindo — teclado e
+   dedo seguem funcionando. */
+.carrossel__vp {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: .5rem;
+}
+.carrossel__vp::-webkit-scrollbar { display: none; }
+.carrossel__vp > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: clamp(300px, 38%, 500px);
+}
+@media (prefers-reduced-motion: reduce) { .carrossel__vp { scroll-behavior: auto; } }
+
+/* ---- marcadores -----------------------------------------------------------
+   Traço, não bolinha: acompanha o vocabulário de filetes do resto da página. */
+.carrossel__pts { display: flex; gap: .4rem; margin-top: 1.3rem; }
+.carrossel__pts button {
+  width: 26px; height: 2px; background: var(--filete-2);
+  transition: background .3s, width .34s var(--curva);
+}
+.carrossel__pts button.ativo { background: var(--azul); width: 46px; }
+.claro .carrossel__pts button { background: #D3DAE1; }
+.claro .carrossel__pts button.ativo { background: var(--azul-fundo); }
+
+/* ---- slide de case --------------------------------------------------------
+   Dentro do carrossel o case volta a ser um bloco vertical: em coluna estreita
+   a grade de duas colunas espremeria os indicadores. */
+.carrossel .caso {
+  display: block; border: 1px solid var(--filete);
+  border-top: 1px solid var(--filete-2);
+  padding: clamp(1.2rem, 2.4vw, 1.8rem);
+  height: 100%;
+  transition: border-color .3s ease, background .3s ease;
+}
+.carrossel .caso:hover { border-color: var(--filete-2); background: rgba(63, 178, 224, .022); }
+.carrossel .caso__k { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--filete); }
+
+/* ---- slide de depoimento -------------------------------------------------- */
+.carrossel .voz {
+  border: 1px solid var(--filete); border-top: 1px solid var(--filete-2);
+  padding: clamp(1.2rem, 2.4vw, 1.8rem); height: 100%;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+
+@media (max-width: 880px) {
+  .carrossel__vp > * { width: min(84%, 380px); }
+  .carrossel__topo { flex-direction: column; align-items: flex-start; }
+}
+
 /* ---------------------------------------------------------------- propósito */
 .prop { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
 .manifesto ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
@@ -458,9 +684,175 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 }
 .zap:hover { background: #25A163; }
 
-/* ---------------------------------------------------------------- entrada */
-[data-ap] { opacity: 0; transform: translateY(14px); }
-[data-ap].vis { opacity: 1; transform: none; transition: opacity .42s ease, transform .42s var(--curva); }
+/* ============================================================================
+   MOVIMENTO — entrada por rolagem
+   ============================================================================
+   Regra da casa: movimento serve à leitura, nunca ao espetáculo.
+
+   · Deslocamento curto (16 px). Bloco que vem de longe puxa o olho para o
+     percurso em vez do conteúdo.
+   · 520 ms com saída desacelerada. Abaixo de 300 ms parece defeito; acima de
+     700 ms a pessoa espera o texto.
+   · Só opacidade e transform — as duas propriedades que o navegador anima na
+     GPU sem recalcular layout. Animar `top` ou `height` custaria quadro.
+   · Dispara uma vez. Bloco que reaparece a cada rolagem vira pisca-pisca.
+   · `prefers-reduced-motion` desliga tudo, sem exceção.
+   ========================================================================== */
+
+[data-ap] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: opacity, transform;
+}
+[data-ap].vis {
+  opacity: 1;
+  transform: none;
+  transition: opacity .52s ease, transform .52s var(--curva);
+  will-change: auto;   /* devolve a camada ao navegador quando termina */
+}
+
+/* Direções alternativas: o bloco entra do lado a que pertence na página. */
+[data-ap="esq"]  { transform: translate3d(-22px, 0, 0); }
+[data-ap="dir"]  { transform: translate3d(22px, 0, 0); }
+[data-ap="zoom"] { transform: scale(.985); }
+
+/* Escalonamento: itens de uma lista entram em sequência curta. O atraso é
+   calculado no JS e chega como variável, para o CSS não precisar de :nth-child
+   para cada quantidade possível. */
+[data-ap-fila] > * {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+[data-ap-fila].vis > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity .5s ease var(--atraso, 0ms), transform .5s var(--curva) var(--atraso, 0ms);
+}
+
+/* Título que entra por linha, sem biblioteca: cada linha é um span com
+   overflow escondido e o texto sobe de dentro dele. */
+.sobe { display: block; overflow: hidden; }
+.sobe > span { display: block; transform: translate3d(0, 100%, 0); }
+[data-ap].vis .sobe > span,
+.vis .sobe > span { transform: none; transition: transform .7s var(--curva) var(--atraso, 0ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ap], [data-ap-fila] > *, .sobe > span {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================================
+   MICROINTERAÇÕES — o que responde ao ponteiro
+   ============================================================================
+   Cada regra aqui existe para dar retorno ao gesto, não para chamar atenção.
+   Duração entre 180 ms e 320 ms: rápido o bastante para parecer causado pelo
+   cursor, lento o bastante para o olho acompanhar.
+   ========================================================================== */
+
+/* ---- botões -------------------------------------------------------------
+   O preenchimento sobe de baixo em vez de trocar a cor de chapa. É o mesmo
+   gesto do site inteiro: a informação entra pelo rodapé do elemento. */
+.bt { position: relative; overflow: hidden; isolation: isolate; }
+.bt::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: var(--azul);
+  transform: translate3d(0, 101%, 0);
+  transition: transform .32s var(--curva);
+}
+.bt--cheio:hover { color: var(--tinta); }
+.bt--linha:hover { color: var(--tinta); border-color: var(--azul); }
+.bt:hover::before { transform: none; }
+.bt:active { transform: translateY(1px); }
+.bt svg { transition: transform .26s var(--curva); }
+.bt:hover svg { transform: translateX(5px); }
+
+/* ---- links de texto -----------------------------------------------------
+   O filete cresce da esquerda em vez de aparecer inteiro. */
+.linha__a, .conf__b, .rod__c a, .canais a b {
+  background-image: linear-gradient(var(--azul), var(--azul));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size .3s var(--curva), color .2s;
+}
+.linha__a:hover, .conf__b:hover, .rod__c a:hover, .canais a:hover b { background-size: 100% 1px; }
+.linha__a { border-bottom: 0; }
+
+/* ---- navegação ----------------------------------------------------------
+   Sublinhado que cresce do centro, para o item corrente e para o ponteiro. */
+.nav a { position: relative; border-bottom: 0; }
+.nav a::after {
+  content: ''; position: absolute; left: 50%; right: 50%; bottom: 0;
+  height: 1px; background: var(--azul);
+  transition: left .28s var(--curva), right .28s var(--curva);
+}
+.nav a:hover::after, .nav a[aria-current="true"]::after { left: 0; right: 0; }
+
+/* ---- linhas de serviço e de processo ------------------------------------
+   A linha inteira reage: o filete da esquerda acende e o conteúdo desliza um
+   fio para a direita. O deslocamento é de 4 px — o suficiente para ser
+   percebido sem tirar o texto do lugar de leitura. */
+.linha { transition: background .3s ease; }
+.linha::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--azul);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform .38s var(--curva);
+}
+.linhas { position: relative; }
+.linha { position: relative; padding-left: 0; }
+.linha:hover::before { transform: scaleY(1); }
+.linha:hover { background: rgba(63, 178, 224, .028); }
+.linha:hover .linha__n { color: var(--claro); }
+.linha__n { transition: color .3s ease; }
+.linha__m img { transition: transform .6s var(--curva), filter .45s ease; }
+.linha:hover .linha__m img { transform: scale(1.03); filter: grayscale(.55) contrast(1.06) brightness(.95); }
+
+/* ---- números ------------------------------------------------------------ */
+.grade-num li { transition: background .3s ease; }
+.grade-num li:hover { background: rgba(63, 178, 224, .03); }
+.grade-num li:hover b { color: var(--azul); }
+.grade-num b { transition: color .3s ease; }
+
+/* ---- garantias e depoimentos -------------------------------------------- */
+.garantias > div, .voz { transition: border-color .3s ease; }
+.garantias > div:hover, .voz:hover { border-top-color: var(--azul); }
+
+/* ---- FAQ ----------------------------------------------------------------
+   A resposta desliza para dentro em vez de saltar. Como <details> não anima
+   altura sozinho, o conteúdo interno é que se move. */
+.faq details > div { animation: faqAbre .4s var(--curva) both; }
+@keyframes faqAbre {
+  from { opacity: 0; transform: translate3d(0, -8px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.faq summary { transition: color .22s ease, padding-left .28s var(--curva); }
+.faq summary:hover { padding-left: .4rem; }
+
+/* ---- campos do formulário ----------------------------------------------- */
+.fd input, .fd select, .fd textarea { transition: border-color .22s, background .22s, box-shadow .22s; }
+.fd label { transition: color .22s; }
+.fd:focus-within label { color: var(--azul-fundo); }
+
+/* ---- canais de contato --------------------------------------------------- */
+.canais svg { transition: transform .3s var(--curva); }
+.canais a:hover svg { transform: translateX(3px); }
+
+/* ---- WhatsApp fixo ------------------------------------------------------- */
+.zap { transition: background .22s, transform .28s var(--curva), box-shadow .28s; }
+.zap:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 0, 0, .45); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bt::before, .bt svg, .linha__m img, .faq details > div, .zap { transition: none; animation: none; }
+}
+/* Aparelho sem ponteiro fino não tem hover: o estado ficaria preso ao toque. */
+@media (hover: none) {
+  .linha:hover { background: none; }
+  .linha:hover .linha__m img { transform: none; filter: grayscale(1) contrast(1.04) brightness(.85); }
+}
 
 /* ---------------------------------------------------------------- responsivo */
 @media (max-width: 1040px) {
@@ -507,3 +899,4 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
   [data-ap] { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+

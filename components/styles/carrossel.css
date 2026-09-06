@@ -1,0 +1,97 @@
+/* ============================================================================
+   CARROSSEL — cases e depoimentos
+   ============================================================================
+   Construído sobre rolagem nativa com `scroll-snap`, não sobre `transform`.
+
+   Por quê: o navegador já sabe rolar. Com scroll-snap ganhamos de graça o
+   arrasto com o dedo, o embalo do iOS, a roda horizontal do trackpad, o Tab
+   levando o foco para o slide certo e o leitor de tela lendo a ordem real.
+   Um carrossel feito com transform teria que reimplementar tudo isso — e é
+   nessa reimplementação que eles costumam ficar travados no celular.
+
+   As setas apenas mandam o container rolar. Nada anda sozinho: carrossel que
+   gira em automático rouba a leitura de quem parou para ler.
+   ========================================================================== */
+
+.carrossel { position: relative; }
+
+.carrossel__topo {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem; margin-bottom: 1.6rem;
+}
+.carrossel__t { font-size: clamp(1.2rem, 2vw, 1.6rem); }
+
+/* ---- setas --------------------------------------------------------------- */
+/* margin-left:auto empurra as setas para a direita mesmo quando o carrossel
+   não tem título ao lado — sozinhas à esquerda elas ficam desamparadas. */
+.carrossel__nav { display: flex; gap: .5rem; flex: 0 0 auto; margin-left: auto; }
+.carrossel__nav button {
+  width: 46px; height: 46px; display: grid; place-items: center;
+  color: #FFFFFF; background: var(--azul-fundo);
+  transition: background .24s var(--curva), opacity .24s, color .24s;
+}
+.carrossel__nav button:hover:not(:disabled) { background: var(--azul); color: var(--tinta); }
+.carrossel__nav button:disabled {
+  opacity: .3; cursor: default;
+  background: transparent; color: var(--grafite);
+  box-shadow: inset 0 0 0 1px var(--filete-2);
+}
+.claro .carrossel__nav button:disabled { box-shadow: inset 0 0 0 1px #D3DAE1; color: #9AA5B1; }
+
+/* ---- trilho ---------------------------------------------------------------
+   `scroll-padding-inline` alinha o slide encaixado com a margem do texto.
+   A barra some por estética, mas a rolagem continua existindo — teclado e
+   dedo seguem funcionando. */
+.carrossel__vp {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: .5rem;
+}
+.carrossel__vp::-webkit-scrollbar { display: none; }
+.carrossel__vp > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: clamp(300px, 38%, 500px);
+}
+@media (prefers-reduced-motion: reduce) { .carrossel__vp { scroll-behavior: auto; } }
+
+/* ---- marcadores -----------------------------------------------------------
+   Traço, não bolinha: acompanha o vocabulário de filetes do resto da página. */
+.carrossel__pts { display: flex; gap: .4rem; margin-top: 1.3rem; }
+.carrossel__pts button {
+  width: 26px; height: 2px; background: var(--filete-2);
+  transition: background .3s, width .34s var(--curva);
+}
+.carrossel__pts button.ativo { background: var(--azul); width: 46px; }
+.claro .carrossel__pts button { background: #D3DAE1; }
+.claro .carrossel__pts button.ativo { background: var(--azul-fundo); }
+
+/* ---- slide de case --------------------------------------------------------
+   Dentro do carrossel o case volta a ser um bloco vertical: em coluna estreita
+   a grade de duas colunas espremeria os indicadores. */
+.carrossel .caso {
+  display: block; border: 1px solid var(--filete);
+  border-top: 1px solid var(--filete-2);
+  padding: clamp(1.2rem, 2.4vw, 1.8rem);
+  height: 100%;
+  transition: border-color .3s ease, background .3s ease;
+}
+.carrossel .caso:hover { border-color: var(--filete-2); background: rgba(63, 178, 224, .022); }
+.carrossel .caso__k { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--filete); }
+
+/* ---- slide de depoimento -------------------------------------------------- */
+.carrossel .voz {
+  border: 1px solid var(--filete); border-top: 1px solid var(--filete-2);
+  padding: clamp(1.2rem, 2.4vw, 1.8rem); height: 100%;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+
+@media (max-width: 880px) {
+  .carrossel__vp > * { width: min(84%, 380px); }
+  .carrossel__topo { flex-direction: column; align-items: flex-start; }
+}

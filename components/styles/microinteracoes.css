@@ -1,0 +1,109 @@
+/* ============================================================================
+   MICROINTERAÇÕES — o que responde ao ponteiro
+   ============================================================================
+   Cada regra aqui existe para dar retorno ao gesto, não para chamar atenção.
+   Duração entre 180 ms e 320 ms: rápido o bastante para parecer causado pelo
+   cursor, lento o bastante para o olho acompanhar.
+   ========================================================================== */
+
+/* ---- botões -------------------------------------------------------------
+   O preenchimento sobe de baixo em vez de trocar a cor de chapa. É o mesmo
+   gesto do site inteiro: a informação entra pelo rodapé do elemento. */
+.bt { position: relative; overflow: hidden; isolation: isolate; }
+.bt::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: var(--azul);
+  transform: translate3d(0, 101%, 0);
+  transition: transform .32s var(--curva);
+}
+.bt--cheio:hover { color: var(--tinta); }
+.bt--linha:hover { color: var(--tinta); border-color: var(--azul); }
+.bt:hover::before { transform: none; }
+.bt:active { transform: translateY(1px); }
+.bt svg { transition: transform .26s var(--curva); }
+.bt:hover svg { transform: translateX(5px); }
+
+/* ---- links de texto -----------------------------------------------------
+   O filete cresce da esquerda em vez de aparecer inteiro. */
+.linha__a, .conf__b, .rod__c a, .canais a b {
+  background-image: linear-gradient(var(--azul), var(--azul));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size .3s var(--curva), color .2s;
+}
+.linha__a:hover, .conf__b:hover, .rod__c a:hover, .canais a:hover b { background-size: 100% 1px; }
+.linha__a { border-bottom: 0; }
+
+/* ---- navegação ----------------------------------------------------------
+   Sublinhado que cresce do centro, para o item corrente e para o ponteiro. */
+.nav a { position: relative; border-bottom: 0; }
+.nav a::after {
+  content: ''; position: absolute; left: 50%; right: 50%; bottom: 0;
+  height: 1px; background: var(--azul);
+  transition: left .28s var(--curva), right .28s var(--curva);
+}
+.nav a:hover::after, .nav a[aria-current="true"]::after { left: 0; right: 0; }
+
+/* ---- linhas de serviço e de processo ------------------------------------
+   A linha inteira reage: o filete da esquerda acende e o conteúdo desliza um
+   fio para a direita. O deslocamento é de 4 px — o suficiente para ser
+   percebido sem tirar o texto do lugar de leitura. */
+.linha { transition: background .3s ease; }
+.linha::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--azul);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform .38s var(--curva);
+}
+.linhas { position: relative; }
+.linha { position: relative; padding-left: 0; }
+.linha:hover::before { transform: scaleY(1); }
+.linha:hover { background: rgba(63, 178, 224, .028); }
+.linha:hover .linha__n { color: var(--claro); }
+.linha__n { transition: color .3s ease; }
+.linha__m img { transition: transform .6s var(--curva), filter .45s ease; }
+.linha:hover .linha__m img { transform: scale(1.03); filter: grayscale(.55) contrast(1.06) brightness(.95); }
+
+/* ---- números ------------------------------------------------------------ */
+.grade-num li { transition: background .3s ease; }
+.grade-num li:hover { background: rgba(63, 178, 224, .03); }
+.grade-num li:hover b { color: var(--azul); }
+.grade-num b { transition: color .3s ease; }
+
+/* ---- garantias e depoimentos -------------------------------------------- */
+.garantias > div, .voz { transition: border-color .3s ease; }
+.garantias > div:hover, .voz:hover { border-top-color: var(--azul); }
+
+/* ---- FAQ ----------------------------------------------------------------
+   A resposta desliza para dentro em vez de saltar. Como <details> não anima
+   altura sozinho, o conteúdo interno é que se move. */
+.faq details > div { animation: faqAbre .4s var(--curva) both; }
+@keyframes faqAbre {
+  from { opacity: 0; transform: translate3d(0, -8px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.faq summary { transition: color .22s ease, padding-left .28s var(--curva); }
+.faq summary:hover { padding-left: .4rem; }
+
+/* ---- campos do formulário ----------------------------------------------- */
+.fd input, .fd select, .fd textarea { transition: border-color .22s, background .22s, box-shadow .22s; }
+.fd label { transition: color .22s; }
+.fd:focus-within label { color: var(--azul-fundo); }
+
+/* ---- canais de contato --------------------------------------------------- */
+.canais svg { transition: transform .3s var(--curva); }
+.canais a:hover svg { transform: translateX(3px); }
+
+/* ---- WhatsApp fixo ------------------------------------------------------- */
+.zap { transition: background .22s, transform .28s var(--curva), box-shadow .28s; }
+.zap:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 0, 0, .45); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bt::before, .bt svg, .linha__m img, .faq details > div, .zap { transition: none; animation: none; }
+}
+/* Aparelho sem ponteiro fino não tem hover: o estado ficaria preso ao toque. */
+@media (hover: none) {
+  .linha:hover { background: none; }
+  .linha:hover .linha__m img { transform: none; filter: grayscale(1) contrast(1.04) brightness(.85); }
+}

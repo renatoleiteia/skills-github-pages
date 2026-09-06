@@ -1,0 +1,59 @@
+/* ============================================================================
+   MOVIMENTO — entrada por rolagem
+   ============================================================================
+   Regra da casa: movimento serve à leitura, nunca ao espetáculo.
+
+   · Deslocamento curto (16 px). Bloco que vem de longe puxa o olho para o
+     percurso em vez do conteúdo.
+   · 520 ms com saída desacelerada. Abaixo de 300 ms parece defeito; acima de
+     700 ms a pessoa espera o texto.
+   · Só opacidade e transform — as duas propriedades que o navegador anima na
+     GPU sem recalcular layout. Animar `top` ou `height` custaria quadro.
+   · Dispara uma vez. Bloco que reaparece a cada rolagem vira pisca-pisca.
+   · `prefers-reduced-motion` desliga tudo, sem exceção.
+   ========================================================================== */
+
+[data-ap] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: opacity, transform;
+}
+[data-ap].vis {
+  opacity: 1;
+  transform: none;
+  transition: opacity .52s ease, transform .52s var(--curva);
+  will-change: auto;   /* devolve a camada ao navegador quando termina */
+}
+
+/* Direções alternativas: o bloco entra do lado a que pertence na página. */
+[data-ap="esq"]  { transform: translate3d(-22px, 0, 0); }
+[data-ap="dir"]  { transform: translate3d(22px, 0, 0); }
+[data-ap="zoom"] { transform: scale(.985); }
+
+/* Escalonamento: itens de uma lista entram em sequência curta. O atraso é
+   calculado no JS e chega como variável, para o CSS não precisar de :nth-child
+   para cada quantidade possível. */
+[data-ap-fila] > * {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+[data-ap-fila].vis > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity .5s ease var(--atraso, 0ms), transform .5s var(--curva) var(--atraso, 0ms);
+}
+
+/* Título que entra por linha, sem biblioteca: cada linha é um span com
+   overflow escondido e o texto sobe de dentro dele. */
+.sobe { display: block; overflow: hidden; }
+.sobe > span { display: block; transform: translate3d(0, 100%, 0); }
+[data-ap].vis .sobe > span,
+.vis .sobe > span { transform: none; transition: transform .7s var(--curva) var(--atraso, 0ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ap], [data-ap-fila] > *, .sobe > span {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

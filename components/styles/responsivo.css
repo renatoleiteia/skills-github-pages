@@ -1,0 +1,45 @@
+/* ---------------------------------------------------------------- responsivo */
+@media (max-width: 1040px) {
+  .cab__g, .prop, .oferta, .contato, .vozes { grid-template-columns: 1fr; }
+  .linha { grid-template-columns: 3.5rem minmax(0, 1fr); }
+  .linha__m { grid-column: 2; }
+  .caso { grid-template-columns: 1fr; }
+  .rod__g { grid-template-columns: 1fr 1fr; }
+  .chamada { grid-template-columns: 1fr; align-items: start; }
+}
+@media (max-width: 880px) {
+  .nav { display: none; }
+  .hamb { display: block; }
+  .topo__dir { margin-left: auto; }
+  /* O botão do topo quebrava em duas linhas espremido ao lado do menu.
+     Some: o WhatsApp fixo e os botões de cada seção já cobrem a ação. */
+  .topo__dir .bt { display: none; }
+  .nav.aberto {
+    display: grid; position: fixed; inset: var(--topo-h) 0 auto 0;
+    background: var(--tinta); border-bottom: 1px solid var(--filete);
+    padding: 1rem var(--pad) 1.6rem; gap: 0;
+  }
+  .nav.aberto a { padding-block: .85rem; border-bottom: 1px solid var(--filete); border-top: 0; font-size: 1.02rem; }
+  .manif { grid-template-columns: 1fr 1fr; }
+  .manif li { padding-right: 1rem; }
+  .manif li:nth-child(2n) { border-right: 0; }
+  .tres, .grade-num, .caso__k { grid-template-columns: 1fr 1fr; }
+  .grade-num li:nth-child(3n) { border-right: 1px solid var(--filete); }
+  .grade-num li:nth-child(2n) { border-right: 0; }
+  .fr, .fr--tel { grid-template-columns: 1fr; }
+  .garantias > div { grid-template-columns: 2.5rem minmax(0, 1fr); }
+  .garantias > div p { grid-column: 2; }
+}
+@media (max-width: 560px) {
+  .tres, .grade-num, .manif, .caso__k { grid-template-columns: 1fr; }
+  .grade-num li, .manif li { border-right: 0; }
+  .rod__g { grid-template-columns: 1fr; }
+  .zap span { display: none; }
+  .zap { padding: .85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  [data-ap] { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
