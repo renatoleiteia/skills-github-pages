@@ -22,23 +22,23 @@
    provedor. O endereço é lembrado no navegador de quem marca a opção — é
    comodidade que não custa segurança nenhuma.
 
-   COMO APONTAR PARA O SERVIDOR CERTO
-   ----------------------------------
-   Troque DESTINO_WEBMAIL pelo endereço que a sua hospedagem serve. Em cPanel
-   costumam existir três, e vale testar qual responde:
+   DESTINO
+   -------
+   https://acelerocomex.com.br/webmail — atalho que o cPanel serve e que
+   redireciona para o Roundcube na porta 2096. Se um dia a hospedagem mudar,
+   as alternativas equivalentes são https://acelerocomex.com.br:2096/ e
+   https://webmail.acelerocomex.com.br/.
 
-     https://webmail.acelerocomex.com.br/          (subdomínio, precisa de DNS)
-     https://acelerocomex.com.br:2096/             (porta padrão do webmail)
-     https://<servidor-da-hospedagem>:2096/        (sempre funciona, feio no link)
-
-   Enquanto o endereço não responder, a página avisa em vez de fingir.
+   QUEM PODE ENTRAR
+   ----------------
+   Só endereços @acelerocomex.com.br: a conferência está em problema(), e um
+   e-mail de outro domínio é recusado antes de sair daqui.
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  // <- confirme com a hospedagem qual destes responde e deixe só um
-  const DESTINO_WEBMAIL = 'https://webmail.acelerocomex.com.br/';
+  const DESTINO_WEBMAIL = 'https://acelerocomex.com.br/webmail';
 
   const DOMINIO = 'acelerocomex.com.br';
   const CHAVE = 'acelero.webmail.usuario';
