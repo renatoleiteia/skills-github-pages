@@ -63,13 +63,18 @@
 /* ---- marcadores -----------------------------------------------------------
    Traço, não bolinha: acompanha o vocabulário de filetes do resto da página. */
 .carrossel__pts { display: flex; gap: .4rem; margin-top: 1.3rem; }
+/* O traço continua com 2px de altura, mas o botão passa a ter 24px: era um
+   alvo de 26x2 px, impossível de acertar com o dedo e abaixo do mínimo de
+   24x24 da WCAG 2.5.8. O padding é transparente — o desenho não muda. */
 .carrossel__pts button {
-  width: 26px; height: 2px; background: var(--filete-2);
-  transition: background .3s, width .34s var(--curva);
+  width: 26px; height: 24px; padding: 11px 0; background: none;
+  border: 0; box-sizing: border-box; background-clip: content-box;
+  background-color: var(--filete-2);
+  transition: background-color .3s, width .34s var(--curva);
 }
-.carrossel__pts button.ativo { background: var(--azul); width: 46px; }
-.claro .carrossel__pts button { background: #D3DAE1; }
-.claro .carrossel__pts button.ativo { background: var(--azul-fundo); }
+.carrossel__pts button.ativo { background-color: var(--azul); width: 46px; }
+.claro .carrossel__pts button { background-color: #D3DAE1; }
+.claro .carrossel__pts button.ativo { background-color: var(--azul-fundo); }
 
 /* ---- slide de case --------------------------------------------------------
    Dentro do carrossel o case volta a ser um bloco vertical: em coluna estreita

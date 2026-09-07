@@ -22,7 +22,9 @@
   --tinta-2:    #0D1218;   /* faixa alternada               */
   --filete:     #1D2630;   /* linha do documento            */
   --filete-2:   #2C3846;   /* linha em destaque             */
-  --grafite:    #6E7C8B;   /* rótulo, metadado              */
+  --grafite:    #788493;   /* rótulo, metadado — 4,94 sobre o fundo dos
+                              cartões; o #6E7C8B anterior dava 4,40 e não
+                              cumpria o mínimo da WCAG AA               */
   --leitura:    #A8B4C0;   /* corpo de texto                */
   --claro:      #DCE3EA;   /* texto forte                   */
   --papel:      #F4F6F8;   /* branco da seção clara         */

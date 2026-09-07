@@ -57,22 +57,20 @@ Quase sempre é uma destas três, nesta ordem de probabilidade:
 Enquanto o envio falhar, o site não perde o contato: a mensagem de erro passa
 a oferecer o mesmo conteúdo como e-mail pronto para a pessoa disparar.
 
-## Imagem que falta subir
+## Arquivos de servidor
 
-A seção 06 (Por que fazemos) espera:
+Além das páginas, sobem para `public_html`:
 
-```
-assets/img/navio-mapa-mundi.jpg
-```
+| Arquivo | Para quê |
+|---|---|
+| `.htaccess` | https e www obrigatórios, compressão, validade de cache, cabeçalhos de segurança |
+| `robots.txt` | o que o Google pode indexar |
+| `sitemap.xml` | mapa do site — cadastre em search.google.com/search-console |
+| `enviar.php` | envio do formulário |
 
-Enquanto o arquivo não existir, o JavaScript cai para `mapa-mundi.jpg` — a
-mesma arte do rodapé, com outro tratamento. Basta subir o arquivo com esse nome
-exato para o navio assumir; não há nada a fazer no código. O 404 no console do
-navegador é a sondagem que descobre se a foto já subiu, e some junto com ela.
-
-Depois de subir, gere o `.webp` com `scripts/preparar_imagens.py` e troque o
-`<img>` por `<picture>` — enquanto o slot tem alternativa, o `<source>` webp
-venceria a escolha do navegador e a troca de imagem não funcionaria.
+O `.htaccess` traz uma linha de HSTS comentada. Só descomente depois de
+confirmar que o certificado https está funcionando: ela obriga https por um
+ano e voltar atrás leva o mesmo ano.
 
 ## Imagens
 

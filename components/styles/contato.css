@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------- contato claro */
 .claro { background: var(--papel); color: #3A4652; border-top: 0; }
 .claro h2, .claro h3 { color: #0B1219; }
-.claro .mono { color: #6B7787; }
+.claro .mono { color: #667180; }
 .claro .cab__n { border-bottom-color: #D3DAE1; }
 .claro .cab__n::after { background: #E2E7EC; }
 .claro strong, .claro b { color: #0B1219; }
@@ -15,7 +15,7 @@
 .canais a:hover { background: rgba(39,110,139,.05); }
 .canais svg { flex: 0 0 auto; margin-top: .2rem; color: var(--azul-fundo); }
 .canais b { display: block; font-size: 1rem; }
-.canais em { display: block; font-style: normal; font-size: .84rem; color: #6B7787; margin-top: .1rem; }
+.canais em { display: block; font-style: normal; font-size: .84rem; color: #667180; margin-top: .1rem; }
 .resguardo { margin-top: 1.6rem; font-size: .88rem; color: #59646F; }
 
 /* formulário */
@@ -44,11 +44,13 @@
 .fe { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .05em; color: #C2410C; }
 .fd.err input, .fd.err select, .fd.err textarea { border-color: #C2410C; box-shadow: inset 0 0 0 1px #C2410C; }
 .chk { display: flex; gap: .65rem; align-items: flex-start; font-size: .85rem; color: #59646F; cursor: pointer; }
-.chk input { flex: 0 0 auto; width: 17px; height: 17px; margin-top: .2rem; accent-color: var(--azul-fundo); cursor: pointer; }
+/* 22px, não 17: com 17 o quadrado ficava abaixo do alvo mínimo de toque e
+   era o campo obrigatório mais difícil de acertar no celular. */
+.chk input { flex: 0 0 auto; width: 24px; height: 24px; margin-top: .05rem; accent-color: var(--azul-fundo); cursor: pointer; }
 .chk a { color: var(--azul-fundo); text-underline-offset: 3px; }
 .chk--travada { opacity: .45; cursor: not-allowed; }
 .mel { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.form__n { margin: 0; text-align: center; color: #6B7787; }
+.form__n { margin: 0; text-align: center; color: #667180; }
 .form__fb { margin: 0; font-size: .9rem; text-align: center; }
 .form__fb.ok { color: #15803D; }
 .form__fb.bad { color: #C2410C; }
@@ -61,7 +63,7 @@
 .conf__n { margin: 0; font-family: var(--f-mono); font-size: 1.15rem; letter-spacing: .06em; color: #0B1219; }
 .conf__b { display: inline-flex; align-items: center; gap: .5rem; justify-self: start; padding: .55rem .9rem; text-decoration: none; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #FFFFFF; background: var(--azul-fundo); transition: background .2s; }
 .conf__b:hover { background: var(--azul); color: var(--tinta); }
-.conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: #6B7787; }
+.conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: #667180; }
 .conf__k b { color: var(--azul-fundo); letter-spacing: .14em; }
 
 /* ---------- placa de fundo na seção clara ------------------------------

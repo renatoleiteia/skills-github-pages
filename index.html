@@ -23,6 +23,12 @@
   <!-- Um arquivo só, montado a partir de components/styles/ por
        tools/montar.py: cada <link> extra é uma requisição que bloqueia a
        pintura da página. -->
+  <!-- As duas fontes que aparecem acima da dobra vêm antes do CSS. Sem isso o
+       navegador só descobre que precisa delas depois de ler o styles.css, e a
+       troca da fonte de sistema pela definitiva empurrava o texto: a auditoria
+       mediu 0,072 de CLS num único salto, aos 196ms, quando a fonte chegava. -->
+  <link rel="preload" href="assets/fonts/Archivo-latin-b92029.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/IBMPlexSans-latin-a68a20.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="styles.css" />
 
   <script type="application/ld+json">
@@ -90,7 +96,7 @@
   <div class="capa__foto">
     <picture>
       <source srcset="assets/img/conteiner-acelero.webp 2000w, assets/img/conteiner-acelero-1200w.webp 1200w" sizes="100vw" type="image/webp" />
-      <img src="assets/img/conteiner-acelero.jpg" srcset="assets/img/conteiner-acelero.jpg 2000w, assets/img/conteiner-acelero-1200w.jpg 1200w" sizes="100vw" alt="Contêiner marítimo com a marca ACELERO COMEX no pátio do terminal" fetchpriority="high" />
+      <img width="2000" height="1143" src="assets/img/conteiner-acelero.jpg" srcset="assets/img/conteiner-acelero.jpg 2000w, assets/img/conteiner-acelero-1200w.jpg 1200w" sizes="100vw" alt="Contêiner marítimo com a marca ACELERO COMEX no pátio do terminal" fetchpriority="high" />
     </picture>
   </div>
   <div class="capa__in wrap">
@@ -204,7 +210,7 @@
           <p class="linha__g" data-i18n="step.o.1"><span class="mono">Entregável</span> Plano operacional com custo-alvo e prazo-alvo.</p>
         </div>
         <figure class="linha__m" data-opcional>
-          <picture><source srcset="assets/img/planejamento.webp" type="image/webp" /><img src="assets/img/planejamento.jpg" alt="Mesa de planejamento com mapa de rotas, cronograma do embarque e painel de indicadores" loading="lazy" /></picture>
+          <picture><source srcset="assets/img/planejamento.webp" type="image/webp" /><img width="1400" height="781" src="assets/img/planejamento.jpg" alt="Mesa de planejamento com mapa de rotas, cronograma do embarque e painel de indicadores" loading="lazy" /></picture>
         </figure>
       </article>
       <article class="linha" data-ap>
@@ -215,7 +221,7 @@
           <p class="linha__g" data-i18n="step.o.2"><span class="mono">Entregável</span> Dossiê do fornecedor + cronograma de produção monitorado.</p>
         </div>
         <figure class="linha__m" data-opcional>
-          <picture><source srcset="assets/img/linha-producao.webp" type="image/webp" /><img src="assets/img/linha-producao.jpg" alt="Linha de produção com equipe de engenharia acompanhando a montagem" loading="lazy" /></picture>
+          <picture><source srcset="assets/img/linha-producao.webp" type="image/webp" /><img width="1150" height="620" src="assets/img/linha-producao.jpg" alt="Linha de produção com equipe de engenharia acompanhando a montagem" loading="lazy" /></picture>
         </figure>
       </article>
       <article class="linha" data-ap>
@@ -226,7 +232,7 @@
           <p class="linha__g" data-i18n="step.o.3"><span class="mono">Entregável</span> Relatório de inspeção com fotos e laudo de conformidade.</p>
         </div>
         <figure class="linha__m" data-opcional>
-          <picture><source srcset="assets/img/inspecao-fornecedor.webp" type="image/webp" /><img src="assets/img/inspecao-fornecedor.jpg" alt="Equipe técnica conferindo desenhos e amostras de peças na fábrica" loading="lazy" /></picture>
+          <picture><source srcset="assets/img/inspecao-fornecedor.webp" type="image/webp" /><img width="1100" height="816" src="assets/img/inspecao-fornecedor.jpg" alt="Equipe técnica conferindo desenhos e amostras de peças na fábrica" loading="lazy" /></picture>
         </figure>
       </article>
       <article class="linha" data-ap>
@@ -237,7 +243,7 @@
           <p class="linha__g" data-i18n="step.o.4"><span class="mono">Entregável</span> Acesso à torre de controle + alertas automáticos.</p>
         </div>
         <figure class="linha__m" data-opcional>
-          <picture><source srcset="assets/img/transporte.webp" type="image/webp" /><img src="assets/img/transporte.jpg" alt="Contêineres em trânsito no terminal portuário" loading="lazy" /></picture>
+          <picture><source srcset="assets/img/transporte.webp" type="image/webp" /><img width="1060" height="700" src="assets/img/transporte.jpg" alt="Contêineres em trânsito no terminal portuário" loading="lazy" /></picture>
         </figure>
       </article>
       <article class="linha" data-ap>
@@ -248,7 +254,7 @@
           <p class="linha__g" data-i18n="step.o.5"><span class="mono">Entregável</span> Carga na sua doca + relatório de fechamento financeiro.</p>
         </div>
         <figure class="linha__m" data-opcional>
-          <picture><source srcset="assets/img/entrega.webp" type="image/webp" /><img src="assets/img/entrega.jpg" alt="Descarregamento da carga na doca do cliente" loading="lazy" /></picture>
+          <picture><source srcset="assets/img/entrega.webp" type="image/webp" /><img width="474" height="611" src="assets/img/entrega.jpg" alt="Descarregamento da carga na doca do cliente" loading="lazy" /></picture>
         </figure>
       </article>
     </div>
@@ -261,7 +267,7 @@
 
 <section class="bloco bloco--foto" id="resultados">
   <div class="placa" aria-hidden="true">
-    <picture><source srcset="assets/img/prateleiras-estoque.webp" type="image/webp" /><img src="assets/img/prateleiras-estoque.jpg" alt="" loading="lazy" /></picture>
+    <picture><source srcset="assets/img/prateleiras-estoque.webp" type="image/webp" /><img width="1488" height="717" src="assets/img/prateleiras-estoque.jpg" alt="" loading="lazy" /></picture>
   </div>
   <div class="wrap">
     <div class="cab">
@@ -333,12 +339,8 @@
        propósito, e a imagem carrega o argumento sem precisar de legenda. Aqui o
        degradê é azul, não preto — o azul já é o da própria foto. Enquanto o
        arquivo definitivo não sobe, o slot cai para o mapa-múndi. -->
-  <div class="placa" aria-hidden="true" data-opcional
-       data-alternativa="assets/img/mapa-mundi.jpg">
-    <!-- Sem <picture> enquanto o slot tem alternativa: o <source> webp vence a
-         escolha do navegador e a troca de src no <img> não teria efeito. O webp
-         entra junto com a foto definitiva. -->
-    <img src="assets/img/navio-mapa-mundi.jpg" alt="" loading="lazy" />
+  <div class="placa" aria-hidden="true">
+    <picture><source srcset="assets/img/navio-mapa-mundi.webp" type="image/webp" /><img width="980" height="562" src="assets/img/navio-mapa-mundi.jpg" alt="" loading="lazy" /></picture>
   </div>
   <div class="wrap">
     <div class="cab">
@@ -354,7 +356,7 @@
 
 <section class="bloco bloco--foto" id="garantia">
   <div class="placa" aria-hidden="true">
-    <picture><source srcset="assets/img/risco-operacao.webp" type="image/webp" /><img src="assets/img/risco-operacao.jpg" alt="" loading="lazy" /></picture>
+    <picture><source srcset="assets/img/risco-operacao.webp" type="image/webp" /><img width="1052" height="693" src="assets/img/risco-operacao.jpg" alt="" loading="lazy" /></picture>
   </div>
   <div class="wrap">
     <div class="cab">
@@ -416,7 +418,7 @@
        traz. Aqui o degradê é claro, não escuro — a seção é a única de fundo
        papel do site, e o tratamento das seções 04 e 07 apagaria o texto. -->
   <div class="placa" aria-hidden="true">
-    <picture><source srcset="assets/img/polo-industrial-china.webp" type="image/webp" /><img src="assets/img/polo-industrial-china.jpg" alt="" loading="lazy" /></picture>
+    <picture><source srcset="assets/img/polo-industrial-china.webp" type="image/webp" /><img width="1390" height="572" src="assets/img/polo-industrial-china.jpg" alt="" loading="lazy" /></picture>
   </div>
   <div class="wrap">
     <div class="cab">
@@ -501,7 +503,7 @@
        inteiro (contain) e em modo screen — o fundo escuro da arte some e só os
        pontos acendem sobre a tinta do rodapé. -->
   <figure class="placa placa--rodape" data-opcional aria-hidden="true">
-    <picture><source srcset="assets/img/mapa-mundi.webp" type="image/webp" /><img src="assets/img/mapa-mundi.jpg" alt="" loading="lazy" /></picture>
+    <picture><source srcset="assets/img/mapa-mundi.webp" type="image/webp" /><img width="761" height="427" src="assets/img/mapa-mundi.jpg" alt="" loading="lazy" /></picture>
   </figure>
   <div class="wrap">
     <div class="chamada">

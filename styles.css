@@ -146,7 +146,9 @@
   --tinta-2:    #0D1218;   /* faixa alternada               */
   --filete:     #1D2630;   /* linha do documento            */
   --filete-2:   #2C3846;   /* linha em destaque             */
-  --grafite:    #6E7C8B;   /* rótulo, metadado              */
+  --grafite:    #788493;   /* rótulo, metadado — 4,94 sobre o fundo dos
+                              cartões; o #6E7C8B anterior dava 4,40 e não
+                              cumpria o mínimo da WCAG AA               */
   --leitura:    #A8B4C0;   /* corpo de texto                */
   --claro:      #DCE3EA;   /* texto forte                   */
   --papel:      #F4F6F8;   /* branco da seção clara         */
@@ -567,13 +569,18 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 /* ---- marcadores -----------------------------------------------------------
    Traço, não bolinha: acompanha o vocabulário de filetes do resto da página. */
 .carrossel__pts { display: flex; gap: .4rem; margin-top: 1.3rem; }
+/* O traço continua com 2px de altura, mas o botão passa a ter 24px: era um
+   alvo de 26x2 px, impossível de acertar com o dedo e abaixo do mínimo de
+   24x24 da WCAG 2.5.8. O padding é transparente — o desenho não muda. */
 .carrossel__pts button {
-  width: 26px; height: 2px; background: var(--filete-2);
-  transition: background .3s, width .34s var(--curva);
+  width: 26px; height: 24px; padding: 11px 0; background: none;
+  border: 0; box-sizing: border-box; background-clip: content-box;
+  background-color: var(--filete-2);
+  transition: background-color .3s, width .34s var(--curva);
 }
-.carrossel__pts button.ativo { background: var(--azul); width: 46px; }
-.claro .carrossel__pts button { background: #D3DAE1; }
-.claro .carrossel__pts button.ativo { background: var(--azul-fundo); }
+.carrossel__pts button.ativo { background-color: var(--azul); width: 46px; }
+.claro .carrossel__pts button { background-color: #D3DAE1; }
+.claro .carrossel__pts button.ativo { background-color: var(--azul-fundo); }
 
 /* ---- slide de case --------------------------------------------------------
    Dentro do carrossel o case volta a ser um bloco vertical: em coluna estreita
@@ -681,7 +688,7 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 /* ---------------------------------------------------------------- contato claro */
 .claro { background: var(--papel); color: #3A4652; border-top: 0; }
 .claro h2, .claro h3 { color: #0B1219; }
-.claro .mono { color: #6B7787; }
+.claro .mono { color: #667180; }
 .claro .cab__n { border-bottom-color: #D3DAE1; }
 .claro .cab__n::after { background: #E2E7EC; }
 .claro strong, .claro b { color: #0B1219; }
@@ -695,7 +702,7 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 .canais a:hover { background: rgba(39,110,139,.05); }
 .canais svg { flex: 0 0 auto; margin-top: .2rem; color: var(--azul-fundo); }
 .canais b { display: block; font-size: 1rem; }
-.canais em { display: block; font-style: normal; font-size: .84rem; color: #6B7787; margin-top: .1rem; }
+.canais em { display: block; font-style: normal; font-size: .84rem; color: #667180; margin-top: .1rem; }
 .resguardo { margin-top: 1.6rem; font-size: .88rem; color: #59646F; }
 
 /* formulário */
@@ -724,11 +731,13 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 .fe { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .05em; color: #C2410C; }
 .fd.err input, .fd.err select, .fd.err textarea { border-color: #C2410C; box-shadow: inset 0 0 0 1px #C2410C; }
 .chk { display: flex; gap: .65rem; align-items: flex-start; font-size: .85rem; color: #59646F; cursor: pointer; }
-.chk input { flex: 0 0 auto; width: 17px; height: 17px; margin-top: .2rem; accent-color: var(--azul-fundo); cursor: pointer; }
+/* 22px, não 17: com 17 o quadrado ficava abaixo do alvo mínimo de toque e
+   era o campo obrigatório mais difícil de acertar no celular. */
+.chk input { flex: 0 0 auto; width: 24px; height: 24px; margin-top: .05rem; accent-color: var(--azul-fundo); cursor: pointer; }
 .chk a { color: var(--azul-fundo); text-underline-offset: 3px; }
 .chk--travada { opacity: .45; cursor: not-allowed; }
 .mel { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.form__n { margin: 0; text-align: center; color: #6B7787; }
+.form__n { margin: 0; text-align: center; color: #667180; }
 .form__fb { margin: 0; font-size: .9rem; text-align: center; }
 .form__fb.ok { color: #15803D; }
 .form__fb.bad { color: #C2410C; }
@@ -741,7 +750,7 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 .conf__n { margin: 0; font-family: var(--f-mono); font-size: 1.15rem; letter-spacing: .06em; color: #0B1219; }
 .conf__b { display: inline-flex; align-items: center; gap: .5rem; justify-self: start; padding: .55rem .9rem; text-decoration: none; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #FFFFFF; background: var(--azul-fundo); transition: background .2s; }
 .conf__b:hover { background: var(--azul); color: var(--tinta); }
-.conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: #6B7787; }
+.conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: #667180; }
 .conf__k b { color: var(--azul-fundo); letter-spacing: .14em; }
 
 /* ---------- placa de fundo na seção clara ------------------------------
@@ -1038,5 +1047,15 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
   * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   [data-ap] { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
+}
+
+/* ---------- alvos de toque no celular -----------------------------------
+   Links de 23px de altura empilhados a 0,55rem de distância são o padrão de
+   rodapé que todo mundo erra com o dedo. No toque eles ganham 44px de altura
+   útil — o mínimo que Apple e Google recomendam — sem mudar a aparência. */
+@media (hover: none) and (max-width: 880px) {
+  .rod__c { gap: 0; }
+  .rod__c a { display: flex; align-items: center; min-height: 44px; }
+  .rod__b a { display: inline-flex; align-items: center; min-height: 40px; }
 }
 

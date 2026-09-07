@@ -43,3 +43,13 @@
   [data-ap] { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- alvos de toque no celular -----------------------------------
+   Links de 23px de altura empilhados a 0,55rem de distância são o padrão de
+   rodapé que todo mundo erra com o dedo. No toque eles ganham 44px de altura
+   útil — o mínimo que Apple e Google recomendam — sem mudar a aparência. */
+@media (hover: none) and (max-width: 880px) {
+  .rod__c { gap: 0; }
+  .rod__c a { display: flex; align-items: center; min-height: 44px; }
+  .rod__b a { display: inline-flex; align-items: center; min-height: 40px; }
+}

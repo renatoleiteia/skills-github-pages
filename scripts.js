@@ -646,9 +646,16 @@ window.ACELERO.navegacao = function navegacao($, $$, parado) {
    O navegador restaura a rolagem ao recarregar e a página reabria no meio.
    Zerar uma vez não basta: o salto para a âncora acontece depois, já com o
    layout montado. Seguramos o topo por meio segundo e largamos ao primeiro
-   gesto de quem está lendo. */
+   gesto de quem está lendo.
+
+   EXCEÇÃO: endereço com #secao. Quem manda "acelerocomex.com.br/#contato" num
+   WhatsApp ou põe isso num anúncio quer que a pessoa caia no contato — e a
+   versão anterior desta função apagava o # e jogava todo mundo para o começo.
+   Segurar o topo é para quem chega pela porta da frente, não para quem foi
+   convidado a entrar por uma janela específica. */
 function comecarNoTopo() {
   const manual = () => { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; };
+  if (location.hash && $(location.hash)) { manual(); return; }
   const zerar = () => {
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     window.scrollTo(0, 0);
@@ -729,25 +736,35 @@ function menuAtivo() {
 }
 
 /* ---------- 06. SLOTS DE FOTO OPCIONAIS ---------------------------------
-   O slot aponta para a foto definitiva. Se o arquivo ainda não estiver no
-   servidor, cai para o que houver em data-alternativa; sem alternativa, a
-   figura sai do DOM — em nenhum caso sobra ícone de imagem quebrada. No dia
-   em que a foto definitiva subir, ela assume sozinha, sem mexer no código. */
+   O slot aponta para a foto definitiva. Se o arquivo não estiver no servidor,
+   cai para o que houver em data-alternativa; sem alternativa, a figura sai do
+   DOM — em nenhum caso sobra ícone de imagem quebrada.
+
+   A versão anterior descobria isso com `new Image()` apontando para o atributo
+   src, que é sempre o .jpg. Como o navegador já tinha escolhido o .webp do
+   <picture>, cada slot baixava as DUAS versões: 666 KB de JPEG jogados fora em
+   toda visita, e justamente os arquivos mais pesados da página. Ouvir o evento
+   `error` do próprio <img> responde a mesma pergunta sem pedir nada de novo —
+   e responde sobre o arquivo que o navegador de fato escolheu. */
 function slotsOpcionais() {
   $$('[data-opcional]').forEach(fig => {
     const img = $('img', fig);
     if (!img) return;
-    const alternativa = fig.getAttribute('data-alternativa');
-    const sonda = new Image();
-    sonda.onerror = () => {
+    const cair = () => {
+      const alternativa = fig.getAttribute('data-alternativa');
       if (alternativa && img.getAttribute('src') !== alternativa) {
+        /* <source> do <picture> vence o src do <img>: some com ele antes de
+           trocar, senão o navegador insiste no arquivo que não existe. */
+        $$('source', fig).forEach(f => f.remove());
         img.setAttribute('src', alternativa);
         fig.setAttribute('data-provisoria', '');
       } else {
         fig.remove();
       }
     };
-    sonda.src = img.getAttribute('src');
+    img.addEventListener('error', cair, { once: true });
+    /* Imagem que já falhou antes do script rodar não dispara mais o evento. */
+    if (img.complete && !img.naturalWidth) cair();
   });
 }
 
