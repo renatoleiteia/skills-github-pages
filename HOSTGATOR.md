@@ -3,21 +3,95 @@
 Lista fechada do que o site precisa do lado do servidor. Nada aqui eu consigo
 fazer daqui — tudo depende do painel da hospedagem e do registro.br.
 
-Ordem sugerida: **domínio → e-mails → arquivos → testes**. Cada item diz onde
-ele aparece no site, para você saber o que quebra se ficar de fora.
+Ordem obrigatória: **domínio → DNS → certificado → e-mails → arquivos →
+testes**. Cada item diz onde ele aparece no site, para você saber o que quebra
+se ficar de fora. Pular a ordem faz o passo seguinte falhar por um motivo que
+não tem a ver com ele — é o que gera chamado desnecessário.
 
 ---
 
-## 1. Domínio e certificado
+## 1. Domínio: registrado no registro.br, servido pela HostGator
+
+O domínio já está registrado. Falta ligar as duas pontas — e a ordem importa:
+**primeiro a HostGator aceita o domínio, depois o registro.br aponta para ela.**
+Invertido, quem visitar cai numa página de erro da hospedagem durante horas.
+
+### 1.1 — Descobrir os seus servidores DNS
+
+Não use os nomes que aparecem em tutorial da internet: eles mudam por plano e
+por servidor. Os seus estão em dois lugares:
+
+- **cPanel → barra lateral direita → *Informações Gerais* → *Servidores de
+  Nomes***
+- ou no **e-mail de boas-vindas** da HostGator, no bloco "Nameservers"
+
+São dois (às vezes quatro) endereços no formato `ns1.algumacoisa.com.br` e
+`ns2.algumacoisa.com.br`. Anote os dois, exatamente como aparecem.
+
+### 1.2 — Adicionar o domínio na HostGator
+
+Depende de este ser o **primeiro** site do plano ou mais um:
+
+**Se for o primeiro site do plano** (o normal), o domínio principal já foi
+definido na contratação. Confira em **cPanel → Domínios**: se
+`acelerocomex.com.br` já estiver listado como principal, este passo está feito
+— pule para o 1.3.
+
+**Se o plano já tem outro site**, adicione como domínio adicional:
+
+1. cPanel → **Domínios** → **Criar um Domínio**
+2. Em *Domínio*, digite `acelerocomex.com.br`
+3. Deixe marcado *Compartilhar caminho do documento* **desmarcado** — você quer
+   uma pasta própria
+4. Em *Raiz do documento*, aceite o sugerido (`public_html/acelerocomex.com.br`)
+   e **anote esse caminho**: é para lá que os arquivos vão, não para
+   `public_html` direto
+5. Enviar
+
+> **Plano compartilhado só permite um domínio em alguns casos.** Se o botão de
+> criar domínio não existir ou der erro de limite, o plano é de site único —
+> aí é abrir chamado para migrar o domínio principal ou subir de plano.
+
+### 1.3 — Apontar o registro.br para a HostGator
+
+1. Entre em **registro.br** com sua conta
+2. Clique no domínio `acelerocomex.com.br`
+3. Vá em **DNS** → **Alterar servidores DNS** (ou *Usar servidores DNS de
+   terceiros*)
+4. Apague o que estiver lá e coloque os dois endereços do passo 1.1
+5. Salvar
+
+O registro.br leva de **30 minutos a 24 horas** para espalhar a mudança pela
+internet. Não é defeito e não adianta repetir o procedimento — só espera.
+
+### 1.4 — Conferir se chegou
+
+No computador, abra o Prompt de Comando (Windows) ou o Terminal (Mac) e digite:
+
+```
+nslookup -type=ns acelerocomex.com.br
+```
+
+Se responder com os endereços da HostGator, a mudança propagou. Se ainda
+mostrar os do registro.br, espere mais.
+
+Alternativa sem terminal: **dnschecker.org**, digite o domínio e escolha `NS`.
+Ele mostra o que cada país está enxergando.
+
+### 1.5 — Certificado (só depois que o DNS propagar)
 
 | # | O quê | Onde | Se faltar |
 |---|---|---|---|
-| 1.1 | Apontar `acelerocomex.com.br` para os servidores DNS da HostGator | registro.br → *Alterar servidores DNS* | Nada funciona: o domínio não chega no site |
-| 1.2 | Rodar o **AutoSSL** | cPanel → *SSL/TLS Status* → *Run AutoSSL* | Sem cadeado. O navegador marca "não seguro" e o webmail avisa |
-| 1.3 | Forçar HTTPS | cPanel → *Domínios* → *Force HTTPS Redirect* | Metade das visitas fica em `http://`, sem cifra |
+| 1.5 | Rodar o **AutoSSL** | cPanel → *SSL/TLS Status* → *Run AutoSSL* | Sem cadeado. O navegador marca "não seguro" e o webmail avisa |
+| 1.6 | Forçar HTTPS | cPanel → *Domínios* → *Force HTTPS Redirect* | Metade das visitas fica em `http://`, sem cifra |
 
-A propagação do DNS leva de minutos a algumas horas. Enquanto isso, tudo o que
-depende do domínio parece quebrado — é normal, não é defeito do site.
+> **O AutoSSL falha se rodar antes da propagação.** Ele precisa provar que o
+> domínio aponta para aquele servidor. Rodou e deu erro? Espere o DNS e rode de
+> novo — não é preciso abrir chamado.
+
+> **Só depois do cadeado funcionando**, descomente a linha de HSTS no
+> `.htaccess`. Ela obriga https por um ano; se o certificado falhar depois
+> disso, o site fica inacessível pelo mesmo período.
 
 ---
 
