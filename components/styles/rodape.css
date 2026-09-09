@@ -1,0 +1,57 @@
+/* ---------------------------------------------------------------- rodapé */
+.rodape {
+  position: relative; overflow: hidden;
+  background: var(--tinta); border-top: 1px solid var(--filete);
+  padding-block: clamp(3rem, 6vw, 5rem) 2rem;
+}
+/* A foto ocupa a faixa da chamada final e se dissolve antes das colunas de
+   links, que precisam de fundo limpo para continuarem legíveis. Mesma
+   dessaturação e mesma opacidade das seções 04 e 07: é a mesma peça de
+   linguagem, não um efeito novo. */
+.placa--rodape {
+  position: absolute; inset: 0 0 auto 0; height: 62%; z-index: 0; margin: 0;
+}
+.placa--rodape picture, .placa--rodape img { width: 100%; height: 100%; display: block; }
+/* contain, não cover: cortar um mapa-múndi pelas bordas é perder o assunto.
+   screen descarta o fundo escuro da arte e deixa só os pontos sobre a tinta. */
+.placa--rodape img {
+  object-fit: contain; object-position: center top;
+  mix-blend-mode: screen; opacity: .55;
+  filter: brightness(1.1) contrast(1.05);
+  /* A arte tem fundo próprio: sem máscara, a borda do arquivo aparece como um
+     retângulo mais claro no meio da tinta. A elipse dissolve os quatro lados. */
+  -webkit-mask-image: radial-gradient(ellipse 72% 62% at 50% 42%, #000 42%, transparent 85%);
+          mask-image: radial-gradient(ellipse 72% 62% at 50% 42%, #000 42%, transparent 85%);
+}
+.placa--rodape::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(7,10,14,.72) 0%, rgba(7,10,14,.42) 30%,
+                              rgba(7,10,14,.80) 72%, var(--tinta) 100%);
+}
+.rodape > .wrap { position: relative; z-index: 1; }
+@media (max-width: 880px) { .placa--rodape { height: 46%; } }
+.chamada { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; padding-bottom: clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--filete); }
+.chamada h2 { font-size: clamp(1.8rem, 4vw, 3.4rem); max-width: 14ch; margin-bottom: 1rem; }
+.chamada p { max-width: 46ch; color: var(--leitura); }
+.rod__g { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 3rem); padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+.rod__c { display: grid; align-content: start; gap: .55rem; }
+.rod__c a { font-size: .89rem; color: var(--leitura); text-decoration: none; transition: color .2s; }
+.rod__c a:hover { color: var(--azul); }
+.rod__l { color: var(--grafite); margin-bottom: .35rem; }
+.rod__d { font-size: .89rem; max-width: 34ch; }
+.rod__end { font-size: .8rem; color: var(--grafite); line-height: 1.55; }
+.rod__b { display: flex; flex-wrap: wrap; gap: .8rem 2rem; justify-content: space-between; padding-top: 1.6rem; border-top: 1px solid var(--filete); }
+.rod__b p { margin: 0; }
+.rod__b a { color: var(--grafite); text-decoration: none; }
+.rod__b a:hover { color: var(--azul); }
+
+/* ---------------------------------------------------------------- WhatsApp fixo */
+.zap {
+  position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 80;
+  display: flex; align-items: center; gap: .55rem;
+  padding: .7rem 1rem; background: #1E7D50; color: #fff;
+  text-decoration: none; font-size: .85rem; font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  transition: background .2s;
+}
+.zap:hover { background: #25A163; }

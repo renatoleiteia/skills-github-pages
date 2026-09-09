@@ -1,0 +1,1116 @@
+/* ATENÇÃO: arquivo montado. Não edite aqui — a fonte é
+   components/styles/, e a junção é feita por tools/montar.py. */
+
+/* Fontes servidas localmente — sem CDN, funciona offline.
+   Archivo e IBM Plex são licenciadas sob a SIL Open Font License 1.1,
+   que permite hospedagem própria. Ver assets/fonts/LICENCA.txt.
+   Gerado a partir da API do Google Fonts; subsets latin e latin-ext. */
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500 800;
+  font-stretch: 100% 125%;
+  font-display: swap;
+  src: url(assets/fonts/Archivo-latin-ext-c422bf.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500 800;
+  font-stretch: 100% 125%;
+  font-display: swap;
+  src: url(assets/fonts/Archivo-latin-b92029.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexMono-latin-ext-7f25d9.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexMono-latin-d196e8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexMono-latin-ext-b42080.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexMono-latin-a7544c.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-ext-71c30c.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-a68a20.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-ext-71c30c.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-a68a20.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-ext-71c30c.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(assets/fonts/IBMPlexSans-latin-a68a20.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ============================================================================
+   ACELERO COMEX — style.css  ·  v2
+
+   A v1 parecia template: globo girando, cursor de bolinha, cartões, carrossel,
+   coisas entrando de todo lado. Tudo isso existe em qualquer site de logística.
+
+   A v2 tem uma ideia só: **a página é o documento da operação.** Rótulo em
+   monoespaçada à esquerda, conteúdo à direita, filete separando cada linha,
+   número em tabular. É o que a ACELERO entrega ao cliente, virado em página.
+
+   Regras que valem para o arquivo inteiro:
+   · Movimento serve à leitura. Um fade de 420 ms na primeira vez que o bloco
+     aparece, e nada mais. Sem parallax, sem sequência, sem roda sequestrada.
+   · O azul é dado e ação. Nunca decoração.
+   · A seção de contato é clara. Formulário escuro é desconfortável de
+     preencher, e o corte de cor marca onde a conversa começa.
+   ========================================================================== */
+
+:root {
+  /* Tinta */
+  --tinta:      #070A0E;   /* fundo                         */
+  --tinta-2:    #0D1218;   /* faixa alternada               */
+  --filete:     #1D2630;   /* linha do documento            */
+  --filete-2:   #2C3846;   /* linha em destaque             */
+  --grafite:    #788493;   /* rótulo, metadado — 4,94 sobre o fundo dos
+                              cartões; o #6E7C8B anterior dava 4,40 e não
+                              cumpria o mínimo da WCAG AA               */
+  --leitura:    #A8B4C0;   /* corpo de texto                */
+  --claro:      #DCE3EA;   /* texto forte                   */
+  --papel:      #F4F6F8;   /* branco da seção clara         */
+
+  /* Azul: dado e ação */
+  --azul:       #3FB2E0;
+  --azul-fundo: #276E8B;   /* fundo de botão, contraste 5:1 com branco */
+  --azul-fraco: #17394A;
+
+  --f-disp: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-corpo: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --topo-h: 68px;
+  --pad: clamp(1.15rem, 5vw, 5.5rem);
+  --secy: clamp(4.5rem, 9vw, 9rem);
+  --larg: 1380px;
+  --curva: cubic-bezier(.22, 1, .36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--topo-h) + 12px);
+  /* As entradas laterais ([data-ap="esq"]) começam 22px fora da margem. O
+     overflow-x do body não segurava isso: o celular ganhava 3px de arrasto
+     lateral durante a animação. `clip` corta sem virar caixa de rolagem —
+     `hidden` viraria, e levaria junto o scroll-behavior suave. */
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--tinta);
+  color: var(--leitura);
+  font-family: var(--f-corpo);
+  font-size: clamp(.95rem, 1.05vw, 1.03rem);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+/* O navegador dá 1em/40px de margem a figure, blockquote e listas de
+   definição. Os 40px laterais deslocavam o primeiro slide do carrossel e o
+   encaixe alinhava por eles — o trilho abria já rolado. */
+figure, blockquote, dl, dd { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+::selection { background: var(--azul); color: var(--tinta); }
+
+:focus-visible { outline: 2px solid var(--azul); outline-offset: 3px; }
+
+.wrap { width: 100%; max-width: var(--larg); margin-inline: auto; padding-inline: var(--pad); }
+
+.pular {
+  position: absolute; left: -9999px; top: 0; z-index: 999;
+  background: var(--papel); color: var(--tinta); padding: .7rem 1.1rem;
+}
+.pular:focus { left: 0; }
+
+/* ---------------------------------------------------------------- tipografia */
+h1, h2, h3, h4 { margin: 0; font-family: var(--f-disp); font-weight: 700; color: var(--claro); }
+h1, h2 { letter-spacing: -.03em; line-height: .98; font-weight: 800; }
+h1 em, h2 em, h3 em { font-style: normal; color: var(--azul); }
+p { margin: 0 0 1.05rem; }
+p:last-child { margin-bottom: 0; }
+strong, b { color: var(--claro); font-weight: 600; }
+
+.mono {
+  font-family: var(--f-mono); font-size: .68rem; font-weight: 400;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--grafite);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- cabeçalho */
+.topo {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  height: var(--topo-h);
+  background: rgba(7, 10, 14, .82);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--filete);
+}
+.topo__in {
+  height: 100%; display: flex; align-items: center; gap: clamp(1rem, 3vw, 2.5rem);
+  max-width: var(--larg); margin-inline: auto; padding-inline: var(--pad);
+}
+.marca { display: flex; align-items: baseline; gap: .1rem; text-decoration: none; margin-right: auto; }
+.marca b {
+  font-family: var(--f-disp); font-weight: 800; font-size: 1.02rem;
+  letter-spacing: .01em; color: var(--claro);
+}
+.marca span { font-family: var(--f-disp); font-weight: 800; font-size: 1.02rem; color: var(--azul); }
+.marca:hover b { color: #FFFFFF; }
+
+.nav { display: flex; gap: clamp(.9rem, 2vw, 1.9rem); }
+.nav a {
+  font-size: .84rem; color: var(--leitura); text-decoration: none;
+  padding-block: .35rem; border-bottom: 1px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.nav a:hover, .nav a[aria-current="true"] { color: var(--claro); border-color: var(--azul); }
+.nav a .mono { margin-right: .42rem; }
+
+.topo__dir { display: flex; align-items: center; gap: .7rem; }
+
+/* seletor de idioma */
+.idioma { position: relative; }
+.idioma__b {
+  display: flex; align-items: center; gap: .4rem; padding: .45rem .6rem;
+  font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em;
+  color: var(--leitura); border: 1px solid var(--filete-2);
+  transition: border-color .2s, color .2s;
+}
+.idioma__b:hover { color: var(--claro); border-color: var(--grafite); }
+.idioma__l {
+  position: absolute; top: calc(100% + .45rem); right: 0; min-width: 148px;
+  background: var(--tinta-2); border: 1px solid var(--filete-2); padding: .25rem;
+  display: grid; z-index: 5;
+}
+.idioma__l[hidden] { display: none; }
+.idioma__l button {
+  display: flex; align-items: center; gap: .6rem; width: 100%;
+  padding: .5rem .6rem; font-size: .85rem; text-align: left; color: var(--leitura);
+  transition: background .18s, color .18s;
+}
+.idioma__l button:hover { background: rgba(63,178,224,.1); color: var(--claro); }
+.idioma__l button[aria-selected="true"] { color: var(--azul); }
+.idioma__l i { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; color: var(--grafite); font-style: normal; }
+
+/* menu do celular */
+.hamb { display: none; width: 40px; height: 40px; position: relative; }
+.hamb span { position: absolute; left: 9px; right: 9px; height: 1.5px; background: var(--claro); transition: transform .3s var(--curva), opacity .2s; }
+.hamb span:nth-child(1) { top: 15px; }
+.hamb span:nth-child(2) { bottom: 15px; }
+body.menu-on .hamb span:nth-child(1) { transform: translateY(4.5px) rotate(45deg); }
+body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45deg); }
+
+/* ---------------------------------------------------------------- botões */
+.bt {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  padding: .82rem 1.5rem; font-family: var(--f-corpo); font-size: .9rem; font-weight: 600;
+  text-decoration: none; border: 1px solid transparent;
+  transition: background .22s, color .22s, border-color .22s;
+}
+.bt--cheio { background: var(--azul-fundo); color: #FFFFFF; }
+.bt--cheio:hover { background: var(--azul); color: var(--tinta); }
+.bt--linha { border-color: var(--filete-2); color: var(--claro); }
+.bt--linha:hover { border-color: var(--claro); background: rgba(220,227,234,.06); }
+.bt--peq { padding: .55rem 1rem; font-size: .82rem; }
+.bt--largo { width: 100%; }
+.bt svg { flex: 0 0 auto; transition: transform .22s; }
+.bt:hover svg { transform: translateX(4px); }
+
+/* ---------------------------------------------------------------- capa */
+.capa { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding-top: var(--topo-h); }
+.capa__foto { position: absolute; inset: 0; overflow: hidden; }
+.capa__foto img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+.capa__foto::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7,10,14,.88) 0%, rgba(7,10,14,.55) 40%, rgba(7,10,14,.97) 100%),
+    linear-gradient(90deg, rgba(7,10,14,.9) 0%, rgba(7,10,14,.25) 70%),
+    rgba(23,57,74,.28);
+  background-blend-mode: normal, normal, color;
+}
+.capa__in { position: relative; z-index: 1; width: 100%; padding-block: clamp(2.5rem, 6vw, 5rem) 0; }
+
+.capa__tag {
+  display: inline-block; padding: .4rem .8rem; margin-bottom: clamp(1.4rem, 3vw, 2.4rem);
+  border: 1px solid var(--filete-2); color: var(--leitura);
+}
+.capa h1 {
+  /* 20% menor que o corpo original (2.5/7.4vw/6.6) a pedido do cliente. */
+  font-size: clamp(2rem, 5.92vw, 5.28rem);
+  /* 20ch, e não 17ch: o título de agora tem 52 caracteres e a régua antiga o
+     quebrava em quatro linhas, jogando a última palavra sozinha. */
+  max-width: 20ch; margin-bottom: clamp(1.3rem, 2.6vw, 2rem);
+}
+.capa__sub { max-width: 54ch; font-size: clamp(1rem, 1.35vw, 1.15rem); color: var(--leitura); }
+.capa__bts { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+
+/* manifesto de carga: os números do herói, em régua */
+.manif {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  border-top: 1px solid var(--filete-2);
+  list-style: none; padding: 0;
+}
+.manif li { padding: 1.1rem 1.2rem 1.3rem 0; border-right: 1px solid var(--filete); }
+.manif li:last-child { border-right: 0; }
+.manif b {
+  /* --corpo guarda o tamanho do número mesmo quando a célula é texto: é ele que
+     define a altura mínima, e é assim que todos os rótulos da régua ficam na
+     mesma linha, com número grande ou com trajeto pequeno ao lado. */
+  --corpo: clamp(1.25rem, 2.3vw, 1.9rem);
+  display: flex; align-items: flex-end; min-height: calc(var(--corpo) * 1.2);
+  font-family: var(--f-mono); font-size: var(--corpo);
+  font-weight: 500; color: var(--claro); letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+  margin-bottom: .3rem;
+}
+/* Uma célula da régua traz um trajeto, não um número. No corpo de número ela
+   estouraria a coluna, então cai para tamanho de leitura e ganha permissão de
+   quebrar — o resto da régua continua alinhado pela linha de base do rótulo. */
+.manif b.rota {
+  font-size: clamp(.95rem, 1.35vw, 1.12rem); letter-spacing: 0;
+  line-height: 1.35; text-wrap: balance;
+}
+.manif span { font-size: .78rem; color: var(--grafite); line-height: 1.4; display: block; }
+
+/* ---------------------------------------------------------------- seção */
+.bloco { padding-block: var(--secy); border-top: 1px solid var(--filete); }
+.bloco--alt { background: var(--tinta-2); }
+
+/* cabeçalho de documento: rótulo, filete, título */
+.cab { margin-bottom: clamp(2.2rem, 4.5vw, 4rem); }
+.cab__n {
+  display: flex; align-items: center; gap: 1rem;
+  padding-bottom: .9rem; margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
+  border-bottom: 1px solid var(--filete-2);
+}
+.cab__n::after { content: ''; flex: 1; height: 1px; background: var(--filete); }
+.cab__g { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(1.6rem, 4vw, 4.5rem); align-items: end; }
+.cab h2 { font-size: clamp(1.9rem, 4.3vw, 3.5rem); max-width: 15ch; }
+.cab__lead { color: var(--leitura); max-width: 52ch; }
+
+/* ---------------------------------------------------------------- linhas de documento */
+.linhas { border-top: 1px solid var(--filete-2); }
+.linha {
+  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(1rem, 3vw, 3rem);
+  padding-block: clamp(1.6rem, 3vw, 2.6rem);
+  border-bottom: 1px solid var(--filete);
+}
+.linha__n { color: var(--azul); padding-top: .35rem; }
+.linha__t { font-size: clamp(1.15rem, 1.9vw, 1.55rem); letter-spacing: -.015em; margin-bottom: .7rem; }
+.linha__x { color: var(--leitura); }
+.linha__g {
+  margin-top: 1rem; padding-left: .95rem; border-left: 1px solid var(--azul-fraco);
+  font-size: .9rem; color: var(--grafite);
+}
+.linha__g .mono { display: block; color: var(--azul); margin-bottom: .2rem; }
+.linha__a {
+  display: inline-flex; align-items: center; gap: .45rem; margin-top: 1.1rem;
+  font-size: .84rem; color: var(--claro); text-decoration: none;
+  border-bottom: 1px solid var(--filete-2); padding-bottom: 2px;
+  transition: border-color .2s, color .2s;
+}
+.linha__a:hover { color: var(--azul); border-color: var(--azul); }
+.linha__m { align-self: start; }
+.linha__m img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; filter: grayscale(1) contrast(1.04) brightness(.85); }
+
+/* ---------------------------------------------------------------- três colunas */
+.tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 3rem); margin-top: clamp(2rem, 4vw, 3.5rem); }
+.tres > div { border-top: 1px solid var(--filete-2); padding-top: 1.2rem; }
+.tres h3 { font-size: 1.08rem; line-height: 1.3; margin: .8rem 0 .6rem; letter-spacing: -.01em; }
+.tres p { font-size: .92rem; }
+
+/* ---------- quem atende --------------------------------------------------
+   Retratos em fila, no mesmo filete das três colunas acima: a seção 01 passa a
+   responder "quem" logo depois de responder "o quê". A foto entra em preto e
+   branco como o resto do site e ganha cor no hover — é o único lugar da página
+   onde a cor volta, e é de propósito: pessoa não é textura de fundo. */
+.quem {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.6rem); margin-top: clamp(2.4rem, 5vw, 4rem);
+  border-top: 1px solid var(--filete-2); padding-top: clamp(1.6rem, 3vw, 2.4rem);
+}
+.quem__c { margin: 0; }
+.quem__c picture { display: block; }
+.quem__c img {
+  /* height:auto é obrigatório: sem ele, os atributos width/height do HTML — que
+     existem para evitar salto de layout — vencem o aspect-ratio, e cada retrato
+     fica com uma altura diferente conforme a foto de origem. */
+  width: 100%; height: auto; aspect-ratio: 4 / 5;
+  object-fit: cover; object-position: center top;
+  filter: grayscale(1) contrast(1.04); transition: filter .5s var(--curva);
+  background: var(--tinta-2);
+}
+.quem__c:hover img { filter: grayscale(0) contrast(1); }
+.quem__n {
+  display: block; font-family: var(--f-disp); font-weight: 700;
+  font-size: 1.02rem; letter-spacing: -.01em; color: var(--claro);
+  margin-top: .9rem;
+}
+.quem__f { margin: .25rem 0 .5rem; }
+.quem__b { font-size: .88rem; margin: 0; }
+@media (hover: none) { .quem__c img { filter: grayscale(.35); } }
+
+.corpo { max-width: 62ch; }
+.corpo p { margin-bottom: 1.1rem; }
+
+/* ---------------------------------------------------------------- números */
+.grade-num {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--filete-2); list-style: none; padding: 0; margin: 0;
+}
+.grade-num li { padding: clamp(1.4rem, 2.6vw, 2.2rem) 1.5rem clamp(1.4rem, 2.6vw, 2.2rem) 0; border-bottom: 1px solid var(--filete); border-right: 1px solid var(--filete); }
+.grade-num li:nth-child(3n) { border-right: 0; }
+.grade-num b {
+  /* mesma régua de altura da capa: --corpo é o tamanho do número, e a célula de
+     texto se apoia no rodapé dessa caixa para não desalinhar os rótulos. */
+  --corpo: clamp(1.9rem, 4vw, 3.1rem);
+  display: flex; align-items: flex-end; min-height: calc(var(--corpo) * 1.15);
+  font-family: var(--f-mono); font-weight: 500;
+  font-size: var(--corpo); letter-spacing: -.035em;
+  color: var(--claro); font-variant-numeric: tabular-nums; margin-bottom: .5rem;
+}
+/* mesma exceção da régua da capa: a célula do corredor é texto, não número */
+.grade-num b.rota {
+  font-size: clamp(1.05rem, 1.85vw, 1.4rem); letter-spacing: -.01em;
+  line-height: 1.3; text-wrap: balance;
+}
+.grade-num span { font-size: .88rem; color: var(--grafite); }
+/* ---------- um caso real -------------------------------------------------
+   Some da página enquanto não houver operação encerrada, número conferido e
+   autorização do cliente. Quando houver, entra com peso: é a única coisa da
+   seção que fala de um caso, e não de uma promessa. */
+.caso-real {
+  display: grid; grid-template-columns: minmax(0, 34%) minmax(0, 1fr);
+  gap: clamp(1.4rem, 3vw, 3rem); margin: clamp(2rem, 4vw, 3.2rem) 0 0;
+  padding-top: clamp(1.6rem, 3vw, 2.4rem); border-top: 1px solid var(--filete-2);
+}
+.caso-real__n b {
+  display: block; font-family: var(--f-mono); font-weight: 500;
+  font-size: clamp(2.4rem, 5.4vw, 4rem); letter-spacing: -.045em;
+  color: var(--azul); font-variant-numeric: tabular-nums; line-height: 1;
+}
+.caso-real__r { display: block; font-size: .92rem; color: var(--leitura); margin-top: .6rem; }
+.caso-real__s { margin-bottom: .8rem; }
+.caso-real__p { font-size: .95rem; margin-bottom: .7rem; }
+.caso-real__p:last-child { margin-bottom: 0; }
+.caso-real__c {
+  grid-column: 1 / -1; margin: .4rem 0 0; padding-top: 1rem;
+  border-top: 1px solid var(--filete); color: var(--grafite);
+}
+@media (max-width: 880px) { .caso-real { grid-template-columns: 1fr; } }
+
+.nota { margin-top: 1.6rem; font-size: .85rem; color: var(--grafite); max-width: 68ch; }
+
+/* faixa de foto atrás dos números */
+.bloco--foto { position: relative; overflow: hidden; }
+.bloco--foto .placa { position: absolute; inset: 0; z-index: 0; }
+.bloco--foto .placa img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); opacity: .17; }
+.bloco--foto .placa::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, var(--tinta) 0%, rgba(7,10,14,.55) 45%, var(--tinta) 100%);
+}
+.bloco--foto .wrap { position: relative; z-index: 1; }
+
+/* ---------------------------------------------------------------- cases */
+.caso {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1.2rem, 3vw, 3rem);
+  padding-block: clamp(1.6rem, 3vw, 2.4rem); border-bottom: 1px solid var(--filete);
+}
+.caso:first-child { border-top: 1px solid var(--filete-2); }
+.caso h3 { font-size: clamp(1.1rem, 1.75vw, 1.4rem); margin: .55rem 0 .7rem; letter-spacing: -.015em; }
+.caso p { font-size: .93rem; }
+.caso__k { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; list-style: none; margin: 0; padding: 0; align-self: center; }
+.caso__k b { display: block; font-family: var(--f-mono); font-size: clamp(1rem, 1.6vw, 1.32rem); color: var(--azul); font-variant-numeric: tabular-nums; margin-bottom: .25rem; }
+.caso__k span { font-size: .76rem; color: var(--grafite); line-height: 1.35; }
+
+/* depoimentos: empilhados, sem carrossel */
+.vozes { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2.5rem); margin-top: clamp(2.4rem, 5vw, 4rem); }
+.voz { border-top: 1px solid var(--filete-2); padding-top: 1.3rem; }
+.voz p { font-size: clamp(1rem, 1.35vw, 1.12rem); color: var(--claro); line-height: 1.55; letter-spacing: -.01em; }
+.voz cite { display: block; margin-top: .9rem; font-style: normal; font-size: .8rem; color: var(--grafite); }
+.vozes__t { font-size: clamp(1.2rem, 2vw, 1.6rem); margin-bottom: 1.6rem; }
+
+/* ============================================================================
+   FRENTES DA OPERAÇÃO — seção 05
+   ============================================================================
+   Substitui os antigos cartões de case. A diferença não é só visual: aqui não
+   há número de cliente, há cobertura — o que a operação atende. Capacidade é
+   conferível numa conversa; resultado de terceiro sem autorização, não.
+   ========================================================================== */
+
+.frente {
+  border: 1px solid var(--filete);
+  border-top: 1px solid var(--filete-2);
+  padding: clamp(1.3rem, 2.6vw, 2rem);
+  height: 100%;
+  display: flex; flex-direction: column;
+  transition: border-color .3s ease, background .3s ease;
+}
+.frente:hover { border-color: var(--filete-2); background: rgba(63, 178, 224, .022); }
+
+.frente__n { color: var(--azul); margin: 0 0 1rem; }
+
+.frente h3 {
+  font-size: clamp(1.05rem, 1.7vw, 1.32rem);
+  letter-spacing: -.015em; line-height: 1.25;
+  margin: 0 0 1.1rem; padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--filete);
+}
+
+.frente__l { list-style: none; margin: 0; padding: 0; display: grid; gap: .62rem; }
+.frente__l li {
+  position: relative; padding-left: 1.1rem;
+  font-size: .92rem; line-height: 1.45; color: var(--leitura);
+}
+/* Filete curto no lugar do marcador: o mesmo vocabulário do resto da página. */
+.frente__l li::before {
+  content: ''; position: absolute; left: 0; top: .68em;
+  width: .55rem; height: 1px; background: var(--azul-fraco);
+}
+.frente__l .mono { color: var(--grafite); margin-left: .35rem; }
+
+/* ============================================================================
+   CARROSSEL — cases e depoimentos
+   ============================================================================
+   Construído sobre rolagem nativa com `scroll-snap`, não sobre `transform`.
+
+   Por quê: o navegador já sabe rolar. Com scroll-snap ganhamos de graça o
+   arrasto com o dedo, o embalo do iOS, a roda horizontal do trackpad, o Tab
+   levando o foco para o slide certo e o leitor de tela lendo a ordem real.
+   Um carrossel feito com transform teria que reimplementar tudo isso — e é
+   nessa reimplementação que eles costumam ficar travados no celular.
+
+   As setas apenas mandam o container rolar. Nada anda sozinho: carrossel que
+   gira em automático rouba a leitura de quem parou para ler.
+   ========================================================================== */
+
+.carrossel { position: relative; }
+
+.carrossel__topo {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem; margin-bottom: 1.6rem;
+}
+.carrossel__t { font-size: clamp(1.2rem, 2vw, 1.6rem); }
+
+/* ---- setas --------------------------------------------------------------- */
+/* margin-left:auto empurra as setas para a direita mesmo quando o carrossel
+   não tem título ao lado — sozinhas à esquerda elas ficam desamparadas. */
+.carrossel__nav { display: flex; gap: .5rem; flex: 0 0 auto; margin-left: auto; }
+.carrossel__nav button {
+  width: 46px; height: 46px; display: grid; place-items: center;
+  color: #FFFFFF; background: var(--azul-fundo);
+  transition: background .24s var(--curva), opacity .24s, color .24s;
+}
+.carrossel__nav button:hover:not(:disabled) { background: var(--azul); color: var(--tinta); }
+.carrossel__nav button:disabled {
+  opacity: .3; cursor: default;
+  background: transparent; color: var(--grafite);
+  box-shadow: inset 0 0 0 1px var(--filete-2);
+}
+.claro .carrossel__nav button:disabled { box-shadow: inset 0 0 0 1px #D3DAE1; color: #9AA5B1; }
+
+/* ---- trilho ---------------------------------------------------------------
+   `scroll-padding-inline` alinha o slide encaixado com a margem do texto.
+   A barra some por estética, mas a rolagem continua existindo — teclado e
+   dedo seguem funcionando. */
+.carrossel__vp {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: .5rem;
+}
+.carrossel__vp::-webkit-scrollbar { display: none; }
+.carrossel__vp > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: clamp(300px, 38%, 500px);
+}
+@media (prefers-reduced-motion: reduce) { .carrossel__vp { scroll-behavior: auto; } }
+
+/* ---- marcadores -----------------------------------------------------------
+   Traço, não bolinha: acompanha o vocabulário de filetes do resto da página. */
+.carrossel__pts { display: flex; gap: .4rem; margin-top: 1.3rem; }
+/* O traço continua com 2px de altura, mas o botão passa a ter 24px: era um
+   alvo de 26x2 px, impossível de acertar com o dedo e abaixo do mínimo de
+   24x24 da WCAG 2.5.8. O padding é transparente — o desenho não muda. */
+.carrossel__pts button {
+  width: 26px; height: 24px; padding: 11px 0; background: none;
+  border: 0; box-sizing: border-box; background-clip: content-box;
+  background-color: var(--filete-2);
+  transition: background-color .3s, width .34s var(--curva);
+}
+.carrossel__pts button.ativo { background-color: var(--azul); width: 46px; }
+.claro .carrossel__pts button { background-color: #D3DAE1; }
+.claro .carrossel__pts button.ativo { background-color: var(--azul-fundo); }
+
+/* ---- slide de case --------------------------------------------------------
+   Dentro do carrossel o case volta a ser um bloco vertical: em coluna estreita
+   a grade de duas colunas espremeria os indicadores. */
+.carrossel .caso {
+  display: block; border: 1px solid var(--filete);
+  border-top: 1px solid var(--filete-2);
+  padding: clamp(1.2rem, 2.4vw, 1.8rem);
+  height: 100%;
+  transition: border-color .3s ease, background .3s ease;
+}
+.carrossel .caso:hover { border-color: var(--filete-2); background: rgba(63, 178, 224, .022); }
+.carrossel .caso__k { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--filete); }
+
+/* ---- slide de depoimento -------------------------------------------------- */
+.carrossel .voz {
+  border: 1px solid var(--filete); border-top: 1px solid var(--filete-2);
+  padding: clamp(1.2rem, 2.4vw, 1.8rem); height: 100%;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+
+@media (max-width: 880px) {
+  .carrossel__vp > * { width: min(84%, 380px); }
+  .carrossel__topo { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---------------------------------------------------------------- propósito */
+.prop { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.manifesto ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+.manifesto li {
+  position: relative; padding-left: 1.25rem;
+  font-family: var(--f-disp); font-weight: 700;
+  font-size: clamp(1.05rem, 1.9vw, 1.5rem); line-height: 1.22;
+  letter-spacing: -.02em; color: var(--grafite);
+}
+.manifesto li::before { content: ''; position: absolute; left: 0; top: .6em; width: .6rem; height: 1px; background: var(--azul-fraco); }
+.manifesto li em { font-style: normal; color: var(--claro); }
+.manifesto .man__f {
+  margin: clamp(1.2rem, 2.4vw, 1.9rem) 0 0; padding-top: clamp(1rem, 2vw, 1.5rem);
+  border-top: 1px solid var(--filete-2);
+  font-family: var(--f-disp); font-weight: 800;
+  font-size: clamp(1.4rem, 2.7vw, 2.2rem); line-height: 1.1; letter-spacing: -.03em; color: var(--claro);
+}
+.manifesto .man__f b { color: var(--azul); font-weight: 800; }
+
+/* ---------- fundo azul da seção 06 -------------------------------------
+   As outras placas dissolvem a foto em preto. Aqui não: o navio sobre o
+   mapa-múndi já é azul, e apagá-lo em cinza jogaria fora justamente a cor que
+   liga a imagem ao resto do site. O degradê tem duas camadas — uma vertical,
+   que abre e fecha na tinta para a seção emendar com as vizinhas, e uma leve de
+   azul por cima, que unifica o que sobra da foto. */
+.bloco--azul .placa img { filter: saturate(1.15) contrast(1.02); opacity: .34; }
+.bloco--azul .placa::after {
+  background:
+    linear-gradient(180deg, var(--tinta) 0%, rgba(7,10,14,.42) 34%,
+                    rgba(7,10,14,.66) 74%, var(--tinta) 100%),
+    linear-gradient(100deg, rgba(23,57,74,.42) 0%, rgba(39,110,139,.20) 55%,
+                    rgba(23,57,74,.38) 100%);
+}
+/* Dois cinzas ficam um tom mais claros só aqui: sobre a foto eles encostavam no
+   limite de leitura. Medido contra o pixel de fundo mais claro de cada faixa. */
+.bloco--azul .manifesto li { color: #8C99A7; }
+.bloco--azul .cab__n { color: #798899; }
+@media (max-width: 880px) { .bloco--azul .placa img { opacity: .26; } }
+
+/* ---------------------------------------------------------------- oferta */
+.oferta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+.oferta__k { color: var(--azul); margin-bottom: 1.1rem; }
+.oferta h3 { font-size: clamp(1.1rem, 1.7vw, 1.35rem); font-weight: 600; line-height: 1.4; letter-spacing: -.01em; margin-bottom: 1.4rem; }
+.lista { list-style: none; margin: 0 0 1.6rem; padding: 0; display: grid; gap: .7rem; }
+.lista li { position: relative; padding-left: 1.7rem; font-size: .95rem; }
+.lista li::before {
+  content: ''; position: absolute; left: 0; top: .52em; width: .75rem; height: .42rem;
+  border-left: 1.5px solid var(--azul); border-bottom: 1.5px solid var(--azul);
+  transform: rotate(-45deg);
+}
+.caixa { border: 1px solid var(--filete-2); padding: clamp(1.2rem, 2.4vw, 1.8rem); }
+.caixa + .caixa { margin-top: 1rem; }
+.caixa .mono { display: block; color: var(--azul); margin-bottom: .8rem; }
+.escassez { margin-top: 1.2rem; font-size: .85rem; color: var(--grafite); }
+.escassez b { color: var(--azul); }
+.garantias { display: grid; gap: 0; margin-top: clamp(2.4rem, 5vw, 4rem); border-top: 1px solid var(--filete-2); }
+.garantias > div { display: grid; grid-template-columns: 3rem minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(1rem, 3vw, 2.5rem); padding-block: 1.5rem; border-bottom: 1px solid var(--filete); }
+.garantias h3 { font-size: 1.05rem; letter-spacing: -.01em; }
+.garantias p { font-size: .92rem; }
+
+/* ---------------------------------------------------------------- FAQ */
+.faq { border-top: 1px solid var(--filete-2); }
+.faq details { border-bottom: 1px solid var(--filete); }
+.faq summary {
+  display: flex; align-items: flex-start; gap: 1.2rem; padding-block: 1.25rem;
+  cursor: pointer; list-style: none; color: var(--claro);
+  font-size: clamp(.98rem, 1.25vw, 1.08rem); font-weight: 500;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: '+'; margin-left: auto; flex: 0 0 auto;
+  font-family: var(--f-mono); font-size: 1.15rem; color: var(--azul); line-height: 1;
+  transition: transform .25s var(--curva);
+}
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq summary:hover { color: var(--azul); }
+.faq details > div { padding: 0 3rem 1.5rem 0; max-width: 78ch; color: var(--leitura); }
+
+/* ---------------------------------------------------------------- contato claro */
+.claro { background: var(--papel); color: #3A4652; border-top: 0; }
+.claro h2, .claro h3 { color: #0B1219; }
+.claro .mono { color: #667180; }
+.claro .cab__n { border-bottom-color: #D3DAE1; }
+.claro .cab__n::after { background: #E2E7EC; }
+.claro strong, .claro b { color: #0B1219; }
+/* O cinza-azulado do texto sobre fundo escuro não sobrevive no branco: aqui a
+   leitura pede uma tinta própria. */
+.claro .cab__lead, .claro .nota, .claro p, .claro li { color: #4A5765; }
+.claro em { color: var(--azul-fundo); }
+.contato { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.canais { list-style: none; margin: clamp(1.6rem, 3vw, 2.4rem) 0 0; padding: 0; border-top: 1px solid #D3DAE1; }
+.canais a { display: flex; gap: 1rem; align-items: flex-start; padding-block: 1.1rem; border-bottom: 1px solid #E2E7EC; text-decoration: none; color: inherit; transition: background .2s; }
+.canais a:hover { background: rgba(39,110,139,.05); }
+.canais svg { flex: 0 0 auto; margin-top: .2rem; color: var(--azul-fundo); }
+.canais b { display: block; font-size: 1rem; }
+.canais em { display: block; font-style: normal; font-size: .84rem; color: #667180; margin-top: .1rem; }
+.resguardo { margin-top: 1.6rem; font-size: .88rem; color: #59646F; }
+
+/* formulário */
+.form { display: grid; gap: 1.1rem; background: #FFFFFF; border: 1px solid #E2E7EC; padding: clamp(1.3rem, 3vw, 2.2rem); }
+.form__t { color: var(--azul-fundo); margin: 0; }
+.fr { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fr--tel { grid-template-columns: 1fr 1.22fr; }
+.fd { display: grid; gap: .35rem; }
+.fd label { font-size: .8rem; color: #59646F; }
+.fd input, .fd select, .fd textarea {
+  width: 100%; padding: .78rem .85rem; font: inherit; font-size: .93rem;
+  color: #0B1219; background: #F7F9FA; border: 1px solid #D3DAE1; border-radius: 0;
+  transition: border-color .2s, background .2s;
+}
+.fd textarea { resize: vertical; min-height: 92px; }
+.fd input::placeholder, .fd textarea::placeholder { color: #9AA5B1; }
+.fd input:focus, .fd select:focus, .fd textarea:focus { outline: none; background: #FFFFFF; border-color: var(--azul-fundo); box-shadow: inset 0 0 0 1px var(--azul-fundo); }
+.fd select {
+  appearance: none; cursor: pointer; padding-right: 2.2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236B7787' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right .9rem center; background-size: 11px;
+}
+.tel { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: .5rem; }
+.tel__p { min-width: 0; padding-right: 1.55rem; padding-left: .8rem; background-position: right .55rem center; font-family: var(--f-mono); font-size: .78rem; text-overflow: ellipsis; }
+.tel input { min-width: 0; }
+.fe { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .05em; color: #C2410C; }
+.fd.err input, .fd.err select, .fd.err textarea { border-color: #C2410C; box-shadow: inset 0 0 0 1px #C2410C; }
+.chk { display: flex; gap: .65rem; align-items: flex-start; font-size: .85rem; color: #59646F; cursor: pointer; }
+/* 22px, não 17: com 17 o quadrado ficava abaixo do alvo mínimo de toque e
+   era o campo obrigatório mais difícil de acertar no celular. */
+.chk input { flex: 0 0 auto; width: 24px; height: 24px; margin-top: .05rem; accent-color: var(--azul-fundo); cursor: pointer; }
+.chk a { color: var(--azul-fundo); text-underline-offset: 3px; }
+.chk--travada { opacity: .45; cursor: not-allowed; }
+.mel { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form__n { margin: 0; text-align: center; color: #667180; }
+.form__fb { margin: 0; font-size: .9rem; text-align: center; }
+.form__fb.ok { color: #15803D; }
+.form__fb.bad { color: #C2410C; }
+.form__fb a { color: inherit; }
+
+/* confirmação do WhatsApp */
+.conf { display: grid; gap: .6rem; padding: 1rem 1.1rem; border: 1px solid rgba(39,110,139,.28); border-left: 2px solid var(--azul-fundo); background: rgba(39,110,139,.05); }
+.conf[hidden] { display: none; }
+.conf__t { margin: 0; color: var(--azul-fundo); }
+.conf__n { margin: 0; font-family: var(--f-mono); font-size: 1.15rem; letter-spacing: .06em; color: #0B1219; }
+.conf__b { display: inline-flex; align-items: center; gap: .5rem; justify-self: start; padding: .55rem .9rem; text-decoration: none; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #FFFFFF; background: var(--azul-fundo); transition: background .2s; }
+.conf__b:hover { background: var(--azul); color: var(--tinta); }
+.conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: #667180; }
+.conf__k b { color: var(--azul-fundo); letter-spacing: .14em; }
+
+/* ---------- placa de fundo na seção clara ------------------------------
+   .bloco--foto padrão dissolve a foto em tinta preta. Na seção 09, de fundo
+   papel, isso viraria um borrão escuro sob texto escuro: aqui o degradê é o
+   próprio papel, e a foto entra ainda mais apagada porque o contraste que ela
+   disputa é com preto sobre claro, não branco sobre escuro. */
+/* A placa cobre só a faixa de cima. Esticada na seção inteira, uma foto de
+   1390x572 subia para mais de 1200px de altura e virava borrão; nesta altura
+   ela fica perto do tamanho natural e o polo industrial se reconhece. */
+.claro.bloco--foto .placa { inset: 0 0 auto 0; height: 46%; }
+.claro.bloco--foto .placa img { filter: grayscale(1) contrast(.95); opacity: .28; }
+.claro.bloco--foto .placa::after {
+  background: linear-gradient(180deg,
+    rgba(244,246,248,.34) 0%, rgba(244,246,248,.46) 45%,
+    rgba(244,246,248,.86) 82%, var(--papel) 100%);
+}
+/* Com a foto mais presente, o cinza que bastava sobre papel liso perde contraste
+   sobre a textura. Estes dois blocos ficam um tom mais escuros só nesta seção,
+   para o texto continuar tão legível quanto era no fundo chapado. */
+.claro.bloco--foto .cab__n { color: #4E5765; }
+.claro.bloco--foto .cab__lead { color: #3C4854; }
+@media (max-width: 880px) { .claro.bloco--foto .placa { height: 30%; } }
+
+/* ---------------------------------------------------------------- rodapé */
+.rodape {
+  position: relative; overflow: hidden;
+  background: var(--tinta); border-top: 1px solid var(--filete);
+  padding-block: clamp(3rem, 6vw, 5rem) 2rem;
+}
+/* A foto ocupa a faixa da chamada final e se dissolve antes das colunas de
+   links, que precisam de fundo limpo para continuarem legíveis. Mesma
+   dessaturação e mesma opacidade das seções 04 e 07: é a mesma peça de
+   linguagem, não um efeito novo. */
+.placa--rodape {
+  position: absolute; inset: 0 0 auto 0; height: 62%; z-index: 0; margin: 0;
+}
+.placa--rodape picture, .placa--rodape img { width: 100%; height: 100%; display: block; }
+/* contain, não cover: cortar um mapa-múndi pelas bordas é perder o assunto.
+   screen descarta o fundo escuro da arte e deixa só os pontos sobre a tinta. */
+.placa--rodape img {
+  object-fit: contain; object-position: center top;
+  mix-blend-mode: screen; opacity: .55;
+  filter: brightness(1.1) contrast(1.05);
+  /* A arte tem fundo próprio: sem máscara, a borda do arquivo aparece como um
+     retângulo mais claro no meio da tinta. A elipse dissolve os quatro lados. */
+  -webkit-mask-image: radial-gradient(ellipse 72% 62% at 50% 42%, #000 42%, transparent 85%);
+          mask-image: radial-gradient(ellipse 72% 62% at 50% 42%, #000 42%, transparent 85%);
+}
+.placa--rodape::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(7,10,14,.72) 0%, rgba(7,10,14,.42) 30%,
+                              rgba(7,10,14,.80) 72%, var(--tinta) 100%);
+}
+.rodape > .wrap { position: relative; z-index: 1; }
+@media (max-width: 880px) { .placa--rodape { height: 46%; } }
+.chamada { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; padding-bottom: clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--filete); }
+.chamada h2 { font-size: clamp(1.8rem, 4vw, 3.4rem); max-width: 14ch; margin-bottom: 1rem; }
+.chamada p { max-width: 46ch; color: var(--leitura); }
+.rod__g { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 3rem); padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+.rod__c { display: grid; align-content: start; gap: .55rem; }
+.rod__c a { font-size: .89rem; color: var(--leitura); text-decoration: none; transition: color .2s; }
+.rod__c a:hover { color: var(--azul); }
+.rod__l { color: var(--grafite); margin-bottom: .35rem; }
+.rod__d { font-size: .89rem; max-width: 34ch; }
+.rod__end { font-size: .8rem; color: var(--grafite); line-height: 1.55; }
+.rod__b { display: flex; flex-wrap: wrap; gap: .8rem 2rem; justify-content: space-between; padding-top: 1.6rem; border-top: 1px solid var(--filete); }
+.rod__b p { margin: 0; }
+.rod__b a { color: var(--grafite); text-decoration: none; }
+.rod__b a:hover { color: var(--azul); }
+
+/* ---------------------------------------------------------------- WhatsApp fixo */
+.zap {
+  position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 80;
+  display: flex; align-items: center; gap: .55rem;
+  padding: .7rem 1rem; background: #1E7D50; color: #fff;
+  text-decoration: none; font-size: .85rem; font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  transition: background .2s;
+}
+.zap:hover { background: #25A163; }
+
+/* ============================================================================
+   MOVIMENTO — entrada por rolagem
+   ============================================================================
+   Regra da casa: movimento serve à leitura, nunca ao espetáculo.
+
+   · Deslocamento curto (16 px). Bloco que vem de longe puxa o olho para o
+     percurso em vez do conteúdo.
+   · 520 ms com saída desacelerada. Abaixo de 300 ms parece defeito; acima de
+     700 ms a pessoa espera o texto.
+   · Só opacidade e transform — as duas propriedades que o navegador anima na
+     GPU sem recalcular layout. Animar `top` ou `height` custaria quadro.
+   · Dispara uma vez. Bloco que reaparece a cada rolagem vira pisca-pisca.
+   · `prefers-reduced-motion` desliga tudo, sem exceção.
+   ========================================================================== */
+
+[data-ap] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: opacity, transform;
+}
+[data-ap].vis {
+  opacity: 1;
+  transform: none;
+  transition: opacity .52s ease, transform .52s var(--curva);
+  will-change: auto;   /* devolve a camada ao navegador quando termina */
+}
+
+/* Direções alternativas: o bloco entra do lado a que pertence na página. */
+[data-ap="esq"]  { transform: translate3d(-22px, 0, 0); }
+[data-ap="dir"]  { transform: translate3d(22px, 0, 0); }
+[data-ap="zoom"] { transform: scale(.985); }
+
+/* Escalonamento: itens de uma lista entram em sequência curta. O atraso é
+   calculado no JS e chega como variável, para o CSS não precisar de :nth-child
+   para cada quantidade possível. */
+[data-ap-fila] > * {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+[data-ap-fila].vis > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity .5s ease var(--atraso, 0ms), transform .5s var(--curva) var(--atraso, 0ms);
+}
+
+/* Título que entra por linha, sem biblioteca: cada linha é um span com
+   overflow escondido e o texto sobe de dentro dele. */
+.sobe { display: block; overflow: hidden; }
+.sobe > span { display: block; transform: translate3d(0, 100%, 0); }
+[data-ap].vis .sobe > span,
+.vis .sobe > span { transform: none; transition: transform .7s var(--curva) var(--atraso, 0ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ap], [data-ap-fila] > *, .sobe > span {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================================
+   MICROINTERAÇÕES — o que responde ao ponteiro
+   ============================================================================
+   Cada regra aqui existe para dar retorno ao gesto, não para chamar atenção.
+   Duração entre 180 ms e 320 ms: rápido o bastante para parecer causado pelo
+   cursor, lento o bastante para o olho acompanhar.
+   ========================================================================== */
+
+/* ---- botões -------------------------------------------------------------
+   O preenchimento sobe de baixo em vez de trocar a cor de chapa. É o mesmo
+   gesto do site inteiro: a informação entra pelo rodapé do elemento. */
+.bt { position: relative; overflow: hidden; isolation: isolate; }
+.bt::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: var(--azul);
+  transform: translate3d(0, 101%, 0);
+  transition: transform .32s var(--curva);
+}
+.bt--cheio:hover { color: var(--tinta); }
+.bt--linha:hover { color: var(--tinta); border-color: var(--azul); }
+.bt:hover::before { transform: none; }
+.bt:active { transform: translateY(1px); }
+.bt svg { transition: transform .26s var(--curva); }
+.bt:hover svg { transform: translateX(5px); }
+
+/* ---- links de texto -----------------------------------------------------
+   O filete cresce da esquerda em vez de aparecer inteiro. */
+.linha__a, .conf__b, .rod__c a, .canais a b {
+  background-image: linear-gradient(var(--azul), var(--azul));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size .3s var(--curva), color .2s;
+}
+.linha__a:hover, .conf__b:hover, .rod__c a:hover, .canais a:hover b { background-size: 100% 1px; }
+.linha__a { border-bottom: 0; }
+
+/* ---- navegação ----------------------------------------------------------
+   Sublinhado que cresce do centro, para o item corrente e para o ponteiro. */
+.nav a { position: relative; border-bottom: 0; }
+.nav a::after {
+  content: ''; position: absolute; left: 50%; right: 50%; bottom: 0;
+  height: 1px; background: var(--azul);
+  transition: left .28s var(--curva), right .28s var(--curva);
+}
+.nav a:hover::after, .nav a[aria-current="true"]::after { left: 0; right: 0; }
+
+/* ---- linhas de serviço e de processo ------------------------------------
+   A linha inteira reage: o filete da esquerda acende e o conteúdo desliza um
+   fio para a direita. O deslocamento é de 4 px — o suficiente para ser
+   percebido sem tirar o texto do lugar de leitura. */
+.linha { transition: background .3s ease; }
+.linha::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--azul);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform .38s var(--curva);
+}
+.linhas { position: relative; }
+.linha { position: relative; padding-left: 0; }
+.linha:hover::before { transform: scaleY(1); }
+.linha:hover { background: rgba(63, 178, 224, .028); }
+.linha:hover .linha__n { color: var(--claro); }
+.linha__n { transition: color .3s ease; }
+.linha__m img { transition: transform .6s var(--curva), filter .45s ease; }
+.linha:hover .linha__m img { transform: scale(1.03); filter: grayscale(.55) contrast(1.06) brightness(.95); }
+
+/* ---- números ------------------------------------------------------------ */
+.grade-num li { transition: background .3s ease; }
+.grade-num li:hover { background: rgba(63, 178, 224, .03); }
+.grade-num li:hover b { color: var(--azul); }
+.grade-num b { transition: color .3s ease; }
+
+/* ---- garantias e depoimentos -------------------------------------------- */
+.garantias > div, .voz { transition: border-color .3s ease; }
+.garantias > div:hover, .voz:hover { border-top-color: var(--azul); }
+
+/* ---- FAQ ----------------------------------------------------------------
+   A resposta desliza para dentro em vez de saltar. Como <details> não anima
+   altura sozinho, o conteúdo interno é que se move. */
+.faq details > div { animation: faqAbre .4s var(--curva) both; }
+@keyframes faqAbre {
+  from { opacity: 0; transform: translate3d(0, -8px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.faq summary { transition: color .22s ease, padding-left .28s var(--curva); }
+.faq summary:hover { padding-left: .4rem; }
+
+/* ---- campos do formulário ----------------------------------------------- */
+.fd input, .fd select, .fd textarea { transition: border-color .22s, background .22s, box-shadow .22s; }
+.fd label { transition: color .22s; }
+.fd:focus-within label { color: var(--azul-fundo); }
+
+/* ---- canais de contato --------------------------------------------------- */
+.canais svg { transition: transform .3s var(--curva); }
+.canais a:hover svg { transform: translateX(3px); }
+
+/* ---- WhatsApp fixo ------------------------------------------------------- */
+.zap { transition: background .22s, transform .28s var(--curva), box-shadow .28s; }
+.zap:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 0, 0, .45); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bt::before, .bt svg, .linha__m img, .faq details > div, .zap { transition: none; animation: none; }
+}
+/* Aparelho sem ponteiro fino não tem hover: o estado ficaria preso ao toque. */
+@media (hover: none) {
+  .linha:hover { background: none; }
+  .linha:hover .linha__m img { transform: none; filter: grayscale(1) contrast(1.04) brightness(.85); }
+}
+
+/* ---------------------------------------------------------------- responsivo */
+@media (max-width: 1040px) {
+  .cab__g, .prop, .oferta, .contato, .vozes { grid-template-columns: 1fr; }
+  .linha { grid-template-columns: 3.5rem minmax(0, 1fr); }
+  .linha__m { grid-column: 2; }
+  .caso { grid-template-columns: 1fr; }
+  .rod__g { grid-template-columns: 1fr 1fr; }
+  .chamada { grid-template-columns: 1fr; align-items: start; }
+}
+@media (max-width: 880px) {
+  .nav { display: none; }
+  .hamb { display: block; }
+  .topo__dir { margin-left: auto; }
+  /* O botão do topo quebrava em duas linhas espremido ao lado do menu.
+     Some: o WhatsApp fixo e os botões de cada seção já cobrem a ação. */
+  .topo__dir .bt { display: none; }
+  .nav.aberto {
+    display: grid; position: fixed; inset: var(--topo-h) 0 auto 0;
+    background: var(--tinta); border-bottom: 1px solid var(--filete);
+    padding: 1rem var(--pad) 1.6rem; gap: 0;
+  }
+  .nav.aberto a { padding-block: .85rem; border-bottom: 1px solid var(--filete); border-top: 0; font-size: 1.02rem; }
+  .manif { grid-template-columns: 1fr 1fr; }
+  .manif li { padding-right: 1rem; }
+  .manif li:nth-child(2n) { border-right: 0; }
+  .tres, .grade-num, .caso__k { grid-template-columns: 1fr 1fr; }
+  .grade-num li:nth-child(3n) { border-right: 1px solid var(--filete); }
+  .grade-num li:nth-child(2n) { border-right: 0; }
+  .fr, .fr--tel { grid-template-columns: 1fr; }
+  .garantias > div { grid-template-columns: 2.5rem minmax(0, 1fr); }
+  .garantias > div p { grid-column: 2; }
+}
+@media (max-width: 560px) {
+  .tres, .grade-num, .manif, .caso__k { grid-template-columns: 1fr; }
+  .grade-num li, .manif li { border-right: 0; }
+  .rod__g { grid-template-columns: 1fr; }
+  .zap span { display: none; }
+  .zap { padding: .85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  [data-ap] { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- alvos de toque no celular -----------------------------------
+   Links de 23px de altura empilhados a 0,55rem de distância são o padrão de
+   rodapé que todo mundo erra com o dedo. No toque eles ganham 44px de altura
+   útil — o mínimo que Apple e Google recomendam — sem mudar a aparência. */
+@media (hover: none) and (max-width: 880px) {
+  .rod__c { gap: 0; }
+  .rod__c a { display: flex; align-items: center; min-height: 44px; }
+  .rod__b a { display: inline-flex; align-items: center; min-height: 40px; }
+}
+

@@ -1,0 +1,62 @@
+/* ---------------------------------------------------------------- cabeçalho */
+.topo {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  height: var(--topo-h);
+  background: rgba(7, 10, 14, .82);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--filete);
+}
+.topo__in {
+  height: 100%; display: flex; align-items: center; gap: clamp(1rem, 3vw, 2.5rem);
+  max-width: var(--larg); margin-inline: auto; padding-inline: var(--pad);
+}
+.marca { display: flex; align-items: baseline; gap: .1rem; text-decoration: none; margin-right: auto; }
+.marca b {
+  font-family: var(--f-disp); font-weight: 800; font-size: 1.02rem;
+  letter-spacing: .01em; color: var(--claro);
+}
+.marca span { font-family: var(--f-disp); font-weight: 800; font-size: 1.02rem; color: var(--azul); }
+.marca:hover b { color: #FFFFFF; }
+
+.nav { display: flex; gap: clamp(.9rem, 2vw, 1.9rem); }
+.nav a {
+  font-size: .84rem; color: var(--leitura); text-decoration: none;
+  padding-block: .35rem; border-bottom: 1px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.nav a:hover, .nav a[aria-current="true"] { color: var(--claro); border-color: var(--azul); }
+.nav a .mono { margin-right: .42rem; }
+
+.topo__dir { display: flex; align-items: center; gap: .7rem; }
+
+/* seletor de idioma */
+.idioma { position: relative; }
+.idioma__b {
+  display: flex; align-items: center; gap: .4rem; padding: .45rem .6rem;
+  font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em;
+  color: var(--leitura); border: 1px solid var(--filete-2);
+  transition: border-color .2s, color .2s;
+}
+.idioma__b:hover { color: var(--claro); border-color: var(--grafite); }
+.idioma__l {
+  position: absolute; top: calc(100% + .45rem); right: 0; min-width: 148px;
+  background: var(--tinta-2); border: 1px solid var(--filete-2); padding: .25rem;
+  display: grid; z-index: 5;
+}
+.idioma__l[hidden] { display: none; }
+.idioma__l button {
+  display: flex; align-items: center; gap: .6rem; width: 100%;
+  padding: .5rem .6rem; font-size: .85rem; text-align: left; color: var(--leitura);
+  transition: background .18s, color .18s;
+}
+.idioma__l button:hover { background: rgba(63,178,224,.1); color: var(--claro); }
+.idioma__l button[aria-selected="true"] { color: var(--azul); }
+.idioma__l i { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; color: var(--grafite); font-style: normal; }
+
+/* menu do celular */
+.hamb { display: none; width: 40px; height: 40px; position: relative; }
+.hamb span { position: absolute; left: 9px; right: 9px; height: 1.5px; background: var(--claro); transition: transform .3s var(--curva), opacity .2s; }
+.hamb span:nth-child(1) { top: 15px; }
+.hamb span:nth-child(2) { bottom: 15px; }
+body.menu-on .hamb span:nth-child(1) { transform: translateY(4.5px) rotate(45deg); }
+body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45deg); }

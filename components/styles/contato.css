@@ -1,0 +1,89 @@
+/* ---------------------------------------------------------------- contato claro */
+.claro { background: var(--papel); color: #3A4652; border-top: 0; }
+.claro h2, .claro h3 { color: #0B1219; }
+.claro .mono { color: #667180; }
+.claro .cab__n { border-bottom-color: #D3DAE1; }
+.claro .cab__n::after { background: #E2E7EC; }
+.claro strong, .claro b { color: #0B1219; }
+/* O cinza-azulado do texto sobre fundo escuro não sobrevive no branco: aqui a
+   leitura pede uma tinta própria. */
+.claro .cab__lead, .claro .nota, .claro p, .claro li { color: #4A5765; }
+.claro em { color: var(--azul-fundo); }
+.contato { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.canais { list-style: none; margin: clamp(1.6rem, 3vw, 2.4rem) 0 0; padding: 0; border-top: 1px solid #D3DAE1; }
+.canais a { display: flex; gap: 1rem; align-items: flex-start; padding-block: 1.1rem; border-bottom: 1px solid #E2E7EC; text-decoration: none; color: inherit; transition: background .2s; }
+.canais a:hover { background: rgba(39,110,139,.05); }
+.canais svg { flex: 0 0 auto; margin-top: .2rem; color: var(--azul-fundo); }
+.canais b { display: block; font-size: 1rem; }
+.canais em { display: block; font-style: normal; font-size: .84rem; color: #667180; margin-top: .1rem; }
+.resguardo { margin-top: 1.6rem; font-size: .88rem; color: #59646F; }
+
+/* formulário */
+.form { display: grid; gap: 1.1rem; background: #FFFFFF; border: 1px solid #E2E7EC; padding: clamp(1.3rem, 3vw, 2.2rem); }
+.form__t { color: var(--azul-fundo); margin: 0; }
+.fr { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fr--tel { grid-template-columns: 1fr 1.22fr; }
+.fd { display: grid; gap: .35rem; }
+.fd label { font-size: .8rem; color: #59646F; }
+.fd input, .fd select, .fd textarea {
+  width: 100%; padding: .78rem .85rem; font: inherit; font-size: .93rem;
+  color: #0B1219; background: #F7F9FA; border: 1px solid #D3DAE1; border-radius: 0;
+  transition: border-color .2s, background .2s;
+}
+.fd textarea { resize: vertical; min-height: 92px; }
+.fd input::placeholder, .fd textarea::placeholder { color: #9AA5B1; }
+.fd input:focus, .fd select:focus, .fd textarea:focus { outline: none; background: #FFFFFF; border-color: var(--azul-fundo); box-shadow: inset 0 0 0 1px var(--azul-fundo); }
+.fd select {
+  appearance: none; cursor: pointer; padding-right: 2.2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236B7787' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right .9rem center; background-size: 11px;
+}
+.tel { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: .5rem; }
+.tel__p { min-width: 0; padding-right: 1.55rem; padding-left: .8rem; background-position: right .55rem center; font-family: var(--f-mono); font-size: .78rem; text-overflow: ellipsis; }
+.tel input { min-width: 0; }
+.fe { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .05em; color: #C2410C; }
+.fd.err input, .fd.err select, .fd.err textarea { border-color: #C2410C; box-shadow: inset 0 0 0 1px #C2410C; }
+.chk { display: flex; gap: .65rem; align-items: flex-start; font-size: .85rem; color: #59646F; cursor: pointer; }
+/* 22px, não 17: com 17 o quadrado ficava abaixo do alvo mínimo de toque e
+   era o campo obrigatório mais difícil de acertar no celular. */
+.chk input { flex: 0 0 auto; width: 24px; height: 24px; margin-top: .05rem; accent-color: var(--azul-fundo); cursor: pointer; }
+.chk a { color: var(--azul-fundo); text-underline-offset: 3px; }
+.chk--travada { opacity: .45; cursor: not-allowed; }
+.mel { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form__n { margin: 0; text-align: center; color: #667180; }
+.form__fb { margin: 0; font-size: .9rem; text-align: center; }
+.form__fb.ok { color: #15803D; }
+.form__fb.bad { color: #C2410C; }
+.form__fb a { color: inherit; }
+
+/* confirmação do WhatsApp */
+.conf { display: grid; gap: .6rem; padding: 1rem 1.1rem; border: 1px solid rgba(39,110,139,.28); border-left: 2px solid var(--azul-fundo); background: rgba(39,110,139,.05); }
+.conf[hidden] { display: none; }
+.conf__t { margin: 0; color: var(--azul-fundo); }
+.conf__n { margin: 0; font-family: var(--f-mono); font-size: 1.15rem; letter-spacing: .06em; color: #0B1219; }
+.conf__b { display: inline-flex; align-items: center; gap: .5rem; justify-self: start; padding: .55rem .9rem; text-decoration: none; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #FFFFFF; background: var(--azul-fundo); transition: background .2s; }
+.conf__b:hover { background: var(--azul); color: var(--tinta); }
+.conf__k { margin: 0; font-size: .66rem; letter-spacing: .12em; color: #667180; }
+.conf__k b { color: var(--azul-fundo); letter-spacing: .14em; }
+
+/* ---------- placa de fundo na seção clara ------------------------------
+   .bloco--foto padrão dissolve a foto em tinta preta. Na seção 09, de fundo
+   papel, isso viraria um borrão escuro sob texto escuro: aqui o degradê é o
+   próprio papel, e a foto entra ainda mais apagada porque o contraste que ela
+   disputa é com preto sobre claro, não branco sobre escuro. */
+/* A placa cobre só a faixa de cima. Esticada na seção inteira, uma foto de
+   1390x572 subia para mais de 1200px de altura e virava borrão; nesta altura
+   ela fica perto do tamanho natural e o polo industrial se reconhece. */
+.claro.bloco--foto .placa { inset: 0 0 auto 0; height: 46%; }
+.claro.bloco--foto .placa img { filter: grayscale(1) contrast(.95); opacity: .28; }
+.claro.bloco--foto .placa::after {
+  background: linear-gradient(180deg,
+    rgba(244,246,248,.34) 0%, rgba(244,246,248,.46) 45%,
+    rgba(244,246,248,.86) 82%, var(--papel) 100%);
+}
+/* Com a foto mais presente, o cinza que bastava sobre papel liso perde contraste
+   sobre a textura. Estes dois blocos ficam um tom mais escuros só nesta seção,
+   para o texto continuar tão legível quanto era no fundo chapado. */
+.claro.bloco--foto .cab__n { color: #4E5765; }
+.claro.bloco--foto .cab__lead { color: #3C4854; }
+@media (max-width: 880px) { .claro.bloco--foto .placa { height: 30%; } }

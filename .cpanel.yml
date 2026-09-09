@@ -1,0 +1,28 @@
+---
+# Publicação direta do Git para o servidor, sem passar por upload manual.
+#
+# Existe porque o caminho normal — baixar o zip, achar a pasta no Windows,
+# escolher na janela de arquivo, extrair — tem quatro pontos onde dá errado e
+# nenhum deles é técnico. Aqui o servidor busca o código direto do GitHub.
+#
+# COMO USAR, no cPanel:
+#   1. Git™ Version Control → Criar
+#      URL do clone: https://github.com/renatoleiteia/skills-github-pages.git
+#      Branch: claude/acelero-comex-site-j1lvb7
+#      Caminho: /home1/agexb587/repositorios/acelero
+#   2. Na lista, clique em Gerenciar → aba Implantar → Implantar commit HEAD
+#
+# Da segunda vez em diante são dois cliques: Atualizar do Remoto e Implantar.
+#
+# A lista de arquivos é explícita de propósito: o que não está aqui não vai
+# para o servidor. Fora ficam components/, tools/, versao-1/, a documentação e
+# assets/img/originais — código-fonte e originais não têm o que fazer lá.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home1/agexb587/public_html/acelerocomex.com.br
+    - /bin/mkdir -p $DEPLOYPATH/assets/img $DEPLOYPATH/assets/fonts
+    - /bin/cp index.html politica-privacidade.html webmail.html $DEPLOYPATH/
+    - /bin/cp styles.css scripts.js enviar.php $DEPLOYPATH/
+    - /bin/cp robots.txt sitemap.xml .htaccess $DEPLOYPATH/
+    - /bin/cp assets/img/*.jpg assets/img/*.webp $DEPLOYPATH/assets/img/
+    - /bin/cp assets/fonts/*.woff2 $DEPLOYPATH/assets/fonts/

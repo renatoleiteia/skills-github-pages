@@ -1,0 +1,88 @@
+/* ============================================================================
+   ACELERO COMEX — style.css  ·  v2
+
+   A v1 parecia template: globo girando, cursor de bolinha, cartões, carrossel,
+   coisas entrando de todo lado. Tudo isso existe em qualquer site de logística.
+
+   A v2 tem uma ideia só: **a página é o documento da operação.** Rótulo em
+   monoespaçada à esquerda, conteúdo à direita, filete separando cada linha,
+   número em tabular. É o que a ACELERO entrega ao cliente, virado em página.
+
+   Regras que valem para o arquivo inteiro:
+   · Movimento serve à leitura. Um fade de 420 ms na primeira vez que o bloco
+     aparece, e nada mais. Sem parallax, sem sequência, sem roda sequestrada.
+   · O azul é dado e ação. Nunca decoração.
+   · A seção de contato é clara. Formulário escuro é desconfortável de
+     preencher, e o corte de cor marca onde a conversa começa.
+   ========================================================================== */
+
+:root {
+  /* Tinta */
+  --tinta:      #070A0E;   /* fundo                         */
+  --tinta-2:    #0D1218;   /* faixa alternada               */
+  --filete:     #1D2630;   /* linha do documento            */
+  --filete-2:   #2C3846;   /* linha em destaque             */
+  --grafite:    #788493;   /* rótulo, metadado — 4,94 sobre o fundo dos
+                              cartões; o #6E7C8B anterior dava 4,40 e não
+                              cumpria o mínimo da WCAG AA               */
+  --leitura:    #A8B4C0;   /* corpo de texto                */
+  --claro:      #DCE3EA;   /* texto forte                   */
+  --papel:      #F4F6F8;   /* branco da seção clara         */
+
+  /* Azul: dado e ação */
+  --azul:       #3FB2E0;
+  --azul-fundo: #276E8B;   /* fundo de botão, contraste 5:1 com branco */
+  --azul-fraco: #17394A;
+
+  --f-disp: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-corpo: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --topo-h: 68px;
+  --pad: clamp(1.15rem, 5vw, 5.5rem);
+  --secy: clamp(4.5rem, 9vw, 9rem);
+  --larg: 1380px;
+  --curva: cubic-bezier(.22, 1, .36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--topo-h) + 12px);
+  /* As entradas laterais ([data-ap="esq"]) começam 22px fora da margem. O
+     overflow-x do body não segurava isso: o celular ganhava 3px de arrasto
+     lateral durante a animação. `clip` corta sem virar caixa de rolagem —
+     `hidden` viraria, e levaria junto o scroll-behavior suave. */
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--tinta);
+  color: var(--leitura);
+  font-family: var(--f-corpo);
+  font-size: clamp(.95rem, 1.05vw, 1.03rem);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+/* O navegador dá 1em/40px de margem a figure, blockquote e listas de
+   definição. Os 40px laterais deslocavam o primeiro slide do carrossel e o
+   encaixe alinhava por eles — o trilho abria já rolado. */
+figure, blockquote, dl, dd { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+::selection { background: var(--azul); color: var(--tinta); }
+
+:focus-visible { outline: 2px solid var(--azul); outline-offset: 3px; }
+
+.wrap { width: 100%; max-width: var(--larg); margin-inline: auto; padding-inline: var(--pad); }
+
+.pular {
+  position: absolute; left: -9999px; top: 0; z-index: 999;
+  background: var(--papel); color: var(--tinta); padding: .7rem 1.1rem;
+}
+.pular:focus { left: 0; }
