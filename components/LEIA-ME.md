@@ -94,3 +94,31 @@ português — serve para n8n, Make, Zapier ou uma rota própria.
   `scrollTo({behavior:'smooth'})` nativo.
 - **Sem CDN.** Fonte e biblioteca moram no repositório; o site tem de abrir
   offline.
+
+## Conteúdo que espera preenchimento
+
+Duas estruturas estão prontas e **não aparecem na página** até serem
+preenchidas. É de propósito: um site no ar não mostra "Nome do Especialista"
+com foto cinza. Melhor não ter a seção do que ter uma que anuncia que ninguém
+a preencheu.
+
+### Quem atende (seção 01)
+
+No gerador, a lista `EQUIPE`. Cada pessoa: `(id, arquivo da foto, nome)`.
+O cargo e a linha de trajetória vêm das chaves `eq.<id>.cargo` e `eq.<id>.bio`
+— em `chaves.json` para o português, em `dados-idiomas.js` para inglês e
+espanhol.
+
+A foto entra em 4:5, cortada a partir do topo, em preto e branco, e ganha cor
+quando o mouse passa. O que fotografar está em `FOTOS.md`.
+
+### Um caso real (seção 04)
+
+No gerador, o dicionário `CASO`. Campos: setor, o que travava, o que foi feito,
+o número com unidade, e a chancela.
+
+**A chancela não é enfeite.** É a linha que diz que a operação foi encerrada,
+que o número foi conferido com o cliente e que a publicação foi autorizada por
+escrito. Sem as três coisas, o caso não sobe — número sem procedência vale
+menos que espaço vazio, porque a primeira pessoa que perguntar "de onde saiu?"
+não terá resposta.
