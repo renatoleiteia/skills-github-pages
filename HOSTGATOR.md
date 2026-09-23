@@ -104,6 +104,7 @@ cPanel → **Contas de E-mail** → *Criar*. Três contas, e cada uma tem um mot
 | 2.1 | `contato@acelerocomex.com.br` | **Recebe os leads do formulário.** É a caixa que alguém precisa abrir todo dia | Rodapé, canais de contato, `enviar.php` |
 | 2.2 | `site@acelerocomex.com.br` | **Remetente** do formulário. Ninguém precisa ler; ela só existe para o e-mail sair com endereço do próprio domínio | `enviar.php`, campo `$DE` |
 | 2.3 | `privacidade@acelerocomex.com.br` | **Canal do titular de dados (LGPD).** A política promete resposta em até 15 dias por esse endereço | Política de Privacidade, seções 01, 08 e rodapé |
+| 2.4 | `supply@acelerocomex.com.br` | **Cotação com fornecedor.** Caixa operacional, usada pela equipe para falar com fábrica e trading | **Nenhum lugar do site — de propósito** |
 
 > **Por que a conta 2.2 existe.** Se o formulário enviar com remetente de outro
 > domínio (um `@gmail`, por exemplo), o servidor de destino trata como
@@ -114,6 +115,16 @@ cPanel → **Contas de E-mail** → *Criar*. Três contas, e cada uma tem um mot
 > ninguém abrir essa caixa, o documento promete algo que a empresa não cumpre —
 > e isso é exatamente o tipo de falha que a ANPD cobra.
 
+> **A conta 2.4 não aparece no site, e é assim que deve ser.** Endereço de
+> cotação publicado em página pública vira alvo de robô de coleta, e cliente
+> não deve escrever para a caixa que fala com fornecedor. Se um dia alguém
+> pedir para incluí-la no rodapé, a resposta é não — a conversa com cliente
+> entra por `contato@`.
+>
+> Ela é a caixa que mais depende de entrega funcionando: cotação que cai no
+> spam do fornecedor não volta como erro, simplesmente não é respondida. É por
+> ela que o DMARC abaixo deixa de ser opcional.
+
 ### Ainda no e-mail: SPF e DKIM
 
 cPanel → **Autenticação de E-mail** → ative **SPF** e **DKIM**.
@@ -122,6 +133,26 @@ São dois registros que dizem aos outros servidores "este servidor tem
 autorização para enviar em nome deste domínio". Sem eles, mesmo com o
 remetente certo, boa parte das mensagens do formulário vai para a caixa de
 spam de quem recebe.
+
+### E o terceiro: DMARC
+
+SPF e DKIM provam quem enviou. O DMARC é o que diz ao servidor de destino **o
+que fazer** quando a prova falha — sem ele, cada provedor decide por conta
+própria, e Gmail e Outlook passaram a decidir contra.
+
+cPanel → **Zona de DNS** → *Adicionar registro*:
+
+| Campo | Valor |
+|---|---|
+| Nome | `_dmarc` |
+| Tipo | `TXT` |
+| Valor | `v=DMARC1; p=none; rua=mailto:contato@acelerocomex.com.br` |
+
+`p=none` é modo observação: não bloqueia nada, só liga o relatório semanal que
+chega em `contato@`. Depois de um mês lendo os relatórios e confirmando que só
+a HostGator envia em nome do domínio, dá para endurecer para `p=quarantine`.
+
+Confira depois com: `python3 tools/verificar.py`
 
 ---
 
@@ -160,6 +191,10 @@ Nesta ordem, porque cada um depende do anterior:
    spam, o item de SPF/DKIM ficou pendente)
 5. O botão Webmail abre o Roundcube
 6. O link da Política de Privacidade abre a página
+7. Mande uma cotação de teste de `supply@` para um endereço `@gmail.com` seu e
+   confirme que **não** caiu no spam. É o teste que importa para a caixa de
+   fornecedor — e o único que revela problema de SPF/DKIM/DMARC antes de custar
+   um negócio
 
 ---
 
