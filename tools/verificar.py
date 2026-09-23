@@ -59,18 +59,31 @@ linha(OK if dmarc else AVISO, 'DMARC',
 
 print('\n=== 3. Site no ar')
 def pegar(url):
-    req = urllib.request.Request(url, headers={'User-Agent': 'verificador-acelero'})
-    return urllib.request.urlopen(req, timeout=15)
+    # Accept-Encoding é obrigatório aqui: sem ele o servidor devolve sem
+    # compactar — e o verificador acusava "compressão desligada" num servidor
+    # que comprime perfeitamente. O teste tem que pedir o que um navegador pede.
+    req = urllib.request.Request(url, headers={
+        'User-Agent': 'Mozilla/5.0 (verificador ACELERO)',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept': 'text/html,application/xhtml+xml,*/*;q=0.8'})
+    return urllib.request.urlopen(req, timeout=20)
 
 try:
     r = pegar('https://www.%s/' % DOMINIO)
-    html = r.read().decode('utf-8', 'replace')
+    bruto = r.read()
+    if r.headers.get('Content-Encoding') == 'gzip':
+        import gzip as _gz
+        html = _gz.decompress(bruto).decode('utf-8', 'replace')
+        linha(OK, 'compressão', 'gzip — %.0f KB viram %.0f KB (%.0f%% a menos)' %
+              (len(html.encode())/1024, len(bruto)/1024, 100 - 100*len(bruto)/len(html.encode())))
+    else:
+        html = bruto.decode('utf-8', 'replace')
     h = {k.lower(): v for k, v in r.headers.items()}
     linha(OK, 'https responde', 'HTTP %s' % r.status)
     linha(OK if 'ACELERO' in html else NAO, 'é o site certo',
           'título: ' + (html.split('<title>')[1].split('</title>')[0][:40] if '<title>' in html else '?'))
-    comp = h.get('content-encoding', '')
-    linha(OK if comp else NAO, 'compressão ligada', comp or 'nenhuma — confira o .htaccess')
+    if not h.get('content-encoding'):
+        linha(NAO, 'compressão', 'nenhuma — mod_deflate desligado no plano?')
     linha(OK if h.get('x-content-type-options') else NAO, 'cabeçalhos de segurança',
           'nosniff presente' if h.get('x-content-type-options') else 'ausentes — o .htaccess subiu?')
     linha(OK if h.get('strict-transport-security') else AVISO, 'HSTS',
@@ -87,23 +100,49 @@ for caminho in ('robots.txt', 'sitemap.xml', 'politica-privacidade.html'):
     except Exception as e:
         linha(NAO, caminho, str(e)[:40])
 
-try:
-    r = urllib.request.urlopen(urllib.request.Request(
-        'http://%s/' % DOMINIO, method='HEAD'), timeout=12)
-    linha(AVISO, 'http redireciona para https', 'não redirecionou')
-except urllib.error.HTTPError as e:
-    linha(OK if e.code in (301, 302) else AVISO, 'http redireciona para https', 'HTTP %s' % e.code)
-except Exception:
-    linha(OK, 'http redireciona para https', 'redirecionado')
+class _NaoSeguir(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *a, **k): return None
+_op = urllib.request.build_opener(_NaoSeguir)
+
+def salto(url):
+    # Sem desligar o "seguir redirecionamento" a checagem mente: o cliente segue
+    # o 301 sozinho e a função só vê o 200 do destino.
+    try:
+        # UA completo: com um User-Agent curto a hospedagem responde 406 (o
+        # desafio anti-robô) e a checagem do redirecionamento não acontece.
+        r = _op.open(urllib.request.Request(url, headers={'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+            '(KHTML, like Gecko) Chrome/140.0 Safari/537.36'}), timeout=15)
+        return r.status, None
+    except urllib.error.HTTPError as e:
+        return e.code, e.headers.get('Location')
+    except Exception as e:
+        return None, str(e)[:40]
+
+for origem, esperado in ((('http://%s/' % DOMINIO), 'https'),
+                         (('https://%s/' % DOMINIO), 'www.')):
+    cod, destino = salto(origem)
+    ok = cod in (301, 302) and destino and esperado in destino
+    linha(OK if ok else AVISO, 'redireciona: ' + origem.replace('://', '//')[:34],
+          ('%s -> %s' % (cod, destino)) if destino else str(cod))
 
 print('\n=== 4. Formulário')
 try:
-    req = urllib.request.Request('https://www.%s/enviar.php' % DOMINIO, method='GET')
-    urllib.request.urlopen(req, timeout=12)
+    req = urllib.request.Request('https://www.%s/enviar.php' % DOMINIO, method='GET',
+                                 headers={'User-Agent': 'Mozilla/5.0 (verificador ACELERO)'})
+    urllib.request.urlopen(req, timeout=15)
     linha(NAO, 'enviar.php recusa GET', 'respondeu 200 — deveria recusar')
 except urllib.error.HTTPError as e:
-    linha(OK if e.code == 405 else NAO, 'enviar.php recusa GET',
-          'HTTP %s%s' % (e.code, ' (esperado)' if e.code == 405 else ' — PHP rodando?'))
+    if e.code == 405:
+        linha(OK, 'enviar.php recusa GET', 'HTTP 405, como deve')
+    elif e.code in (406, 409):
+        # A HostGator põe um desafio de cookie na frente de quem não parece
+        # navegador. Não dá para concluir nada sobre o PHP a partir daqui — e
+        # acusar defeito seria pior que não medir.
+        linha(AVISO, 'enviar.php', 'HTTP %s — desafio anti-robô da hospedagem, '
+              'não dá para testar de fora' % e.code)
+    else:
+        linha(NAO, 'enviar.php recusa GET', 'HTTP %s — PHP rodando?' % e.code)
 except Exception as e:
     linha(NAO, 'enviar.php responde', str(e)[:50])
 
