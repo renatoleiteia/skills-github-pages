@@ -1,0 +1,55 @@
+/* ---------------------------------------------------------------- capa */
+.capa { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding-top: var(--topo-h); }
+.capa__foto { position: absolute; inset: 0; overflow: hidden; }
+.capa__foto img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+.capa__foto::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7,10,14,.88) 0%, rgba(7,10,14,.55) 40%, rgba(7,10,14,.97) 100%),
+    linear-gradient(90deg, rgba(7,10,14,.9) 0%, rgba(7,10,14,.25) 70%),
+    rgba(23,57,74,.28);
+  background-blend-mode: normal, normal, color;
+}
+.capa__in { position: relative; z-index: 1; width: 100%; padding-block: clamp(2.5rem, 6vw, 5rem) 0; }
+
+.capa__tag {
+  display: inline-block; padding: .4rem .8rem; margin-bottom: clamp(1.4rem, 3vw, 2.4rem);
+  border: 1px solid var(--filete-2); color: var(--leitura);
+}
+.capa h1 {
+  /* 20% menor que o corpo original (2.5/7.4vw/6.6) a pedido do cliente. */
+  font-size: clamp(2rem, 5.92vw, 5.28rem);
+  /* 20ch, e não 17ch: o título de agora tem 52 caracteres e a régua antiga o
+     quebrava em quatro linhas, jogando a última palavra sozinha. */
+  max-width: 20ch; margin-bottom: clamp(1.3rem, 2.6vw, 2rem);
+}
+.capa__sub { max-width: 54ch; font-size: clamp(1rem, 1.35vw, 1.15rem); color: var(--leitura); }
+.capa__bts { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+
+/* manifesto de carga: os números do herói, em régua */
+.manif {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  border-top: 1px solid var(--filete-2);
+  list-style: none; padding: 0;
+}
+.manif li { padding: 1.1rem 1.2rem 1.3rem 0; border-right: 1px solid var(--filete); }
+.manif li:last-child { border-right: 0; }
+.manif b {
+  /* --corpo guarda o tamanho do número mesmo quando a célula é texto: é ele que
+     define a altura mínima, e é assim que todos os rótulos da régua ficam na
+     mesma linha, com número grande ou com trajeto pequeno ao lado. */
+  --corpo: clamp(1.25rem, 2.3vw, 1.9rem);
+  display: flex; align-items: flex-end; min-height: calc(var(--corpo) * 1.2);
+  font-family: var(--f-mono); font-size: var(--corpo);
+  font-weight: 500; color: var(--claro); letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+  margin-bottom: .3rem;
+}
+/* Uma célula da régua traz um trajeto, não um número. No corpo de número ela
+   estouraria a coluna, então cai para tamanho de leitura e ganha permissão de
+   quebrar — o resto da régua continua alinhado pela linha de base do rótulo. */
+.manif b.rota {
+  font-size: clamp(.95rem, 1.35vw, 1.12rem); letter-spacing: 0;
+  line-height: 1.35; text-wrap: balance;
+}
+.manif span { font-size: .78rem; color: var(--grafite); line-height: 1.4; display: block; }

@@ -1,0 +1,135 @@
+/* ============================================================================
+   ACELERO COMEX — legal.css
+
+   Folha do documento jurídico (Política de Privacidade e Termos de uso).
+   Herda todos os tokens de style.css: aqui só existe o que uma página de
+   leitura longa precisa e o site não tinha — coluna de texto medida, sumário
+   fixo e hierarquia de artigo.
+   ========================================================================== */
+
+.doc { background: var(--abyss); color: var(--fog); min-height: 100vh; }
+
+/* ---- topo -------------------------------------------------------------- */
+.doc__topo {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 1rem clamp(1.1rem, 4vw, 3.2rem);
+  background: rgba(4,7,12,.82); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(108,128,147,.16);
+}
+.doc__voltar {
+  font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--metal); text-decoration: none;
+  transition: color .25s;
+}
+.doc__voltar:hover { color: var(--signal); }
+
+/* ---- abertura ---------------------------------------------------------- */
+.doc__capa { position: relative; overflow: hidden; border-bottom: 1px solid rgba(108,128,147,.16); }
+.doc__globo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .3; }
+.doc__capaIn {
+  position: relative; z-index: 1;
+  max-width: 1360px; margin: 0 auto;
+  padding: clamp(3.4rem, 9vw, 7rem) clamp(1.1rem, 4vw, 3.2rem) clamp(2.4rem, 5vw, 4rem);
+}
+.doc__num { color: var(--signal); font-size: .7rem; letter-spacing: .22em; margin: 0 0 1.1rem; }
+.doc__h1 {
+  font-family: var(--f-disp); font-weight: 800; color: var(--paper);
+  font-size: clamp(2.3rem, 6.4vw, 4.6rem); line-height: .98;
+  letter-spacing: -.025em; margin: 0 0 1.4rem; text-transform: uppercase;
+}
+.doc__h1 em { font-style: normal; color: var(--signal); }
+.doc__lead { max-width: 62ch; font-size: clamp(.98rem, 1.5vw, 1.1rem); line-height: 1.65; color: var(--fog); margin: 0 0 1.6rem; }
+.doc__sel {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.6rem;
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--metal);
+  padding-top: 1.4rem; border-top: 1px solid rgba(108,128,147,.16);
+}
+.doc__sel b { color: var(--mist); font-weight: 500; }
+
+/* ---- corpo em duas colunas --------------------------------------------- */
+.doc__palco {
+  max-width: 1360px; margin: 0 auto;
+  padding: clamp(2.4rem, 5vw, 4.4rem) clamp(1.1rem, 4vw, 3.2rem) 5rem;
+  display: grid; grid-template-columns: 250px 1fr; gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.doc__sumario { position: sticky; top: 92px; }
+.doc__sumario p { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--signal); margin: 0 0 1rem; }
+.doc__sumario ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; counter-reset: sm; }
+.doc__sumario a {
+  display: block; padding: .38rem 0 .38rem .9rem;
+  border-left: 1px solid rgba(108,128,147,.22);
+  font-size: .81rem; line-height: 1.35; color: var(--metal);
+  text-decoration: none; transition: color .25s, border-color .25s;
+}
+.doc__sumario a:hover, .doc__sumario a[aria-current="true"] { color: var(--paper); border-color: var(--signal); }
+
+.doc__texto { max-width: 74ch; min-width: 0; }
+.doc__sumario { min-width: 0; }
+.doc__texto section { padding-block: clamp(1.6rem, 3vw, 2.6rem); border-top: 1px solid rgba(108,128,147,.14); }
+.doc__texto section:first-of-type { border-top: 0; padding-top: 0; }
+.doc__texto h2 {
+  font-family: var(--f-disp); font-weight: 700; color: var(--paper);
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem); line-height: 1.15;
+  letter-spacing: -.012em; margin: 0 0 1.1rem;
+}
+.doc__texto h2 span {
+  display: block; font-family: var(--f-mono); font-weight: 400;
+  font-size: .66rem; letter-spacing: .2em; color: var(--signal);
+  margin-bottom: .5rem;
+}
+.doc__texto h3 { font-family: var(--f-body); font-weight: 600; color: var(--mist); font-size: 1rem; margin: 1.8rem 0 .6rem; }
+.doc__texto p { line-height: 1.75; margin: 0 0 1.05rem; font-size: .95rem; }
+.doc__texto strong { color: var(--mist); font-weight: 600; }
+.doc__texto a { color: var(--signal); text-decoration: underline; text-underline-offset: 3px; }
+.doc__texto ul { margin: 0 0 1.15rem; padding-left: 1.1rem; display: grid; gap: .5rem; }
+.doc__texto li { line-height: 1.65; font-size: .93rem; }
+.doc__texto li::marker { color: var(--signal-dim); }
+
+/* dado que a empresa precisa preencher antes de publicar */
+.pend {
+  font-family: var(--f-mono); font-size: .82em; letter-spacing: .04em;
+  color: #FFC46B; background: rgba(255,196,107,.09);
+  border-bottom: 1px dashed rgba(255,196,107,.5); padding: 0 .25em;
+}
+
+/* ---- tabela ------------------------------------------------------------ */
+.doc__tab { width: 100%; overflow-x: auto; margin: 0 0 1.3rem; }
+.doc__tab table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: .87rem; }
+.doc__tab th, .doc__tab td { text-align: left; vertical-align: top; padding: .72rem .9rem; border-bottom: 1px solid rgba(108,128,147,.16); line-height: 1.55; }
+.doc__tab th {
+  font-family: var(--f-mono); font-weight: 500; font-size: .64rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--signal);
+  background: rgba(63,178,224,.05);
+}
+.doc__tab td { color: var(--fog); }
+.doc__tab tr:last-child td { border-bottom: 0; }
+
+/* ---- destaque ----------------------------------------------------------- */
+.doc__box {
+  padding: 1.15rem 1.3rem; margin: 0 0 1.3rem;
+  border: 1px solid rgba(63,178,224,.26); border-left: 2px solid var(--signal);
+  background: rgba(63,178,224,.055);
+}
+.doc__box p:last-child { margin-bottom: 0; }
+.doc__box p:first-child { margin-top: 0; }
+
+/* ---- rodapé ------------------------------------------------------------- */
+.doc__rodape {
+  border-top: 1px solid rgba(108,128,147,.16);
+  padding: 2rem clamp(1.1rem, 4vw, 3.2rem);
+  display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; justify-content: space-between;
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--metal);
+}
+.doc__rodape a { color: var(--metal); text-decoration: none; }
+.doc__rodape a:hover { color: var(--signal); }
+
+@media (max-width: 900px) {
+  .doc__palco { grid-template-columns: 1fr; }
+  .doc__sumario { position: static; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(108,128,147,.16); }
+  .doc__sumario ol { grid-template-columns: 1fr 1fr; display: grid; }
+}
+@media (max-width: 560px) { .doc__sumario ol { grid-template-columns: 1fr; } }
