@@ -1,3 +1,6 @@
+/* ATENÇÃO: arquivo montado. Não edite aqui — a fonte é
+   components/scripts/, e a junção é feita por tools/montar.py. */
+
 /* ============================================================================
    ACELERO COMEX — webmail.js
 
@@ -132,3 +135,4 @@
     mostrar('bad', 'A redefinição de senha é feita pelo provedor de e-mail. Fale com o responsável técnico ou use o canal de suporte.');
   });
 })();
+

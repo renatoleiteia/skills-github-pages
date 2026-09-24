@@ -18,6 +18,13 @@ ARQUIVOS = [
     'webmail.html',
     'styles.css',
     'scripts.js',
+    # As páginas irmãs têm CSS e JS próprios. Sem estas quatro linhas elas
+    # sobem sem estilo e sem JavaScript — foi exatamente o que aconteceu na
+    # primeira publicação, e o botão do webmail não fazia nada.
+    'pagina-webmail.css',
+    'pagina-webmail.js',
+    'pagina-legal.css',
+    'pagina-legal.js',
     'enviar.php',
     '.htaccess',
     'robots.txt',

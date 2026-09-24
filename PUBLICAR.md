@@ -38,7 +38,7 @@ São arquivos de trabalho e do GitHub — no servidor só ocupam espaço.
 | Site no ar | `acelerocomex.com.br` abre a capa |
 | HTTPS | cadeado na barra. cPanel → **SSL/TLS Status** → *Run AutoSSL* |
 | Formulário | preencha e envie de verdade; o e-mail tem de chegar em `contato@` |
-| Webmail | o botão leva a `acelerocomex.com.br/webmail` e abre o Roundcube |
+| Webmail | o botão leva a `webmail.acelerocomex.com.br` e abre a tela de login |
 | Política | o link do rodapé abre a página |
 
 ## Se o formulário não enviar

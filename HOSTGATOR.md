@@ -168,15 +168,21 @@ Confira depois com: `python3 tools/verificar.py`
 
 ## 4. Webmail
 
-Nada a criar: o cPanel já serve o Roundcube. Só confirme **qual endereço
-responde**, porque varia com a configuração do plano:
+Nada a criar: o cPanel já serve o Roundcube. O endereço que o site usa é:
 
-- `acelerocomex.com.br/webmail` ← é o que está no código hoje
-- `acelerocomex.com.br:2096`
-- `webmail.acelerocomex.com.br`
+```
+https://webmail.acelerocomex.com.br
+```
 
-Abra os três no navegador. Se o primeiro não cair no Roundcube, me diga qual
-caiu: é uma linha em `components/scripts/webmail.js`.
+**Não use `acelerocomex.com.br/webmail`.** Ele responde, mas com uma página
+intermediária do cPanel ("cPanel Redirect") que tenta pular para a porta 2096
+— bloqueada em boa parte das redes corporativas e de celular. Quem clica vê
+uma tela cinza de sistema em vez da caixa de entrada.
+
+O subdomínio entrega a tela "Login no Webmail" direto, na porta 443 de sempre.
+
+Se um dia mudar de plano e o subdomínio parar de responder, é uma linha:
+`DESTINO_WEBMAIL`, em `components/scripts/webmail.js`.
 
 ---
 

@@ -39,5 +39,18 @@ def juntar(pasta, nomes, ext, destino):
     io.open(os.path.join(RAIZ, destino), 'w', encoding='utf-8').write(texto)
     print('%-12s %5d linhas  %6.1f KB' % (destino, texto.count('\n'), len(texto.encode()) / 1024))
 
+# As páginas irmãs têm CSS e JS próprios, que não entram no pacote da home:
+# ninguém que abre a capa precisa do código do webmail. Mas elas precisavam
+# virar arquivo de raiz do mesmo jeito — apontar direto para components/ deixou
+# as duas SEM estilo e SEM JavaScript no servidor, porque components/ não é
+# publicado (é código-fonte) e o .htaccess devolve 404 para essa pasta.
+PAGINAS = {
+    'webmail': (['webmail'], ['webmail']),
+    'legal':   (['legal'],   ['legal']),
+}
+
 juntar('styles', ESTILOS, 'css', 'styles.css')
 juntar('scripts', SCRIPTS, 'js', 'scripts.js')
+for nome, (css, js) in PAGINAS.items():
+    juntar('styles', css, 'css', 'pagina-%s.css' % nome)
+    juntar('scripts', js, 'js', 'pagina-%s.js' % nome)

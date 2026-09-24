@@ -23,6 +23,10 @@ deployment:
     - /bin/mkdir -p $DEPLOYPATH/assets/img $DEPLOYPATH/assets/fonts
     - /bin/cp index.html politica-privacidade.html webmail.html $DEPLOYPATH/
     - /bin/cp styles.css scripts.js enviar.php $DEPLOYPATH/
+    # As páginas irmãs (webmail, política) têm CSS e JS próprios. Sem estas
+    # duas linhas elas sobem sem estilo e sem JavaScript.
+    - /bin/cp pagina-webmail.css pagina-webmail.js $DEPLOYPATH/
+    - /bin/cp pagina-legal.css pagina-legal.js $DEPLOYPATH/
     - /bin/cp robots.txt sitemap.xml .htaccess $DEPLOYPATH/
     - /bin/cp assets/img/*.jpg assets/img/*.webp $DEPLOYPATH/assets/img/
     - /bin/cp assets/fonts/*.woff2 $DEPLOYPATH/assets/fonts/
