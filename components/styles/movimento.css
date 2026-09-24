@@ -57,3 +57,12 @@
     transition: none !important;
   }
 }
+
+/* ---------- botão flutuante do WhatsApp -----------------------------------
+   Ele é fixo e o conteúdo passa por baixo — até aí, é o padrão de todo site.
+   O problema era o tamanho: no celular ele cobria a metade final de uma linha
+   de texto, e linha cortada no meio da palavra parece defeito, não botão.
+   Menor no telefone, e com respiro extra no fim de cada seção. */
+@media (max-width: 560px) {
+  .zap { transform: scale(.85); transform-origin: bottom right; }
+}

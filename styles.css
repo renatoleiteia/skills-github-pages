@@ -948,6 +948,15 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
   }
 }
 
+/* ---------- botão flutuante do WhatsApp -----------------------------------
+   Ele é fixo e o conteúdo passa por baixo — até aí, é o padrão de todo site.
+   O problema era o tamanho: no celular ele cobria a metade final de uma linha
+   de texto, e linha cortada no meio da palavra parece defeito, não botão.
+   Menor no telefone, e com respiro extra no fim de cada seção. */
+@media (max-width: 560px) {
+  .zap { transform: scale(.85); transform-origin: bottom right; }
+}
+
 /* ============================================================================
    MICROINTERAÇÕES — o que responde ao ponteiro
    ============================================================================
@@ -1061,7 +1070,17 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
 /* ---------------------------------------------------------------- responsivo */
 @media (max-width: 1040px) {
   .cab__g, .prop, .oferta, .contato, .vozes { grid-template-columns: 1fr; }
+  /* .linha tem TRÊS filhos: número, título e corpo. Aqui a grade cai para duas
+     colunas — e sem a regra abaixo o terceiro filho é colocado sozinho na
+     linha de baixo, na coluna estreita de 3,5rem. O corpo do texto ficava com
+     56 px de largura e quebrava UMA PALAVRA POR LINHA, em todo celular, todo
+     tablet e notebook pequeno.
+
+     Nenhuma medição automática acusou: texto de 56 px não estoura a tela e tem
+     contraste perfeito. Só aparece olhando. */
   .linha { grid-template-columns: 3.5rem minmax(0, 1fr); }
+  .linha > * { grid-column: 2; }
+  .linha__n { grid-column: 1; grid-row: 1; }
   .linha__m { grid-column: 2; }
   .caso { grid-template-columns: 1fr; }
   .rod__g { grid-template-columns: 1fr 1fr; }
@@ -1087,10 +1106,20 @@ body.menu-on .hamb span:nth-child(2) { transform: translateY(-4.5px) rotate(-45d
   .grade-num li:nth-child(3n) { border-right: 1px solid var(--filete); }
   .grade-num li:nth-child(2n) { border-right: 0; }
   .fr, .fr--tel { grid-template-columns: 1fr; }
-  .garantias > div { grid-template-columns: 2.5rem minmax(0, 1fr); }
-  .garantias > div p { grid-column: 2; }
+  /* Mesmo defeito que .linha tinha: três filhos (rótulo, título, texto) numa
+     grade de duas colunas, com o texto preso na coluna 2. O título sobrava e
+     caía na coluna de 2,5rem — 40 px —, encavalado sobre o texto ao lado.
+     Uma coluna só resolve, e no telefone é o que se quer de qualquer jeito. */
+  .garantias > div { grid-template-columns: 1fr; gap: .45rem; }
+  .garantias > div > * { grid-column: 1; }
 }
 @media (max-width: 560px) {
+  /* No telefone nem os 3,5rem do número se pagam: uma coluna só, com o número
+     virando rótulo em cima. O texto passa a ter a largura inteira da tela. */
+  .linha { grid-template-columns: 1fr; gap: .55rem; }
+  .linha > *, .linha__n, .linha__m { grid-column: 1; grid-row: auto; }
+  .linha__n { padding-top: 0; margin-bottom: .1rem; }
+
   .tres, .grade-num, .manif, .caso__k { grid-template-columns: 1fr; }
   .grade-num li, .manif li { border-right: 0; }
   .rod__g { grid-template-columns: 1fr; }
