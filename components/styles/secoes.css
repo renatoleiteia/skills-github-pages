@@ -1,0 +1,139 @@
+/* ---------------------------------------------------------------- seção */
+.bloco { padding-block: var(--secy); border-top: 1px solid var(--filete); }
+.bloco--alt { background: var(--tinta-2); }
+
+/* cabeçalho de documento: rótulo, filete, título */
+.cab { margin-bottom: clamp(2.2rem, 4.5vw, 4rem); }
+.cab__n {
+  display: flex; align-items: center; gap: 1rem;
+  padding-bottom: .9rem; margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
+  border-bottom: 1px solid var(--filete-2);
+}
+.cab__n::after { content: ''; flex: 1; height: 1px; background: var(--filete); }
+.cab__g { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(1.6rem, 4vw, 4.5rem); align-items: end; }
+.cab h2 { font-size: clamp(1.9rem, 4.3vw, 3.5rem); max-width: 15ch; }
+.cab__lead { color: var(--leitura); max-width: 52ch; }
+
+/* ---------------------------------------------------------------- linhas de documento */
+.linhas { border-top: 1px solid var(--filete-2); }
+.linha {
+  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(1rem, 3vw, 3rem);
+  padding-block: clamp(1.6rem, 3vw, 2.6rem);
+  border-bottom: 1px solid var(--filete);
+}
+.linha__n { color: var(--azul); padding-top: .35rem; }
+.linha__t { font-size: clamp(1.15rem, 1.9vw, 1.55rem); letter-spacing: -.015em; margin-bottom: .7rem; }
+.linha__x { color: var(--leitura); }
+.linha__g {
+  margin-top: 1rem; padding-left: .95rem; border-left: 1px solid var(--azul-fraco);
+  font-size: .9rem; color: var(--grafite);
+}
+.linha__g .mono { display: block; color: var(--azul); margin-bottom: .2rem; }
+.linha__a {
+  display: inline-flex; align-items: center; gap: .45rem; margin-top: 1.1rem;
+  font-size: .84rem; color: var(--claro); text-decoration: none;
+  border-bottom: 1px solid var(--filete-2); padding-bottom: 2px;
+  transition: border-color .2s, color .2s;
+}
+.linha__a:hover { color: var(--azul); border-color: var(--azul); }
+.linha__m { align-self: start; }
+.linha__m img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; filter: grayscale(1) contrast(1.04) brightness(.85); }
+
+/* ---------------------------------------------------------------- três colunas */
+.tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 3rem); margin-top: clamp(2rem, 4vw, 3.5rem); }
+.tres > div { border-top: 1px solid var(--filete-2); padding-top: 1.2rem; }
+.tres h3 { font-size: 1.08rem; line-height: 1.3; margin: .8rem 0 .6rem; letter-spacing: -.01em; }
+.tres p { font-size: .92rem; }
+
+/* ---------- quem atende --------------------------------------------------
+   Retratos em fila, no mesmo filete das três colunas acima: a seção 01 passa a
+   responder "quem" logo depois de responder "o quê". A foto entra em preto e
+   branco como o resto do site e ganha cor no hover — é o único lugar da página
+   onde a cor volta, e é de propósito: pessoa não é textura de fundo. */
+.quem {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.6rem); margin-top: clamp(2.4rem, 5vw, 4rem);
+  border-top: 1px solid var(--filete-2); padding-top: clamp(1.6rem, 3vw, 2.4rem);
+}
+.quem__c { margin: 0; }
+.quem__c picture { display: block; }
+.quem__c img {
+  /* height:auto é obrigatório: sem ele, os atributos width/height do HTML — que
+     existem para evitar salto de layout — vencem o aspect-ratio, e cada retrato
+     fica com uma altura diferente conforme a foto de origem. */
+  width: 100%; height: auto; aspect-ratio: 4 / 5;
+  object-fit: cover; object-position: center top;
+  filter: grayscale(1) contrast(1.04); transition: filter .5s var(--curva);
+  background: var(--tinta-2);
+}
+.quem__c:hover img { filter: grayscale(0) contrast(1); }
+.quem__n {
+  display: block; font-family: var(--f-disp); font-weight: 700;
+  font-size: 1.02rem; letter-spacing: -.01em; color: var(--claro);
+  margin-top: .9rem;
+}
+.quem__f { margin: .25rem 0 .5rem; }
+.quem__b { font-size: .88rem; margin: 0; }
+@media (hover: none) { .quem__c img { filter: grayscale(.35); } }
+
+.corpo { max-width: 62ch; }
+.corpo p { margin-bottom: 1.1rem; }
+
+/* ---------------------------------------------------------------- números */
+.grade-num {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--filete-2); list-style: none; padding: 0; margin: 0;
+}
+.grade-num li { padding: clamp(1.4rem, 2.6vw, 2.2rem) 1.5rem clamp(1.4rem, 2.6vw, 2.2rem) 0; border-bottom: 1px solid var(--filete); border-right: 1px solid var(--filete); }
+.grade-num li:nth-child(3n) { border-right: 0; }
+.grade-num b {
+  /* mesma régua de altura da capa: --corpo é o tamanho do número, e a célula de
+     texto se apoia no rodapé dessa caixa para não desalinhar os rótulos. */
+  --corpo: clamp(1.9rem, 4vw, 3.1rem);
+  display: flex; align-items: flex-end; min-height: calc(var(--corpo) * 1.15);
+  font-family: var(--f-mono); font-weight: 500;
+  font-size: var(--corpo); letter-spacing: -.035em;
+  color: var(--claro); font-variant-numeric: tabular-nums; margin-bottom: .5rem;
+}
+/* mesma exceção da régua da capa: a célula do corredor é texto, não número */
+.grade-num b.rota {
+  font-size: clamp(1.05rem, 1.85vw, 1.4rem); letter-spacing: -.01em;
+  line-height: 1.3; text-wrap: balance;
+}
+.grade-num span { font-size: .88rem; color: var(--grafite); }
+/* ---------- um caso real -------------------------------------------------
+   Some da página enquanto não houver operação encerrada, número conferido e
+   autorização do cliente. Quando houver, entra com peso: é a única coisa da
+   seção que fala de um caso, e não de uma promessa. */
+.caso-real {
+  display: grid; grid-template-columns: minmax(0, 34%) minmax(0, 1fr);
+  gap: clamp(1.4rem, 3vw, 3rem); margin: clamp(2rem, 4vw, 3.2rem) 0 0;
+  padding-top: clamp(1.6rem, 3vw, 2.4rem); border-top: 1px solid var(--filete-2);
+}
+.caso-real__n b {
+  display: block; font-family: var(--f-mono); font-weight: 500;
+  font-size: clamp(2.4rem, 5.4vw, 4rem); letter-spacing: -.045em;
+  color: var(--azul); font-variant-numeric: tabular-nums; line-height: 1;
+}
+.caso-real__r { display: block; font-size: .92rem; color: var(--leitura); margin-top: .6rem; }
+.caso-real__s { margin-bottom: .8rem; }
+.caso-real__p { font-size: .95rem; margin-bottom: .7rem; }
+.caso-real__p:last-child { margin-bottom: 0; }
+.caso-real__c {
+  grid-column: 1 / -1; margin: .4rem 0 0; padding-top: 1rem;
+  border-top: 1px solid var(--filete); color: var(--grafite);
+}
+@media (max-width: 880px) { .caso-real { grid-template-columns: 1fr; } }
+
+.nota { margin-top: 1.6rem; font-size: .85rem; color: var(--grafite); max-width: 68ch; }
+
+/* faixa de foto atrás dos números */
+.bloco--foto { position: relative; overflow: hidden; }
+.bloco--foto .placa { position: absolute; inset: 0; z-index: 0; }
+.bloco--foto .placa img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); opacity: .17; }
+.bloco--foto .placa::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, var(--tinta) 0%, rgba(7,10,14,.55) 45%, var(--tinta) 100%);
+}
+.bloco--foto .wrap { position: relative; z-index: 1; }

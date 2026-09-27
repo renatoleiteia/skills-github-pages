@@ -1,0 +1,89 @@
+# ============================================================================
+# ACELERO COMEX — .htaccess  (Apache / HostGator)
+#
+# Sem este arquivo o site sobe funcionando, mas: os textos viajam sem
+# compressão (styles.css e scripts.js somam 140 KB que virariam 35), o
+# navegador rebaixa tudo a cada visita porque nada diz por quanto tempo
+# guardar, e o endereço abre tanto em http quanto em https, com e sem www —
+# quatro endereços para a mesma página, o que divide a pontuação no Google.
+# ============================================================================
+
+# ---------------------------------------------------------------- endereço
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Sempre https
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Sempre com www (o canonical e a Search Console apontam para www)
+  RewriteCond %{HTTP_HOST} ^acelerocomex\.com\.br$ [NC]
+  RewriteRule ^ https://www.acelerocomex.com.br%{REQUEST_URI} [L,R=301]
+
+  # /politica-privacidade abre a página, sem exigir o .html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^([^.]+)$ $1.html [NC,L]
+</IfModule>
+
+# ---------------------------------------------------------------- compressão
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+  # woff2, jpg e webp já vêm comprimidos: comprimir de novo só gasta CPU.
+</IfModule>
+
+# ---------------------------------------------------------------- validade
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # O HTML não: é ele que carrega a versão nova de tudo o mais.
+  ExpiresByType text/html                 "access plus 0 seconds"
+  ExpiresByType text/css                  "access plus 7 days"
+  ExpiresByType application/javascript    "access plus 7 days"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.(jpg|jpeg|webp|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  # ------------------------------------------------------------- segurança
+  # Um ano de https obrigatório. Ative só depois de confirmar que o
+  # certificado está funcionando — voltar atrás leva o mesmo ano.
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+  # O site não busca nada de fora: tudo é do próprio domínio. Se um dia entrar
+  # pixel de anúncio ou mapa incorporado, esta linha precisa ser afrouxada.
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+  Header unset X-Powered-By
+</IfModule>
+
+# ---------------------------------------------------------------- tipos
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/webp .webp
+</IfModule>
+
+# ---------------------------------------------------------------- proteção
+# Nada aqui precisa ser lido de fora: fontes do site, documentação e scripts.
+<FilesMatch "\.(md|py|bat|json|lock)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/(components|tools|scripts|versao-1)/
+Options -Indexes
+ErrorDocument 404 /index.html

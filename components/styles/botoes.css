@@ -1,0 +1,15 @@
+/* ---------------------------------------------------------------- botões */
+.bt {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  padding: .82rem 1.5rem; font-family: var(--f-corpo); font-size: .9rem; font-weight: 600;
+  text-decoration: none; border: 1px solid transparent;
+  transition: background .22s, color .22s, border-color .22s;
+}
+.bt--cheio { background: var(--azul-fundo); color: #FFFFFF; }
+.bt--cheio:hover { background: var(--azul); color: var(--tinta); }
+.bt--linha { border-color: var(--filete-2); color: var(--claro); }
+.bt--linha:hover { border-color: var(--claro); background: rgba(220,227,234,.06); }
+.bt--peq { padding: .55rem 1rem; font-size: .82rem; }
+.bt--largo { width: 100%; }
+.bt svg { flex: 0 0 auto; transition: transform .22s; }
+.bt:hover svg { transform: translateX(4px); }

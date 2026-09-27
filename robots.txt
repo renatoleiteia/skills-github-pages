@@ -1,0 +1,9 @@
+# ACELERO COMEX
+User-agent: *
+Allow: /
+Disallow: /webmail.html
+Disallow: /components/
+Disallow: /tools/
+Disallow: /versao-1/
+
+Sitemap: https://www.acelerocomex.com.br/sitemap.xml

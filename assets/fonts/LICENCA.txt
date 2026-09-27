@@ -1,0 +1,7 @@
+As fontes desta pasta são distribuídas sob a SIL Open Font License 1.1 (OFL),
+que permite uso comercial, modificação e hospedagem própria.
+
+- Archivo — Omnibus-Type. https://github.com/Omnibus-Type/Archivo
+- IBM Plex Sans e IBM Plex Mono — IBM. https://github.com/IBM/plex
+
+Texto completo da licença: https://scripts.sil.org/OFL

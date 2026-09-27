@@ -1,0 +1,17 @@
+/* ---------------------------------------------------------------- FAQ */
+.faq { border-top: 1px solid var(--filete-2); }
+.faq details { border-bottom: 1px solid var(--filete); }
+.faq summary {
+  display: flex; align-items: flex-start; gap: 1.2rem; padding-block: 1.25rem;
+  cursor: pointer; list-style: none; color: var(--claro);
+  font-size: clamp(.98rem, 1.25vw, 1.08rem); font-weight: 500;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: '+'; margin-left: auto; flex: 0 0 auto;
+  font-family: var(--f-mono); font-size: 1.15rem; color: var(--azul); line-height: 1;
+  transition: transform .25s var(--curva);
+}
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq summary:hover { color: var(--azul); }
+.faq details > div { padding: 0 3rem 1.5rem 0; max-width: 78ch; color: var(--leitura); }
