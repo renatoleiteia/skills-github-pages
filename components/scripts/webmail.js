@@ -38,7 +38,10 @@
 (function () {
   'use strict';
 
-  /* O subdomínio, e não acelerocomex.com.br/webmail.
+  /* Destino do formulário. Está no atributo action do <form>, no HTML, e é
+     repetido aqui só para a mensagem de erro fazer sentido se um dia sumir.
+
+     O subdomínio, e não acelerocomex.com.br/webmail.
 
      Aquele endereço existe e responde — mas com uma página intermediária do
      cPanel ("cPanel Redirect") que mostra botões e tenta pular para a porta
@@ -99,36 +102,66 @@
   ['input', 'blur'].forEach(ev =>
     usuario.addEventListener(ev, () => { if (avisado()) erroDoCampo(usuario, problema()); }));
 
-  /* ---------- ida para o provedor ---------------------------------------- */
-  form && form.addEventListener('submit', e => {
-    e.preventDefault();   // esta página nunca envia nada: ela encaminha
+  /* ---------- envio para o provedor ---------------------------------------
+     O formulário envia sozinho, por POST nativo, para o endereço do provedor
+     que está no atributo action. Este código NÃO toca no campo de senha: não
+     lê, não copia, não guarda, não manda para lugar nenhum. Ele só confere o
+     endereço de e-mail e sai da frente.
 
+     É de propósito que o envio seja nativo em vez de fetch: assim a senha vai
+     do campo direto para o servidor, a resposta é uma navegação de verdade, e
+     o cookie de sessão nasce no domínio do provedor — que é a única forma de a
+     pessoa cair na caixa de entrada já autenticada. */
+  const senha = $('#senha');
+
+  form && form.addEventListener('submit', e => {
     const p = problema();
     erroDoCampo(usuario, p);
     if (p) {
+      e.preventDefault();
       mostrar('bad', 'Confira o endereço informado.');
       usuario.focus();
       return;
     }
+    if (senha && !senha.value) {
+      e.preventDefault();
+      erroDoCampo(senha, 'Digite a senha do seu e-mail.');
+      mostrar('bad', 'Falta a senha.');
+      senha.focus();
+      return;
+    }
 
+    /* Guarda só o ENDEREÇO, nunca a senha — e só se a pessoa pediu. */
     try {
       if (lembrar && lembrar.checked) localStorage.setItem(CHAVE, usuario.value.trim());
       else localStorage.removeItem(CHAVE);
     } catch (err) { /* sem armazenamento: apenas não lembra */ }
 
-    if (!DESTINO_WEBMAIL) {
-      mostrar('bad', 'Endereço do webmail ainda não configurado. Avise o responsável técnico — falta preencher DESTINO_WEBMAIL em components/scripts/webmail.js.');
-      return;
-    }
-
-    mostrar('ok', 'Abrindo o webmail. A senha é pedida na página do provedor.');
-    location.href = DESTINO_WEBMAIL;
+    mostrar('ok', 'Entrando…');
+    /* sem preventDefault: daqui em diante quem trabalha é o navegador */
   });
+
+  /* ---------- mostrar e esconder a senha ----------------------------------
+     Senha que não se pode conferir é senha digitada errada três vezes — e, em
+     cPanel, conta bloqueada por tentativa. */
+  const olho = $('#verSenha');
+  olho && senha && olho.addEventListener('click', () => {
+    const visivel = senha.type === 'text';
+    senha.type = visivel ? 'password' : 'text';
+    olho.setAttribute('aria-pressed', String(!visivel));
+    olho.setAttribute('aria-label', visivel ? 'Mostrar a senha' : 'Esconder a senha');
+    senha.focus();
+  });
+
+  /* Se a pessoa voltar para esta página pelo botão "voltar" do navegador, o
+     Firefox e o Safari restauram o campo de senha preenchido. Numa tela
+     compartilhada isso deixa a senha de alguém à mostra. */
+  addEventListener('pageshow', ev => { if (ev.persisted && senha) senha.value = ''; });
 
   /* ---------- recuperação de senha ---------------------------------------- */
   const esqueci = $('#esqueci');
   esqueci && esqueci.addEventListener('click', e => {
     e.preventDefault();
-    mostrar('bad', 'A redefinição de senha é feita pelo provedor de e-mail. Fale com o responsável técnico ou use o canal de suporte.');
+    mostrar('bad', 'A senha do e-mail só pode ser redefinida no painel da hospedagem. Fale com o responsável técnico pelo canal de suporte.');
   });
 })();

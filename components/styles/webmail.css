@@ -56,7 +56,11 @@
 
 /* campo de senha com o botão de revelar embutido */
 .acesso__senha { position: relative; display: block; }
-.acesso__senha input { padding-right: 3rem; }
+.acesso__senha input { width: 100%; padding-right: 3rem; }
+
+/* O domínio de destino em monoespaçada: é o dado que a pessoa confere antes de
+   digitar a senha, não uma frase para ler por cima. */
+.acesso__dom { font-family: var(--f-mono); font-size: .92em; letter-spacing: -.01em; word-break: break-all; }
 .acesso__olho {
   position: absolute; top: 50%; right: .5rem; transform: translateY(-50%);
   width: 36px; height: 36px; display: grid; place-items: center;
